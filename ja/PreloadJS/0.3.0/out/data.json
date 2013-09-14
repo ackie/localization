@@ -1,0 +1,2362 @@
+{
+    "project": {},
+    "files": {
+        "src/easeljs/events/EventDispatcher.js": {
+            "name": "src/easeljs/events/EventDispatcher.js",
+            "modules": {},
+            "classes": {
+                "EventDispatcher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/easeljs/utils/Log.js": {
+            "name": "src/easeljs/utils/Log.js",
+            "modules": {},
+            "classes": {
+                "Log": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/preloadjs/AbstractLoader.js": {
+            "name": "src/preloadjs/AbstractLoader.js",
+            "modules": {},
+            "classes": {
+                "AbstractLoader": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/preloadjs/LoadQueue.js": {
+            "name": "src/preloadjs/LoadQueue.js",
+            "modules": {
+                "PreloadJS": 1
+            },
+            "classes": {
+                "LoadQueue": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/preloadjs/TagLoader.js": {
+            "name": "src/preloadjs/TagLoader.js",
+            "modules": {},
+            "classes": {
+                "TagLoader": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/preloadjs/XHRLoader.js": {
+            "name": "src/preloadjs/XHRLoader.js",
+            "modules": {},
+            "classes": {
+                "XHRLoader": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "PreloadJS": {
+            "name": "PreloadJS",
+            "submodules": {},
+            "classes": {
+                "EventDispatcher": 1,
+                "Log": 1,
+                "AbstractLoader": 1,
+                "LoadQueue": 1,
+                "TagLoader": 1,
+                "XHRLoader": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "main",
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 39,
+            "description": "PreloadJSはHTMLアプリケーション用にコンテンツをプリロードする一貫した方法を提供します。\nプリローディングはXHRだけでなくHTMLタグを使用して行うことも可能です。\n\nXHRは進捗と完了のイベントのサポートが比較的よいため、PreloadJSはデフォルトの動作としてXHRを使用してコンテンツのロードを試みます。\n<b>しかし、クロスドメイン問題のため、依然としてタグベースのローディングの方が望ましいケースもあります。</b>\nいくつかのコンテンツ（プレーンテキスト、web audio）はXHRを必要とし、他のいくつか（HTML audio）はタグを必要とします。\n可能な限り自動的にどちらを使用するか判定されます。\n\nPreloadJSは現在すべてのモダンブラウザをサポートしており、最も古いブラウザもサポートできるよう我々はベストを尽くして来ました。\n特定のOS/ブラウザの組み合わせで問題を発見したら、是非http://community.createjs.com/を訪れ報告してください。\n\n<h4>はじめに</h4>\nはじめに、{{#crossLink \"LoadQueue\"}}{{/crossLink}}を確認してください。\nファイルロードと結果処理の方法について簡単な概要説明があります。\n\n<h4>例</h4>\n     var queue = new createjs.LoadQueue();\n     queue.installPlugin(createjs.Sound);\n     queue.addEventListener(\"complete\", handleComplete);\n     queue.loadFile({id:\"sound\", src:\"http://path/to/sound.mp3\"});\n     queue.loadManifest([\n         {id: \"myImage\", src:\"path/to/myImage.jpg\"}\n     ]);\n     function handleComplete() {\n         createjs.Sound.play(\"sound\");\n         var image = queue.getResult(\"myImage\");\n         document.body.appendChild(image);\n     }\n\n<b>プラグインに関する重要な注意:</b>\nプラグインはアイテムがキューに追加される<i>前</i>にインストールする必要があります。\nそうしなければ、ロードが始まってなかったとしても実行されません。\nプラグインの機能はアイテムがLoadQueに追加されたときに実行されます。",
+            "itemtype": "main"
+        }
+    },
+    "classes": {
+        "EventDispatcher": {
+            "name": "EventDispatcher",
+            "shortname": "EventDispatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "AbstractLoader"
+            ],
+            "module": "PreloadJS",
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 34,
+            "description": "EventDispatcher は、優先順位の付いたイベントリスナのキューの管理とイベントを発行するメソッドを提供します。全ての\n{{#crossLink \"DisplayObject\"}}{{/crossLink}} クラスはイベントを発行します。{{#crossLink \"Ticker\"}}{{/crossLink}} 等のいくつかのユーティリティも同様です。\n\nこのクラスを拡張することもできますし、EventDispatcher {{#crossLink \"EventDispatcher/initialize\"}}{{/crossLink}} メソッドを使って、既存の prototype やインスタンスに\nこのクラスのメソッドを追加することもできます。\n\n<h4>例</h4>\nEventDispatcher の機能を \"MyClass\" クラスに追加します。\n\n     EventDispatcher.initialize(MyClass.prototype);\n\nイベントを 1 つ追加します。 ({{#crossLink \"EventDispatcher/addEventListener\"}}{{/crossLink}} を参照)\n\n     instance.addEventListener(\"eventName\", handlerMethod);\n     function handlerMethod(event) {\n         console.log(event.target + \" がクリックされました\");\n     }\n\n<b>適切なスコープの管理</b><br />\nEventDispatcher をクラス内で使用する場合、<code>Function.bind</code> やその他の方法を使用してメソッドのスコープを\n保持したい場合があるかもしれません。Function.bind はいくつかの古いブラウザーではサポートされない点に注意して下さい。\n\n     instance.addEventListener(\"click\", handleClick.bind(this));\n     function handleClick(event) {\n         console.log(\"メソッドが呼ばれたスコープは: \" + this);\n     }\n\n現在、EventDispatcher はイベントの優先順位やバブリングをサポートしないことに注意して下さい。将来のバージョンでは\nこれらの機能のどちらか、あるいは両方のサポートが追加されるかもしれません。",
+            "is_constructor": 1
+        },
+        "Log": {
+            "name": "Log",
+            "shortname": "Log",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "PreloadJS",
+            "file": "src/easeljs/utils/Log.js",
+            "line": 34,
+            "description": "Log はエラー出力を一括管理する仕組みを提供します。デフォルトでは、メッセージの出力先として console.log が使用されます。\nしかし、これは out 属性の設定により変更できます。",
+            "is_constructor": 1
+        },
+        "AbstractLoader": {
+            "name": "AbstractLoader",
+            "shortname": "AbstractLoader",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "PreloadJS",
+            "namespace": "",
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 39,
+            "description": "全てのコールバックとイベントを定義する基底となるローダーです。",
+            "uses": [
+                "EventDispatcher"
+            ]
+        },
+        "LoadQueue": {
+            "name": "LoadQueue",
+            "shortname": "LoadQueue",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "PreloadJS",
+            "namespace": "",
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 88,
+            "description": "LoadQueueクラスはコンテンツをプリロードするメインAPIです。\nLoadQueueはロードマネージャであり、単一のファイルあるいはファイルのキューを管理します。\n\n<b>キューの生成</b><br />\nLoadQueueを使用するためにLoadQueueインスタンスを生成します。\n可能であればタグローディングを強制したい場合は、useXHR引数をfalseに設定します。\n\n     var queue = new createjs.LoadQueue(true);\n\n<b>イベントのリスニング</b><br />\n設定したいリスナーをキューに設定します。\nPreloadJS 0.3.0以降、{{#crossLink \"EventDispatcher\"}}{{/crossLink}}はイベントに好きなだけリスナーを設定できるようになりました。\ncomplete、error、fileload、progress、fileprogressイベントを設定することができます。\n\n     queue.addEventListener(\"fileload\", handleFileLoad);\n     queue.addEventListener(\"complete\", handleComplete);\n\n<b>ファイルの追加とマニフェスト</b><br />\nロードしたいファイルを{{#crossLink \"LoadQueue/loadFile\"}}{{/crossLink}}を使用して追加します。\n{{#crossLink \"LoadQueue/loadManifest\"}}{{/crossLink}}を使用すると複数ファイルを一度に追加できます。\nファイルはキューに追加されます。\nよって、これらのメソッドは好きなときに好きなだけ使うことができます。\n\n     queue.loadFile(\"filePath/file.jpg\");\n     queue.loadFile({id:\"image\", src:\"filePath/file.jpg\"});\n     queue.loadManifest([\"filePath/file.jpg\", {id:\"image\", src:\"filePath/file.jpg\"}];\n\n第2引数にfalseを渡した場合、キューはすぐにはロード開始しません（すでにロード開始してない限り）。\n一時停止しているキューを開始するには{{#crossLink \"AbstractLoader/load\"}}{{/crossLink}}メソッドを呼んでください。\n一時停止しているキューは新しいファイルが追加されると自動的に再開します。\n\n     queue.load();\n\n<b>結果の処理</b><br />\nファイルがダウンロード終了した時、\"fileload\"イベントが発行されます。\n上記の例の中にfileloadへのイベントリスナーのスニペットがあります。\nロードされたファイルはすぐに使用できるオブジェクトとなっており以下を含みます:\n<ul>\n    <li>Image: &lt;img /&gt; タグ</li>\n    <li>Audio: &lt;audio /&gt; タグ</a>\n    <li>JavaScript: &lt;script /&gt; タグ</li>\n    <li>CSS: &lt;link /&gt; タグ</li>\n    <li>XML: XML DOM ノード</li>\n    <li>SVG: &lt;object /&gt; タグ</li>\n    <li>JSON: フォーマットされたJavaScriptオブジェクト</li>\n    <li>Text: 生のテキスト</li>\n    <li>Binary: バイナリのロード結果</li>\n</ul>\n\n     function handleFileLoad(event) {\n         var item = event.item; // 渡されたアイテムへの参照\n         var type = item.type;\n\n         // ページのbodyに任意の画像を追加する\n         if (type == createjs.LoadQueue.IMAGE) {\n             document.body.appendChild(event.result);\n         }\n     }\n\nファイルがロード完了した後（通常はキューが完了した後）であれば、結果は{{#crossLink \"LoadQueue/getResult\"}}{{/crossLink}}\nを使用してidにより検索することができます。\nidを付与していなければ、\"src\"あるいはファイルパスを代わりに用いることができます。\n常にidを渡すことを推奨します。\n\n     var image = queue.getResult(\"image\");\n     document.body.appendChild(image);\n\n生のロードされたコンテンツは、<code>fileload</code>イベントの<code>rawResult</code>プロパティによってアクセス可能です。\nまた{{#crossLink \"LoadQueue/getResult\"}}{{/crossLink}}の第二引数にtrueを渡すことで検索可能です。\nこの方法はブラウザによってパースされるコンテンツにのみ適用可能です。具体的にあげると、JavaScript、CSS、XML、SVG、JSONオブジェクトです。\n\n     var image = queue.getResult(\"image\", true);\n\n<b>プラグイン</b><br />\nLoadQueはコンテンツの処理とプリロードを補助するシンプルなプラグインアーキテクチャを備えています。\n例えば、オーディオをプリロードするには<a href=\"http://soundjs.com\">SoundJS</a>のSoundクラスを必ずインストールしてください。\nSoundクラスはHTML audio、Flash audio、WebAudioファイルのプリロードを補助します。\nオーディオファイルをロードする<b>前に</b>インストールする必要があります。\n\n     queue.installPlugin(createjs.Sound);\n\n<h4>既知のブラウザの問題</h4>\n<ul><li>audioをサポートしないブラウザはオーディオファイルをロードできません。</li>\n     <li>audioタグは<code>canPlayThrough</code>イベントが発火されるまでしかダウンロードを行いません。\n     Chrome以外のブラウザはバックグラウンドでダウンロードし続けます。\n     <li>スクリプトをタグを使ってロードした場合、自動的にdocumentに追加されます。</li>\n     <li>XHRを使ってロードしたスクリプトはブラウザのツールで正常に検査できないことがあります。</li>\n     <li>XML、Text、JSONのロードではXHRを必要とするため、IE6とIE7（それと他のいくつかのブラウザ）ではロードできないことがあります。\n     <li>タグを使ってロードしたコンテンツは進捗を取得出来ません。また、キャンセルしてもバックグランドでダウンロードし続けます。</li>\n</ul>",
+            "params": [
+                {
+                    "name": "useXHR",
+                    "description": "プリロードインスタンスにXHR（XML HTTP Request）を使用するかHTMLタグを使用するかを指定します。\n<code>false</code>の場合、LoadQueは可能であればタグによるロードを行い、必要であればXHRに戻ります。",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
+                }
+            ],
+            "is_constructor": 1,
+            "extends": "AbstractLoader"
+        },
+        "TagLoader": {
+            "name": "TagLoader",
+            "shortname": "TagLoader",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "PreloadJS",
+            "namespace": "",
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 39,
+            "description": "タグベースのアプローチによりアイテムをロードするプリローダーです。\nHTML audioと画像は、このローダーを使うことでセキュリティエラーを起こさずコンテンツをロードすることができます。\nXHRを使用したロードではクロスドメインリクエストの潜在的問題があります。\n\naudioタグでは、TagLoaderは<code>canPlayThrough</code>イベントを使用します。\n<code>canPlayThrough</code>イベントは、現在のダウンロードスピードで途切れることなく最後まで再生できる程度のバッファが蓄積されたときに発火されます。\nこれにより、ほとんどの効果音は完全にプリロードできますが、バックグラウンドオーディオのような長いトラックではイベントが発火される前には一部しかロードできません。\nほとんどのブラウザ（Chromeを除く全て）は発火されてもプリロードを継続しますので、大部分のケースでは問題ないと考えられます。",
+            "is_constructor": 1,
+            "extends": "AbstractLoader",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "ロードするアイテムです。ロードアイテムについての情報は{{#crossLink \"LoadQueue/loadFile\"}}{{/crossLink}}を参照してください。",
+                    "type": "Object"
+                }
+            ]
+        },
+        "XHRLoader": {
+            "name": "XHRLoader",
+            "shortname": "XHRLoader",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "PreloadJS",
+            "namespace": "",
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 39,
+            "description": "XHRリクエストを使用してアイテムをロードするプリローダーです。\n通常はXMLHTTPRequestを使用しますが、適用可能であればクロスドメインリクエストにXDomainRequestsが使用されることがありますし、\nIEの古いバージョンでは必要であればActiveXオブジェクトを使用します。\nXHRリクエストはコンテンツをテキストあるいはバイナリデータとしてロードし、進捗と完了のイベントを提供し、ロード中にキャンセルすることができます。\nXHRはIEの6以前のバージョンではサポートされていません。\nまた、クロスドメインローディングには推奨できません。",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "file",
+                    "description": "ロードするファイルを定義するオブジェクトです。\nサポートしているファイルプロパティの概要は{{#crossLink \"LoadQueue/loadFile\"}}{{/crossLink}}を参照してください。",
+                    "type": "Object"
+                }
+            ],
+            "extends": "AbstractLoader"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 74,
+            "description": "EventDispatcher のメソッドをミックスインする静的な初期化機能",
+            "itemtype": "method",
+            "name": "initialize",
+            "static": 1,
+            "params": [
+                {
+                    "name": "target",
+                    "description": "EventDispatcher のメソッドを追加する対象のオブジェクトです。インスタンスと prototype の\nどちらも指定可能です。",
+                    "type": "Object"
+                }
+            ],
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 90,
+            "access": "protected",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_listeners",
+            "type": "Object",
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 98,
+            "description": "初期化メソッド",
+            "itemtype": "method",
+            "name": "initialize",
+            "access": "protected",
+            "tagname": "",
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 106,
+            "description": "指定されたイベントリスナを追加します。",
+            "itemtype": "method",
+            "name": "addEventListener",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "イベントの種類を文字列で指定します",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "handleEvent メソッドを持つオブジェクト、またはイベントが発行された時に\n呼ばれる関数です",
+                    "type": "Function | Object"
+                }
+            ],
+            "return": {
+                "description": "listener を連携や代入等の目的に使用できるように返します",
+                "type": "Function | Object"
+            },
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 124,
+            "description": "指定されたイベントリスナを削除します。",
+            "itemtype": "method",
+            "name": "removeEventListener",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "イベントの種類を文字列で指定します。",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "リスナ関数又はオブジェクトです。",
+                    "type": "Function | Object"
+                }
+            ],
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 144,
+            "description": "指定された種類、または全ての種類に対して関連付けられたリスナを全て削除します。",
+            "itemtype": "method",
+            "name": "removeAllEventListeners",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "イベントの種類を指定します。省略すると全ての種類に対応する全てのリスナが削除されます。",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 154,
+            "description": "指定されたイベントを発行します。",
+            "itemtype": "method",
+            "name": "dispatchEvent",
+            "params": [
+                {
+                    "name": "eventObj",
+                    "description": "\"type\" プロパティを持つオブジェクト、もしくは種類を指定する文字列です。\ndispatchEvent  \"type\" と \"params\" プロパティを持つ汎用イベントオブジェクトを生成します。",
+                    "type": "Object | String"
+                },
+                {
+                    "name": "target",
+                    "description": "イベントオブジェクトの target プロパティとして使うオブジェクトです。デフォルト値は\nイベントを発行したオブジェクトです。",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "リスナが 1 つでも true を返したら true になります。",
+                "type": "Boolean"
+            },
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 180,
+            "description": "指定されたイベントの種類に対して 1 つ以上のリスナが存在するかを調べます。",
+            "itemtype": "method",
+            "name": "hasEventListener",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "イベントの種類を文字列で指定します。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "指定されたイベントのリスナが存在すると true を返します。",
+                "type": "Boolean"
+            },
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 191,
+            "itemtype": "method",
+            "name": "toString",
+            "return": {
+                "description": "インスタンスを表現する文字列です。",
+                "type": "String"
+            },
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 42,
+            "description": "読み取り専用。メッセージを何も出力しません。",
+            "type": "Number",
+            "itemtype": "property",
+            "name": "NONE",
+            "default": "0",
+            "static": 1,
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 51,
+            "description": "読み取り専用。エラーメッセージを出力します。",
+            "type": "Number",
+            "itemtype": "property",
+            "name": "ERROR",
+            "default": "1",
+            "static": 1,
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 60,
+            "description": "読み取り専用。警告メッセージを出力します。",
+            "type": "Number",
+            "itemtype": "property",
+            "name": "WARNING",
+            "default": "2",
+            "static": 1,
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 69,
+            "description": "読み取り専用。トレース文を出力します。",
+            "type": "Number",
+            "itemtype": "property",
+            "name": "TRACE",
+            "default": "3",
+            "static": 1,
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 78,
+            "description": "読み取り専用。全てのメッセージを出力します。",
+            "type": "Number",
+            "itemtype": "property",
+            "name": "ALL",
+            "default": "255",
+            "static": 1,
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 87,
+            "description": "全てのログされたメッセージを扱う際に使用される関数を定義します。デフォルトでは console.log を使用します。\n指定された関数には、Log.log と同じ 3 つの引数が渡されます。一致するキーが見つかった場合、メッセージは\n拡張されます。<br/><br/>\n例えば、全てのメッセージをサーバーに送信したり、テキストエリアに出力するといった使い方が可能です。値を null に\n設定することで、全てのログを無効にすることもできます。<br/><br/>\n全てのメッセージは、レベルの競ってに関わらず、out 関数に渡されます。そのため、関数にはレベルを正しく処理する\nことが求められます。これは、全てのメッセージをサーバーに送信しながら、現在のレベル以下のメッセージは UI に\n表示するといった使い方を可能にするためです。",
+            "type": "Function",
+            "itemtype": "property",
+            "name": "out",
+            "static": 1,
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 107,
+            "description": "出力するメッセージのレベルを指定します。例えば、<code>Log.level = Log.WARNING</code> と設定すると、 \nレベル 2 (Log.WARNING)  またはそれ以下 (例: Log.ERROR) のメッセージが出力されます。デフォルト値は Log.ALL です。",
+            "type": "Function",
+            "itemtype": "property",
+            "name": "out",
+            "default": "255",
+            "static": 1,
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 117,
+            "itemtype": "property",
+            "name": "_keys",
+            "static": 1,
+            "type": "Array",
+            "access": "protected",
+            "tagname": "",
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 125,
+            "description": "キーと長いメッセージを関連づけるオブジェクトを追加します。 \nメッセージにはオプションとして \"%DETAILS%\" を含めることができます。\"%DETAILS%\" は error に渡された\n任意の詳細と置き換えられます。例えば、<br/>\nLog.addKeys( {MY_ERROR:\"これは私のエラーの [%DETAILS%]\" 番目の記述です} );\nLog.error( \"MY_ERROR\" , 5 ); // \"これは私のエラーの [5]\" 番目の記述です\" が出力される",
+            "params": [
+                {
+                    "name": "keys",
+                    "description": "キーとメッセージを定義するオブジェクト",
+                    "type": "Object"
+                }
+            ],
+            "static": 1,
+            "itemtype": "method",
+            "name": "addKeys",
+            "class": "Log"
+        },
+        {
+            "file": "src/easeljs/utils/Log.js",
+            "line": 139,
+            "description": "out 属性に設定されたメソッドを使い、指定されたエラーを出力します。エラーが定義済みのキーに一致した場合は\n定義されているメッセージで置き換えられます。",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "出力するエラーメッセージもしくはキー",
+                    "type": "String"
+                },
+                {
+                    "name": "details",
+                    "description": "メッセージと関連する任意の詳細情報",
+                    "type": "Object"
+                },
+                {
+                    "name": "level",
+                    "description": "メッセージの重要性を指定する 1 と 254 の間の数字。詳細は Log.level を参照。",
+                    "type": "Number"
+                }
+            ],
+            "static": 1,
+            "itemtype": "method",
+            "name": "error",
+            "class": "Log"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 52,
+            "description": "ファイルURIをパースするための正規表現パターンです。\nクエリー文字列のついたフルドメインURIだけでなく、ファイル名だけのものもサポートします。\nマッチした結果は以下のようになります。プロトコル:$1 ドメイン:$2 パス:$3 ファイル名:$4 拡張子:$5 クエリー:$6。",
+            "itemtype": "property",
+            "name": "FILE_PATTERN",
+            "type": "{RegExp}",
+            "static": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 63,
+            "description": "ローダーがロード完了したか否かです。\nこれにより素早いチェックが可能です。\nまた、ローディングに使用された複数通りの方法が<code>complete</code>イベントを複数発行しないことを保証するためにも使用されます。",
+            "itemtype": "property",
+            "name": "loaded",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 73,
+            "description": "ローダーがキャンセルされたか否かです。\nキャンセルされたロードは完了イベントを発火しません。\n{{#crossLink \"LoadQueue\"}}{{/crossLink}}のキューはcanceledでなく{{#crossLink \"AbstractLoader/close\"}}{{/crossLink}}\nによってクローズすべきです。",
+            "itemtype": "property",
+            "name": "canceled",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 84,
+            "description": "このアイテムの現在のロード進捗（パーセンテージ）です。\n0と1の間の値をとります。",
+            "itemtype": "property",
+            "name": "progress",
+            "type": "{Number}",
+            "default": "0",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 93,
+            "description": "このローダーの対応するアイテムです。\n{{#crossLink \"LoadQueue\"}}{{/crossLink}}においてはnullですが、\n{{#crossLink \"XHRLoader\"}}{{/crossLink}}や{{#crossLink \"TagLoader\"}}{{/crossLink}}のようなローダーでは使用可能です。",
+            "itemtype": "property",
+            "name": "_item",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 104,
+            "description": "全体の進捗が変化したときに発火されるイベントです。",
+            "itemtype": "event",
+            "name": "progress",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "イベントを発行したオブジェクトです。",
+                    "type": "Object"
+                },
+                {
+                    "name": "type",
+                    "description": "イベントタイプです。",
+                    "type": "String"
+                },
+                {
+                    "name": "loaded",
+                    "description": "現時点でロードした量です。特記事項として、ロードの開始前はファイルサイズが未知のため、1となることがあります。",
+                    "type": "Number"
+                },
+                {
+                    "name": "total",
+                    "description": "全バイト数です。1となることがあります。",
+                    "type": "Number"
+                },
+                {
+                    "name": "percent",
+                    "description": "ロードしたパーセンテージです。0と1の間の値をとります。",
+                    "type": "Number"
+                }
+            ],
+            "since": "0.3.0",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 115,
+            "description": "ロード開始時に発火されるイベントです。",
+            "itemtype": "event",
+            "name": "loadStart",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "イベントを発行したオブジェクトです。",
+                    "type": "Object"
+                },
+                {
+                    "name": "type",
+                    "description": "イベントタイプです。",
+                    "type": "String"
+                }
+            ],
+            "since": "0.3.0",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 123,
+            "description": "キューの全アイテムがロードされたときに発火されるイベントです。",
+            "itemtype": "event",
+            "name": "complete",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "イベントを発行したオブジェクトです。",
+                    "type": "Object"
+                },
+                {
+                    "name": "type",
+                    "description": "イベントタイプです。",
+                    "type": "String"
+                }
+            ],
+            "since": "0.3.0",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 131,
+            "description": "ローダーがエラーに遭遇した時に発火されるイベントです。\nファイルに関するエラーの場合、原因となったアイテムが格納されます。\nエラー原因のようなプロパティがイベントオブジェクトに追加されることがあります。",
+            "itemtype": "event",
+            "name": "error",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "イベントを発行したオブジェクトです。",
+                    "type": "Object"
+                },
+                {
+                    "name": "type",
+                    "description": "イベントタイプです。",
+                    "type": "String"
+                },
+                {
+                    "name": "item",
+                    "description": "ロード中にエラーが発生したアイテムです。アイテムは{{#crossLink \"LoadQueue/loadFile\"}}{{/crossLink}}\n あるいは{{#crossLink \"LoadQueue/loadManifest\"}}{{/crossLink}}の呼び出しで指定されています。\n 文字列のパスあるいはタグが指定された場合は、オブジェクトはその値をプロパティとして格納しています。",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "error",
+                    "description": "エラーオブジェクトあるいはエラーメッセージです。",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "since": "0.3.0",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 146,
+            "description": "全体の進捗が変化したときに発火されるコールバックです。",
+            "itemtype": "property",
+            "name": "onProgress",
+            "type": "{Function}",
+            "deprecated": true,
+            "deprecationMessage": "\"progress\"イベントの使用をします。将来のバージョンで削除されるでしょう。",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 154,
+            "description": "ロード開始時に発火されるコールバックです。",
+            "itemtype": "property",
+            "name": "onLoadStart",
+            "type": "{Function}",
+            "deprecated": true,
+            "deprecationMessage": "\"loadStart\"イベントの使用を推奨します。将来のバージョンで削除されるでしょう。",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 162,
+            "description": "ローダーのアイテムが全てロードされたときに発火されるコールバックです。",
+            "itemtype": "property",
+            "name": "onComplete",
+            "type": "{Function}",
+            "deprecated": true,
+            "deprecationMessage": "\"complete\"イベントの使用を推奨します。将来のバージョンで削除されるでしょう。",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 170,
+            "description": "ローダーがエラーに遭遇した時に発火されるコールバックです。",
+            "itemtype": "property",
+            "name": "onError",
+            "type": "{Function}",
+            "deprecated": true,
+            "deprecationMessage": "\"error\"イベントの使用を推奨します。将来のバージョンで削除されるでしょう。",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 190,
+            "description": "このローダーでロードされるマニフェストアイテムの参照を取得します。\nほとんどのケースでは{{#crossLink \"LoadQueue/loadFile\"}}{{/crossLink}}あるいは{{#crossLink \"LoadQueue/loadManifest\"}}{{/crossLink}}\nによって{{#crossLink \"LoadQueue\"}}{{/crossLink}}に渡される値となります。\n文字列だけが渡された場合、LoadQueによって生成されるオブジェクトになります。",
+            "return": {
+                "description": "このローダーがロードを担当するマニフェストアイテムです。",
+                "type": "Object"
+            },
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 201,
+            "description": "ローダーを初期化します。これはコンストラクタによって呼ばれます。",
+            "itemtype": "method",
+            "name": "initialize",
+            "access": "private",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 208,
+            "description": "キューに入ったアイテムをロード開始します。\nこのメソッドは、{{#crossLink \"LoadQueue\"}}{{/crossLink}}を準備した後にすぐにはロード開始しなかったときに呼び出せます。",
+            "example": [
+                "\n     var queue = new createjs.LoadQueue();\n     queue.addEventListener(\"complete\", handleComplete);\n     queue.loadManifest(fileArray, false); // 2番目の引数により、キューにまだロード開始しないことを指示しています。\n     queue.load();"
+            ],
+            "itemtype": "method",
+            "name": "load",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 220,
+            "description": "アクティブなキューをクローズします。\nキューをクローズするとキューは完全に空になり、残っていたアイテムはダウンロード開始しなくなります。\n現時点でアクティブなロードはオープンなまま残り、イベントも処理されます。\n\nキューをストップし再開するには、こちらの代わりに{{#crossLink \"LoadQueue/setPaused\"}}{{/crossLink}}を使用してください。",
+            "itemtype": "method",
+            "name": "close",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 232,
+            "description": "loadStartイベントを発行します（同時にonLoadStartコールバックを呼び出します）。\nイベントオブジェクトの内容の詳細については<code>AbstractLoader.loadStart</code>を参照してください。",
+            "itemtype": "method",
+            "name": "_sendLoadStart",
+            "access": "protected",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 244,
+            "description": "progressイベントを発行します（同時にonProgressコールバックを呼び出します）。\nイベントオブジェクトの内容の詳細については<code>AbstractLoader.loadStart</code>を参照してください。",
+            "itemtype": "method",
+            "name": "_sendProgress",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "ロードされているアイテムの進捗あるいは<code>loaded</code>と<code>total</code>プロパティを含むオブジェクトです。",
+                    "type": "Number | Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 268,
+            "description": "completeイベントを発行します（同時にonCompleteコールバックを呼び出します）。\nイベントオブジェクトの内容の詳細については<code>AbstractLoader.loadStart</code>を参照してください。",
+            "itemtype": "method",
+            "name": "_sendComplete",
+            "access": "protected",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 280,
+            "description": "errorイベントを発行します（同時にonErrorコールバックを呼び出します）。\nイベントオブジェクトの内容の詳細については<code>AbstractLoader.loadStart</code>を参照してください。",
+            "itemtype": "method",
+            "name": "_sendError",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "特定のエラープロパティを含むエラーオブジェクトです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 296,
+            "description": "ロードがキャンセルされたかどうかを判定します。\nキューがクリーンアップされた後にメソッド呼び出しあるいは非同期イベントが問題を引き起こさないことを保証します。",
+            "itemtype": "method",
+            "name": "_isCanceled",
+            "return": {
+                "description": "ローダーがキャンセルされたか否かです。",
+                "type": "Boolean"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 310,
+            "description": "正規表現パターン<code>AbstractLoader.FILE_PATTERN</code>を用いてファイルURIをパースします。",
+            "itemtype": "method",
+            "name": "_parseURI",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "パースするファイルパスです。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "マッチしたファイルパスの各文字列です。詳しくは<code>AbstractLoader.FILE_PATTERN</code>プロパティを参照してください。\nマッチしなかった場合はnullを返します。",
+                "type": "Array"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/AbstractLoader.js",
+            "line": 323,
+            "description": "オブジェクトの文字列表現を返します。",
+            "itemtype": "method",
+            "name": "toString",
+            "return": {
+                "description": "オブジェクトの文字列表現です。",
+                "type": "String"
+            },
+            "class": "AbstractLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 193,
+            "description": "ロードが失敗したと判定するまでの時間（ミリセカンド）です。",
+            "itemtype": "property",
+            "name": "LOAD_TIMEOUT",
+            "type": "{Number}",
+            "default": "8000",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 203,
+            "description": "一般的なバイナリのためのプリロードタイプです。画像と音声ファイルはバイナリとして扱われます。",
+            "itemtype": "property",
+            "name": "BINARY",
+            "type": "{String}",
+            "default": "binary",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 212,
+            "description": "CSSファイルのためのプリロードタイプです。CSSファイルはLINKあるいはSTYLEタグ（どちらになるかはロードタイプ次第です）によってロードされます。",
+            "itemtype": "property",
+            "name": "CSS",
+            "type": "{String}",
+            "default": "css",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 221,
+            "description": "画像ファイル（通常はpng、gif、jpg/jpegのファイル）のためのプリロードタイプです。\n画像はIMAGEタグによりロードされます。",
+            "itemtype": "property",
+            "name": "IMAGE",
+            "type": "{String}",
+            "default": "image",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 231,
+            "description": "javascriptファイル（通常は拡張子jsのファイル）のためのプリロードタイプです。\nJavaScriptはSCRIPTタグによりロードされます。",
+            "itemtype": "property",
+            "name": "JAVASCRIPT",
+            "type": "{String}",
+            "default": "javascript",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 241,
+            "description": "jsonファイル（通常は拡張子jsonのファイル）のためのプリロードタイプです。\nJSONデータはロードされJavaScriptオブジェクトにパースされます。",
+            "itemtype": "property",
+            "name": "JSON",
+            "type": "{String}",
+            "default": "json",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 251,
+            "description": "音声ファイル（通常はmp3、ogg、wavファイル）のためのプリロードタイプです。\n音声はAUDIOタグによってロードされます。",
+            "itemtype": "property",
+            "name": "SOUND",
+            "type": "{String}",
+            "default": "sound",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 261,
+            "description": "SVGファイルのためのプリロードタイプです。",
+            "itemtype": "property",
+            "name": "SVG",
+            "type": "{String}",
+            "default": "svg",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 270,
+            "description": "テキストファイルのためのプリロードタイプであり、タイプが決定できない時のデフォルトファイルタイプです。\nテキストは生のテキストとしてロードされます。",
+            "itemtype": "property",
+            "name": "TEXT",
+            "type": "{String}",
+            "default": "text",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 280,
+            "description": "xmlファイルのためのプリロードタイプです。\nXMLはXMLドキュメントとしてロードされます。",
+            "itemtype": "property",
+            "name": "XML",
+            "type": "{String}",
+            "default": "xml",
+            "static": 1,
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 292,
+            "description": "可能であればXMLHttpRequest（XHR）を使います。\nLoadQueueはメディアタイプによってタグローディングかXHRローディングに決まります。\n例えば、HTML audioタグはXHRではロードできませんし、WebAudioはタグではロードできません。\nそのため、ユーザが定義したタイプでなく、デフォルトのタイプを使用することになります。\n\n<b>注意: このプロパティは読み取り専用です。</b> 変更するには、{{#crossLink \"LoadQueue/setUseXHR\"}}{{/crossLink}}メソッドを使用してください。",
+            "itemtype": "property",
+            "name": "useXHR",
+            "type": "{Boolean}",
+            "readonly": "",
+            "default": "true",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 306,
+            "description": "エラーに遭遇した時に現在のキューを処理停止するか否かです。",
+            "itemtype": "property",
+            "name": "stopOnError",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 314,
+            "description": "ロードしたスクリプトが指定した順に\"complete\"となることを保証します。\nタグを使用してロードされたスクリプトは一度に一個しかロードされず、ロード完了後はdocumentに追加されます。",
+            "itemtype": "property",
+            "name": "maintainScriptOrder",
+            "type": "{Boolean}",
+            "default": "true",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 334,
+            "description": "このプリロードキューがcompleteしたときに処理開始する次のプリロードキューです。\n現在のキューでエラーが投げられ、<code>loadQueue.stopOnError</code>が<code>true</code>であるときは、次のキューは処理開始されません。",
+            "itemtype": "property",
+            "name": "next",
+            "type": "{LoadQueue}",
+            "default": "null",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 344,
+            "description": "個別のファイルがロードされ処理完了したときに発火されるイベントです。",
+            "itemtype": "event",
+            "name": "fileload",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "イベントを発行したオブジェクトです。",
+                    "type": "Object"
+                },
+                {
+                    "name": "type",
+                    "description": "イベントタイプです。",
+                    "type": "String"
+                },
+                {
+                    "name": "{{#crossLink",
+                    "description": "\"LoadQueue/loadFile\"}}{{/crossLink}}あるいは{{#crossLink \"LoadQueue/loadManifest\"}}{{/crossLink}}\nの呼び出しにより指定されたファイルアイテムです。文字列パスあるいはタグのみが指定された場合、オブジェクトはその値をプロパティとして格納します。",
+                    "type": "Object"
+                },
+                {
+                    "name": "result",
+                    "description": "ロードしたアイテムのHTMLタグあるいはパース結果です。",
+                    "type": "Object"
+                },
+                {
+                    "name": "rawResult",
+                    "description": "未処理の結果であり、通常は使用可能なオブジェクトに変換する前の生のテキストあるいはバイナリデータです。\nto a usable object.",
+                    "type": "Object"
+                }
+            ],
+            "since": "0.3.0",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 357,
+            "description": "個別のファイルのロード進捗が変化したときに発火されるイベントです。",
+            "itemtype": "event",
+            "name": "fileprogress",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "イベントを発行したオブジェクトです。",
+                    "type": "Object"
+                },
+                {
+                    "name": "type",
+                    "description": "イベントタイプです。",
+                    "type": "String"
+                },
+                {
+                    "name": "{{#crossLink",
+                    "description": "\"LoadQueue/loadFile\"}}{{/crossLink}}あるいは{{#crossLink \"LoadQueue/loadManifest\"}}{{/crossLink}}\nの呼び出しにより指定されたファイルアイテムです。文字列パスあるいはタグのみが指定された場合、オブジェクトはその値をプロパティとして格納します。",
+                    "type": "Object"
+                },
+                {
+                    "name": "loaded",
+                    "description": "ロード完了したバイト数です。パーセンテージとして1の値をとることがあります。",
+                    "type": "Number"
+                },
+                {
+                    "name": "total",
+                    "description": "全体のバイト数です。未知の場合、値は1です。",
+                    "type": "Number"
+                },
+                {
+                    "name": "percent",
+                    "description": "ロード完了したパーセンテージです。0と1の間の値をとります。",
+                    "type": "Number"
+                }
+            ],
+            "since": "0.3.0",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 371,
+            "description": "個別のファイルがロード完了した時に発火されるコールバックです。",
+            "itemtype": "property",
+            "name": "onFileLoad",
+            "type": "{Function}",
+            "deprecated": true,
+            "deprecationMessage": "\"fileload\"イベントの使用を推奨します。将来のバージョンで削除されるでしょう。",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 379,
+            "description": "個別のファイルの進捗が変化したときに発火されるコールバックです。",
+            "itemtype": "property",
+            "name": "onFileProgress",
+            "type": "{Function}",
+            "deprecated": true,
+            "deprecationMessage": "\"fileprogress\"イベントの使用を推奨します。将来のバージョンで削除されるでしょう。",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 389,
+            "description": "ファイルがロードされる前にファイルタイプに応じて発火されるコールバックをまとめたハッシュオブジェクトです。\nプラグインがロードのプロパティをオーバーライドするのを可能にします。\n詳しくは{{#crossLink \"LoadQueue/installPlugin\"}}{{/crossLink}}メソッドを参照してください。",
+            "itemtype": "property",
+            "name": "_typeCallbacks",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 399,
+            "description": "ファイルがロードされる前にファイル拡張子に応じて発火されるコールバックをまとめたハッシュオブジェクトです。\nプラグインがロードのプロパティをオーバーライドするのを可能にします。\n詳しくは{{#crossLink \"LoadQueue/installPlugin\"}}{{/crossLink}}メソッドを参照してください。",
+            "itemtype": "property",
+            "name": "_extensionCallbacks",
+            "type": "{null}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 409,
+            "description": "loadStartイベントが既に発行されたか否かです。\nこのイベントは最初のファイルがリクエストされたときに一回だけ発火されます。",
+            "itemtype": "property",
+            "name": "_loadStartWasDispatched",
+            "type": "{Boolean}",
+            "default": "false",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 419,
+            "description": "LoadQueueが維持しようとする最大接続数です。\n詳しくは{{#crossLink \"LoadQueue/setMaxConnections\"}}{{/crossLink}}を見てください。",
+            "itemtype": "property",
+            "name": "_maxConnections",
+            "type": "{Number}",
+            "default": "1",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 429,
+            "description": "現在スクリプトをローディング中か否かです。\nプリロードにscriptタグを用いる場合は、一度に一つだけスクリプトをロードすることを保証する処理に寄与します。",
+            "itemtype": "property",
+            "name": "_currentlyLoadingScript",
+            "type": "{Boolean}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 438,
+            "description": "現在ダウンロード中のファイルを格納する配列です。",
+            "itemtype": "property",
+            "name": "_currentLoads",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 446,
+            "description": "まだダウンロード開始していないキューのアイテムを格納する配列です。",
+            "itemtype": "property",
+            "name": "_loadQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 454,
+            "description": "LoadQueが適切にリセットできるよう、まだ完了していないダウンロードを格納している配列です。",
+            "itemtype": "property",
+            "name": "_loadQueueBackup",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 462,
+            "description": "ダウンロード完了したアイテムのオブジェクトハッシュです。\nアイテムのIDによりインデックスされています。\nAn object hash of items that have finished downloading, indexed by item IDs.",
+            "itemtype": "property",
+            "name": "_loadItemsById",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 472,
+            "description": "ダウンロード完了したアイテムのオブジェクトハッシュです。\nアイテムのソースによりインデックスされています。",
+            "itemtype": "property",
+            "name": "_loadItemsBySrc",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 481,
+            "description": "ロード完了したアイテムのオブジェクトハッシュです。\nロードしたアイテムのIDによりインデックスされています。",
+            "itemtype": "property",
+            "name": "_loadedResults",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 491,
+            "description": "ロード完了したパースされていないアイテムのオブジェクトハッシュです。\nロードしたアイテムのIDによりインデックスされています。",
+            "itemtype": "property",
+            "name": "_loadedRawResults",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 500,
+            "description": "リクエストされたアイテム数です。\nダウンロード前でファイルサイズがわからない状態で全体の進捗管理に寄与します。",
+            "itemtype": "property",
+            "name": "_numItems",
+            "type": "{Number}",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 510,
+            "description": "ロード完了したアイテム数です。\nダウンロード前でファイルサイズがわからない状態で全体の進捗管理に寄与します。",
+            "itemtype": "property",
+            "name": "_numItemsLoaded",
+            "type": "{Number}",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 520,
+            "description": "リクエストされた順にスクリプトを並べた配列です。\nスクリプトが正しい順番で\"completed\"状態になるのを保証するのに寄与します。",
+            "itemtype": "property",
+            "name": "_scriptOrder",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 529,
+            "description": "ロード完了したスクリプトの配列です。\nアイテムはリクエストされたときにこの配列に<code>null</code>として追加されます。\nロード完了しているけどユーザに通知されていない状態ではロードされたアイテムを格納しています。\n一旦ロード完了し発行されたら<code>true</true>が入ります。",
+            "itemtype": "property",
+            "name": "_loadedScripts",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 563,
+            "description": "useXHRの値を変更します。\ntrueに設定しても、ブラウザのサポート次第で無効な場合があります。",
+            "itemtype": "method",
+            "name": "setUseXHR",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "設定する新しいuseXHRの値です。",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "新しいuseXHRの値です。XHRがブラウザによってサポートされてない場合、引数がtrueであってもfalseを返します。",
+                "type": "Boolean"
+            },
+            "since": "0.3.0",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 578,
+            "description": "キューに追加されているローディング中のアイテムをすべて停止し、キューをクリアします。\nロードされたコンテンツのすべての内部的な参照が削除され、キューは再使用できる状態になります。\nまだロード開始していないアイテムは{{#crossLink \"AbstractLoader/load\"}}{{/crossLink}}メソッドを使用してロードを開始できます。",
+            "itemtype": "method",
+            "name": "removeAll",
+            "since": "0.3.0",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 589,
+            "description": "アイテムのロードを停止し、キューから削除します。\n何も引数に渡さなければすべてのアイテムが削除されます。\nロードされたアイテムへの内部的な参照も削除します。",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "idsOrUrls",
+                    "description": "このキューから削除するidあるいは複数のidです。\n一個のアイテムを渡せるだけでなく、アイテムの配列を渡すこともできますし、複数の引数としてアイテムを渡すこともできます。",
+                    "type": "String | Array"
+                }
+            ],
+            "since": "0.3.0",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 666,
+            "description": "すべての実行中のロードを停止し、すべてのロードしたアイテムを破壊し、キューをリセットします。\nすべてのアイテムは{{#crossLink \"AbstractLoader/load\"}}{{/crossLink}}を呼ぶことよにより再度ロードできます。\nアイテムはキューからは削除されません。\nアイテムをキューから削除するには、{{#crossLink \"LoadQueue/remove\"}}{{/crossLink}}あるいは{{#crossLink \"LoadQueue/removeAll\"}}{{/crossLink}}\nメソッドを使ってください。",
+            "itemtype": "method",
+            "name": "reset",
+            "since": "0.3.0",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 690,
+            "description": "指定されたファイルタイプがバイナリファイルとしてロードされるべきかどうかを判定します。\n現在、画像および\"binary\"と印をつけられたアイテムのみがバイナリとしてロードされます。\nオーディオはバイナリタイプではなく、バイナリとしてロードした場合audioタグを使って再生することはできません。\nプラグインは結果をバイナリで受け取る必要がある場合、アイテムタイプをバイナリに変更することがあります。\nバイナリファイルはXHR2を使ってロードされます。",
+            "itemtype": "method",
+            "name": "isBinary",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "アイテムタイプです。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "指定されたタイプがバイナリであるか否かです。"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 711,
+            "description": "プラグインを登録します。\nプラグインはロードタイプ（音声、画像など）に対応させることができますし、拡張子（png、mp3など）に対応させることもできます。\n現在、タイプ/拡張子ごとに一個だけプラグインを対応させることができます。\nプラグインは以下を含むオブジェクトを返さねばなりません:\n <ul><li>callback: 呼び出す関数です。</li>\n     <li>types: 対応させるタイプの配列です。</li>\n     <li>extensions: 対応させる拡張子の配列です。適用可能なタイプのハンドラが発火されてないときのみ発火します。</li></ul>\nプラグインがタイプハンドラと拡張子ハンドラの両方にマッチした場合、タイプハンドラのみが発火されます。\n例えば、タイプがsoundのハンドラと拡張子がmp3のハンドラを保持したとすると、mp3ファイルがロードされたときはタイプハンドラのみが\n発火されます。",
+            "itemtype": "method",
+            "name": "installPlugin",
+            "params": [
+                {
+                    "name": "plugin",
+                    "description": "インストールするプラグインです。",
+                    "type": "Function"
+                }
+            ],
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 740,
+            "description": "同時最大接続数を設定します。\nブラウザやサーバは独自の最大接続数設定を保持できますので、ブラウザが接続を開通するまでは追加の接続は待ち状態となります。\n<code>maintainScriptOrder=true</code>の設定の下でタグを使ってスクリプトをロードする場合、ブラウザの制限のため一度に一つの\nスクリプトしかロードされません。",
+            "itemtype": "method",
+            "name": "setMaxConnections",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "許容する同時接続数です。デフォルトでは、LoadQueごとに一つまでしか接続されません。",
+                    "type": "Number"
+                }
+            ],
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 755,
+            "description": "一つのファイルをロードします。\n一度に複数のファイルを追加するには{{#crossLink \"LoadQueue/loadManifest\"}}{{/crossLink}}メソッドを使ってください。\n\nファイルは常に現在のキューに対して追加されるため、このメソッドは何度でも使用することができます。\nキューを最初にクリアするには、{{#crossLink \"AbstractLoader/close\"}}{{/crossLink}}メソッドを使ってください。",
+            "itemtype": "method",
+            "name": "loadFile",
+            "params": [
+                {
+                    "name": "file",
+                    "description": "ファイルオブジェクトあるいはロードするファイルパスです。以下のいずれかを設定出来ます。\n<ol>\n    <li>リソースへのパス文字列。この方法で指定したロードアイテムはバックグラウンドでオブジェクト（下記参照）に変換されます。</li>\n    <li>以下を含むオブジェクト。:<ul>\n        <li>src: ロードするファイルのソースです。このプロパティは<b>必須</b>です。文字列（推奨します）あるいはHTMLタグを設定できます。</li>\n        <li>type: ロードするファイルタイプ（画像、音声、JSONなど）です。PreloadJSは拡張子を用いてタイプの自動検出を行います。\n        サポートされるタイプはLoadQueに<code>LoadQueue.IMAGE</code>のようにして定義されています。\n        通常のファイルURIでないもの（phpスクリプトなど）を使う場合はタイプを指定することを推奨します。\n        <li>id: ロードオブジェクトの参照として使用できる識別子です。</li>\n        <li>data: 任意のデータオブジェクトです。ロードオブジェクトに含まれます。</li>\n    </ul>\n</ol>",
+                    "type": "Object | String"
+                },
+                {
+                    "name": "loadNow",
+                    "description": "即座にロードを開始する（true）かloadメソッドが呼ばれるのを待つか（false）を指定します。デフォルト値はtrueです。\nキューが{{#crossLink \"LoadQueue/setPaused\"}}{{/crossLink}}を用いて一時停止しており、値がtrueのときは、自動的に再開します。",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
+                }
+            ],
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 789,
+            "description": "アイテムの配列をロードします。\n単独のファイルのロードであれば、{{#crossLink \"LoadQueue/loadFile\"}}{{/crossLink}}メソッドを使用してください。\nマニフェスト内のファイルは定義した順番でリクエストされますが、{{#crossLink \"LoadQueue/setMaxConnections\"}}{{/crossLink}}\nによって最大接続数が1を上回る値に設定されている時、異なる順番でロード完了することがあります。\nスクリプトは<code>loadQueue.maintainScriptOrder</code>がtrue（デフォルト値です）である限り、正しい順番でロードされます。\n\nファイルは必ず現在のキューに追加されるので、このメソッドは複数回呼び出してファイルを追加することができます。\nキューを最初にクリアするには、{{#crossLink \"AbstractLoader/close\"}}{{/crossLink}}メソッドを使ってください。",
+            "itemtype": "method",
+            "name": "loadManifest",
+            "params": [
+                {
+                    "name": "manifest",
+                    "description": "ロードするファイルのリストです。それぞれのファイルには以下のいずれかを設定できます:\n<ol>\n    <li>リソースへのパス文字列。この方法で指定したロードアイテムはバックグラウンドでオブジェクト（下記参照）に変換されます。</li>\n    <li>以下を含むオブジェクト:<ul>\n        <li>src: ロードするファイルのソースです。このプロパティは<b>必須</b>です。文字列（推奨します）あるいはHTMLタグを設定できます。</li>\n        <li>type: ロードするファイルタイプ（画像、音声、JSONなど）です。PreloadJSは拡張子を用いてタイプの自動検出を行います。\n        サポートされるタイプはLoadQueに<code>LoadQueue.IMAGE</code>のようにして定義されています。\n        通常のファイルURIでないもの（phpスクリプトなど）を使う場合はタイプを指定することを推奨します。\n        <li>id: ロードオブジェクトの参照として使用できる識別子です。</li>\n        <li>data: 任意のデータオブジェクトです。ロードオブジェクトに含まれます。</li>\n    </ul>\n</ol>",
+                    "type": "Array"
+                },
+                {
+                    "name": "loadNow",
+                    "description": "即座にロードを開始する（true）かloadメソッドが呼ばれるのを待つか（false）です。デフォルト値はtrueです。\nキューが{{#crossLink \"LoadQueue/setPaused\"}}{{/crossLink}}を用いて一時停止しており、値がtrueのときは、自動的に再開します。",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
+                }
+            ],
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 845,
+            "description": "ロード開始時に指定された\"id\"あるいは\"src\"を用いてロードアイテムを検索します。",
+            "itemtype": "method",
+            "name": "getItem",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "ロードアイテムの<code>id</code>あるいは<code>src</code>です。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "{{#crossLink \"LoadQueue/loadFile\"}}{{/crossLink}}あるいは{{#crossLink \"LoadQueue/loadManifest\"}}{{/crossLink}}\nによってリクエストされたロードアイテムです。このオブジェクトは\"fileload\"イベントの\"item\"パラメータによっても返されます。",
+                "type": "Object"
+            },
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 856,
+            "description": "ロード開始時に指定された\"id\"あるいは\"src\"を用いてロード結果を検索します。",
+            "itemtype": "method",
+            "name": "getResult",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "ロードアイテムの<code>id</code>あるいは<code>src</code>です。",
+                    "type": "String"
+                },
+                {
+                    "name": "rawResult",
+                    "description": "フォーマットされた結果の代わりに生の結果を返すようにします。\nスクリプト、XML、CSS、それに画像のような、XHRを使ってロードされたコンテンツに適用されます。\n生の結果がない場合、代わりにフォーマットされた結果が返されます。",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "以下の様なロードされたコンテンツを含む結果オブジェクトです。\n<ul>\n     <li>画像はimageタグ(&lt;image /&gt;)</li>\n     <li>オーディオはaudioタグ(&lt;audio &gt;)</li>\n     <li>JavaScriptiはscriptタグ(&lt;script /&gt;)。タグによってロードされたスクリプトはHTML headに追加されることがあります。</li>\n     <li>CSSはstyleタグ(&lt;style /&gt;)</li>\n     <li>TEXTは生のテキスト</li>\n     <li>JSONによって定義されたフォーマットされたJavaScriptオブジェクト</li>\n     <li>XMLドキュメント</li>\n     <li>XHRによってロードされたバイナリarraybuffer</li>\n</ul>\nこのオブジェクトは\"fileload\"イベントの\"item\"パラメータによっても返されます。\n生の結果を求めてそれがなかった場合はこのフォーマットされた結果が返されます。",
+                "type": "Object"
+            },
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 887,
+            "description": "現在のロードを一時停止あるいは再生します。\nアクティブなロードはキャンセルされませんが、アクティブなロードが完了した時、キューにある次のアイテムは処理されません。\nLoadQueはデフォルトでは一時停止されません。",
+            "itemtype": "method",
+            "name": "setPaused",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "キューを一時停止する（true）か再開する（false）かです。",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 913,
+            "description": "キューにアイテムを追加します。\nアイテムはコンテンツをロードするのに必要なプロパティをすべて格納した有用なオブジェクトにフォーマットされます。\nロードキューには、ユーザから渡されたロードアイテムでなく、プリロードを実行するローダーインスタンスが入ります。\nロードアイテムをidあるいはsrcによって検索するには、{{#crossLink \"LoadQueue.getItem\"}}{{/crossLink}}メソッドを使用してください。",
+            "itemtype": "method",
+            "name": "_addItem",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "キューに追加するアイテムです。",
+                    "type": "String|Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 943,
+            "description": "すべての必要なプロパティ（src、type、extension、tag）を格納したロードアイテムを生成します。\nアイテムのタイプはブラウザのサポート状況、ファイルタイプに基づいた要件、開発者の設定によって決定されます。\n例えば、XHRは新しいブラウザでサポートされるファイルタイプでのみ使用されます。\n\nアイテムが返される前に、タイプあるいは拡張子に対応するために登録されたプラグインが発火されます。\nそれにより、ロードアイテムに変更が加えられることがあります。",
+            "itemtype": "method",
+            "name": "_createLoadItem",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "プリロードする必要のあるアイテムです。",
+                    "type": "String | Object | HTMLAudioElement | HTMLImageElement"
+                }
+            ],
+            "return": {
+                "description": "使用されるローダーインスタンスです。",
+                "type": "Object"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1032,
+            "description": "ロードアイテムのローダーを生成します。",
+            "itemtype": "method",
+            "name": "_createLoader",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "ローダーを生成するために使用するフォーマットされたロードアイテムです。",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "コンテンツをロードするために使用するローダーです。",
+                "type": "AbstractLoader"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1064,
+            "description": "キューの次のアイテムをロードします。\nキューが空の場合（すべてのアイテムがロード完了している場合）はcompleteイベントが発行されます。\nキューは{{#crossLink \"LoadQueue.setMaxConnections\"}}{{/crossLink}}によって指定された最大接続数まで空のスロットを\n埋めます。\n唯一の例外はタグによってロードされるスクリプトで、ロードの順番を維持するために一度に1つだけロードされる必要があります。",
+            "itemtype": "method",
+            "name": "_loadNext",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1109,
+            "description": "アイテムのロードを開始します。ロードが開始されるまで、イベントはローダーに追加されません。",
+            "itemtype": "method",
+            "name": "_loadItem",
+            "params": [
+                {
+                    "name": "loader",
+                    "description": "開始するローダーのインスタンスです。現在、XHRLoaderあるいはTagLoaderとなります。",
+                    "type": "AbstractLoader"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1123,
+            "description": "ローダーがエラーに遭遇したときに発火されるコールバックです。\n<code>stopOnError</code>がtrueに設定されていない限りキューはロードを継続します。",
+            "itemtype": "method",
+            "name": "_handleFileError",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "エラーイベントです。関連するエラー情報を格納しています。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1147,
+            "description": "アイテムがロード完了しました。\nアイテム全体がロードされ、すぐ使えるようにパースされ、ロードアイテムの\"result\"プロパティとして利用可能になっていることを保証します。\nパースされたアイテム（JSON、XML、CSS、JavaScriptなどのような）の生のテキストの結果は\"rawResult\"イベントとして使用可能であり、また\n{{#crossLink \"LoadQueue/getResult\"}}{{/crossLink}}を用いて検索可能です。",
+            "itemtype": "method",
+            "name": "_handleFileComplete",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "ローダーからのイベントオブジェクトです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1191,
+            "description": "スクリプトのロードとイベント発行の正確な順序を保証します。\nXHRを使用するとき、スクリプトは追加された順に配列に\"null\"値として貯めこまれます。\nロード完了した時、値はロードしたアイテムに設定され、イベント発行された時に値は<code>true</code>に設定されます。\nこのメソッドは単純に配列をイテレートし、<code>null</code>が配列の前要素にないすべてのロードアイテムがイベント発行されたことを保証します。",
+            "itemtype": "method",
+            "name": "_checkScriptLoadOrder",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1214,
+            "description": "ロードアイテムが完了したかあるいはキャンセルされました。LoadQueから削除される必要があります。",
+            "itemtype": "method",
+            "name": "_removeLoadItem",
+            "params": [
+                {
+                    "name": "loader",
+                    "description": "削除するローダーインスタンスです。",
+                    "type": "AbstractLoader"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1229,
+            "description": "アイテムがprogressイベントを発行して来ました。\nprogressを伝搬させ、LoadQue全体のprogressを更新します。",
+            "itemtype": "method",
+            "name": "_handleProgress",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "アイテムのprogressイベントです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1242,
+            "description": "全体の進捗が変化したので、新しい進捗値を決定し発行します。\nアイテムがprogressあるいはcompleteを発行すると全体の進捗値は必ず変化します。\nロード完了するまではアイテムの実際のファイルサイズは知りえず、また、ロード完了してもサイズを知りえるのはXHRでロードされたアイテムのみです。\nよって、各アイテムに\"slot\"を定義し（10アイテム中の1アイテムは10%となります）、既にロードされたアイテムに進捗値をを追加することで全体の進捗値を計算しています。\n\n例えば、5/10のアイテムがロード完了したとき、6番目のアイテムが20%ロードされていれば、全体の進捗値は以下になります。：<ul>\n     <li>キューにあるアイテムの5/10(50%)</li>\n     <li>アイテム6のスロットの20%を追加(2%)</li>\n     <li>52%となります</li></ul>",
+            "itemtype": "method",
+            "name": "_updateProgress",
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1268,
+            "description": "メモリから解放するために、アイテムの結果を除去します。\n主にロードされたアイテムと結果は内部のハッシュからクリアされます。",
+            "itemtype": "method",
+            "name": "_disposeItem",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "プリロード用に渡されたアイテムです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1283,
+            "description": "HTMLタグを生成します。\nデータをロードする方法が何であれ、タグで返す必要があるかもしれないため、\nこのメソッドは{{#crossLink \"TagLoader\"}}{{/crossLink}}の中でなくLoadQueで定義されています。",
+            "itemtype": "method",
+            "name": "_createTag",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "アイテムタイプです。アイテムは開発者によって渡されるか、拡張子によって決定されます。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "生成されるタグです。\nタグはHTMLのbodyには追加されません。",
+                "type": "HTMLImageElement|HTMLAudioElement|HTMLScriptElement|HTMLLinkElement|Object"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1328,
+            "description": "拡張子を用いてオブジェクトのタイプを決定します。\nタイプが通常の拡張子でない場合は、ロードするアイテムと一緒にタイプを渡すことができます。",
+            "params": [
+                {
+                    "name": "extension",
+                    "description": "ロードタイプを決定するために使われるファイル拡張子です。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "決定されたロードタイプ（例えば、<code>LoadQueue.IMAGE</code>）です。拡張子から決定できなかった場合はnullとなります。",
+                "type": "String"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1363,
+            "description": "fileprogressイベント（それとonFileProgressコールバック）を発行します。\nイベントの内容の詳細については<code>LoadQueue.fileprogress</code>を見てください。",
+            "itemtype": "method",
+            "name": "_sendFileProgress",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "ロードされているアイテムです。",
+                    "type": "Object"
+                },
+                {
+                    "name": "progress",
+                    "description": "ロードされたアイテムの量です。（0と1の間の値を取ります。）",
+                    "type": "Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1388,
+            "description": "fileloadイベント（それとonFileLoadコールバック）を発行します。\nイベントの内容の詳細については<code>LoadQueue.fileload</code>を見てください。",
+            "itemtype": "method",
+            "name": "_sendFileComplete",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "ロード中のアイテムです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1418,
+            "description": "PreloadJSメソッドの関数プロキシです。\nデフォルトの動作では、JavaScriptのメソッドはスコープを維持しません。\nそのため、メソッドをコールバックとして渡すと呼び出し側のスコープの中でメソッドが呼ばれることになります。\nプロキシを使うことでメソッドが正確なスコープの中で呼ばれることを保証します。",
+            "itemtype": "method",
+            "name": "proxy",
+            "params": [
+                {
+                    "name": "method",
+                    "description": "呼び出す関数です。",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "メソッドが呼び出されるスコープです。",
+                    "type": "Object"
+                }
+            ],
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "deprecated": true,
+            "deprecationMessage": "createjs.proxyメソッドを推奨します。(LoadQueueのソースを参照してください)",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/LoadQueue.js",
+            "line": 1440,
+            "description": "PreloadJSメソッドの関数プロキシです。\nデフォルトの動作では、JavaScriptのメソッドはスコープを維持しません。\nそのため、メソッドをコールバックとして渡すと呼び出し側のスコープの中でメソッドが呼ばれることになります。\nプロキシを使うことでメソッドが正確なスコープの中で呼ばれることを保証します。\n#method proxy",
+            "params": [
+                {
+                    "name": "method",
+                    "description": "呼び出す関数です。",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "メソッドが呼び出されるスコープです。",
+                    "type": "Object"
+                },
+                {
+                    "name": "arg",
+                    "description": "コールバックに追加される引数です。",
+                    "type": "Mixed",
+                    "optional": true,
+                    "multiple": true
+                }
+            ],
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "LoadQueue",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 60,
+            "description": "一定の時間後に何もロードされなかった場合に発火されるタイムアウトです。\nタイムアウトの時間については<code>LoadQueue.LOAD_TIMEOUT</code>を参照してください。",
+            "itemtype": "property",
+            "name": "_loadTimeout",
+            "type": "{Number}",
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 69,
+            "description": "イベントリスナー関数への参照です。\nロードが完了した時にイベントハンドラを適切に削除するために必要となります。",
+            "itemtype": "property",
+            "name": "_tagCompleteProxy",
+            "type": "{Function}",
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 78,
+            "description": "ロードアイテムがaudioタグか否かを判定します。\n適切にaudioをロードするためにいくつか特別な処理を行うために使用されます。",
+            "itemtype": "property",
+            "name": "_isAudio",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 87,
+            "description": "このローダーがコンテンツをプリロードするために用いるHTMLタグあるいはJavaScriptオブジェクトです。\nHTMLタグのAPI（loadメソッド、onloadコールバック）に対応したカスタムオブジェクトのこともあります。\n例えば、SoundJSでflashオーディオをロードするときは、Flash audioとWebAudioのプリロード処理をするためのカスタムオブジェクトが格納されます。",
+            "itemtype": "property",
+            "name": "_tag",
+            "type": "{HTMLAudioElement | Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 105,
+            "description": "ロードされたコンテンツを取得します。\n通常、完全にロードされたHTMLタグあるいは他のタグのスタイルオブジェクトです。\nローダーが完了してない場合、nullが返ります。",
+            "itemtype": "method",
+            "name": "getResult",
+            "return": {
+                "description": "ロードされパースされたコンテンツです。",
+                "type": "HTMLImageElement | HTMLAudioElement"
+            },
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 177,
+            "description": "audioのタイムアウトのコールバックです。\nタイムアウト処理のために、新しいブラウザはタグのコールバックを用いますが、古いブラウザはsetTimeoutを必要とすることがあります。\nsetTimeoutはブラウザによってレスポンスが処理されない限り実行されます。",
+            "itemtype": "method",
+            "name": "_handleTimeout",
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 189,
+            "description": "audioのstalledイベントのイベントハンドラです。\n主に、ChromeのHTMLAudioでロード途中で再生しようとしたときに受け取るイベントと思われます。",
+            "itemtype": "method",
+            "name": "_handleStalled",
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 199,
+            "description": "タグによって生成されたエラーイベントのイベントハンドラです。",
+            "itemtype": "method",
+            "name": "_handleError",
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 209,
+            "description": "タグからのreadyStateChangeイベントのイベントハンドラです。\nonloadイベント（主にSCRIPTタグとLINKタグ）の代わりとして必要になることがありますが、他に必要なケースもあるかもしれません。",
+            "itemtype": "method",
+            "name": "_handleReadyStateChange",
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 224,
+            "description": "load（complete）イベントのイベントハンドラです。\nタグのコールバックによって呼ばれますが、readyStateChangeとcanPlayThroughイベントからも呼ばれます。\n一旦ロードされたら、アイテムは{{#crossLink \"LoadQueue\"}}{{/crossLink}}に送られます。",
+            "itemtype": "method",
+            "name": "_handleLoad",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "タグからのloadイベントです。loadイベントが発生していなくても、他のイベントハンドラから呼ばれることがあります。",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/TagLoader.js",
+            "line": 251,
+            "description": "ローダーを清掃します。\nすべてのタイマーを止め、予想外のコールバック呼び出しを避けるために参照を削除し、メモリを解放します。",
+            "itemtype": "method",
+            "name": "_clean",
+            "access": "private",
+            "tagname": "",
+            "class": "TagLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 59,
+            "description": "コンテンツのロードに使用されているXHRリクエストへの参照です。",
+            "itemtype": "property",
+            "name": "_request",
+            "type": "{XMLHttpRequest | XDomainRequest | ActiveX.XMLHTTP}",
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 67,
+            "description": "XHRのonTimeoutイベントをサポートしていないブラウザ（XHRレベル1、典型的なのはIE9）で使用するお手製のロードタイムアウトです。",
+            "itemtype": "property",
+            "name": "_loadTimeout",
+            "type": "{Number}",
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 75,
+            "description": "ブラウザのXHR(XMLHTTPRequest)バージョンです。\nサポートされているバージョンは1と2です。\nバージョンを検出する公式な方法はありませんので、できる限りベストな推測をします。",
+            "itemtype": "property",
+            "name": "_xhrLevel",
+            "type": "{Number}",
+            "default": "1",
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 86,
+            "description": "ロードしたファイルのレスポンスです。\n頻繁にレスポンスを検索すると処理が重いためキャッシュ目的で設定されます。\nファイルがロードされるまではこのプロパティはnullです。",
+            "itemtype": "property",
+            "name": "_response",
+            "type": "{mixed}",
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 96,
+            "description": "ロードしたファイルの手を加えられる前のレスポンス結果です。\nほとんどのケースでは、コンテンツは生のテキストからHTMLタグあるいはフォーマットされたオブジェクトに変換され、<code>result</code>\nプロパティに設定されますが、このプロパティを通してロードされたままの生のコンテンツにアクセスすることができます。",
+            "itemtype": "property",
+            "name": "_rawResponse",
+            "type": "{String|Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 114,
+            "description": "ロードされた結果を検索します。",
+            "itemtype": "method",
+            "name": "getResult",
+            "params": [
+                {
+                    "name": "rawResult",
+                    "description": "フォーマットされた結果の代わりに生の結果を返すようにします。\nスクリプト、XML、CSS、それに画像のような、XHRを使ってロードされたコンテンツに適用されます。\n生の結果がない場合、代わりにフォーマットされた結果が返されます。",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "以下の様なロードされたコンテンツを含む結果オブジェクトです。\n<ul>\n     <li>画像はimageタグ(&lt;image /&gt;)</li>\n     <li>オーディオはaudioタグ(&lt;audio &gt;)</li>\n     <li>JavaScriptiはscriptタグ(&lt;script /&gt;)。タグによってロードされたスクリプトはHTML headに追加されることがあります。</li>\n     <li>CSSはstyleタグ(&lt;style /&gt;)</li>\n     <li>TEXTは生のテキスト</li>\n     <li>JSONによって定義されたフォーマットされたJavaScriptオブジェクト</li>\n     <li>XMLドキュメント</li>\n     <li>XHRによってロードされたバイナリarraybuffer</li>\n</ul>\n生の結果を求めてそれがなかった場合はフォーマットされた結果が返されます。",
+                "type": "Object"
+            },
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 179,
+            "description": "XHRリクエストが進捗を報告して来ました。",
+            "itemtype": "method",
+            "name": "_handleProgress",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "XHRのprogressイベントです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 192,
+            "description": "XHRリクエストがロード開始を報告して来ました。",
+            "itemtype": "method",
+            "name": "_handleLoadStart",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "XHRのloadStartイベントです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 203,
+            "description": "XHRリクエストがつ中断イベントを報告して来ました。",
+            "itemtype": "method",
+            "name": "handleAbort",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "XHRのabortイベントです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 214,
+            "description": "XHRリクエストがつエラーイベントを報告して来ました。",
+            "itemtype": "method",
+            "name": "_handleError",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "XHRのerrorイベントです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 225,
+            "description": "XHRリクエストがつreadyStateChangeイベントを報告して来ました。\n古いブラウザ（IE7と8）はonloadイベントを提供しないため、ファイルがロードしたか判定するためにはreadyStateChangeを監視する必要があります。",
+            "itemtype": "method",
+            "name": "_handleReadyStateChange",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "XHRのreadyStateChangeイベントです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 238,
+            "description": "XHRリクエストが完了しました。\nこのメソッドはXHRリクエストから直接呼ばれるか、<code>request.readyState == 4</code>のreadyStateChangeによて呼ばれます。\n最初の一回の呼び出しだけ処理が走ります。",
+            "itemtype": "method",
+            "name": "_handleLoad",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "XHRのloadイベントです。",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 265,
+            "description": "XHRリクエストがタイムアウトしました。\nこのメソッドはXHRリクエストから直接呼ばれるか、<code>setTimeout</code>のコールバックとして呼ばれます。",
+            "itemtype": "method",
+            "name": "_handleTimeout",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "XHRのtimeoutイベントです。お手製タイムアウトイベントのsetTimeoutから呼ばれた場合nullになることがあります。",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 279,
+            "description": "現在のロードがエラーか否かを判定します。\nリクエストのステータスコードをチェックして判定し、実際のレスポンスはチェックしません。\n現在、404と0のエラーコードだけを判定しています。",
+            "itemtype": "method",
+            "name": "_checkError",
+            "return": {
+                "description": "リクエストステータスがエラーコードを返しているか否かです。",
+                "type": "Boolean"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 299,
+            "description": "レスポンスを検証します。\nブラウザによって異なるアプローチをしており、そのいくつかは、他のブラウザでアクセスされたときはエラーを投げます。\nレスポンスがない場合、<code>_response</code>プロパティはnullのままです。",
+            "itemtype": "method",
+            "name": "_getResponse",
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 334,
+            "description": "XHRリクエストを生成します。\n多くの因子が関連して異なる結果が返ります。\n<ol><li>いくつかのブラウザではクロスドメインローディングを行うときに<code>XDomainRequest</code>が返ります。</li>\n     <li>使用可能であればXMLHttpRequestが生成されます。</li>\n     <li>古いIEブラウザではActiveX.XMLHTTPオブジェクトが使われます。</li>\n     <li>可能であればテキストのリクエストではmimeタイプをオーバーライドします。</li>\n     <li>いくつかのブラウザではクロスドメインリクエストにOriginヘッダが送られます。</li>\n     <li>バイナリのロードではレスポンスのタイプが\"arraybuffer\"に設定されます。</li></ol>",
+            "itemtype": "method",
+            "name": "_createXHR",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "ロードされているリクエストされたアイテムです。",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "XHRリクエスト、あるいはそれと同等なオブジェクトが生成成功したか否かです。",
+                "type": "Boolean"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 401,
+            "description": "リクエストが完了し（あるいは失敗、あるいはキャンセルされ）ました。処分する必要があります。",
+            "itemtype": "method",
+            "name": "_clean",
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 420,
+            "description": "タグとして設定されたアイテムのタグを生成します。\n例えば、IMAGE、SCRIPT、LINKです。\nXMLとSVGオブジェクトも対象となります。",
+            "itemtype": "method",
+            "name": "_generateTag",
+            "return": {
+                "description": "タグが生成されインスタンス化の準備が整ったか否かです。まだ処理が必要な場合、このメソッドはfalseを返します。\nmethod returns false.",
+                "type": "Boolean"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 496,
+            "description": "DOMを使ってXMLをパースします。XMLあるいはSVGのプリロードで必要です。",
+            "itemtype": "method",
+            "name": "_parseXML",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "XHRによってロードされた生のテキストあるいはXMLです。",
+                    "type": "String"
+                },
+                {
+                    "name": "type",
+                    "description": "XMLのmimeタイプです。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "XMLドキュメントです。",
+                "type": "XML"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 517,
+            "description": "生成したタグが使用出来る状態になりました。",
+            "itemtype": "method",
+            "name": "_handleTagReady",
+            "access": "private",
+            "tagname": "",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        },
+        {
+            "file": "src/preloadjs/XHRLoader.js",
+            "line": 534,
+            "description": "正確にJSONをパースするため、json2をインクルードします。\nネイティブのJSONオブジェクトを持たないブラウザで使用されます。",
+            "class": "XHRLoader",
+            "module": "PreloadJS"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nこのローダーでロードされるマニフェストアイテムの参照を取得します。\nほとんどのケースでは{{#crossLink \"LoadQueue/loadFile\"}}{{/crossLink}}あるいは{{#crossLink \"LoadQueue/loadManifest\"}}{{/crossLink}}\nによって{{#crossLink \"LoadQueue\"}}{{/crossLink}}に渡される値となります。\n文字列だけが渡された場合、LoadQueによって生成されるオブジェクトになります。",
+            "line": " src/preloadjs/AbstractLoader.js:190"
+        },
+        {
+            "message": "Missing item type\n拡張子を用いてオブジェクトのタイプを決定します。\nタイプが通常の拡張子でない場合は、ロードするアイテムと一緒にタイプを渡すことができます。",
+            "line": " src/preloadjs/LoadQueue.js:1328"
+        },
+        {
+            "message": "Missing item type\nPreloadJSメソッドの関数プロキシです。\nデフォルトの動作では、JavaScriptのメソッドはスコープを維持しません。\nそのため、メソッドをコールバックとして渡すと呼び出し側のスコープの中でメソッドが呼ばれることになります。\nプロキシを使うことでメソッドが正確なスコープの中で呼ばれることを保証します。\n#method proxy",
+            "line": " src/preloadjs/LoadQueue.js:1440"
+        },
+        {
+            "message": "Missing item type\n正確にJSONをパースするため、json2をインクルードします。\nネイティブのJSONオブジェクトを持たないブラウザで使用されます。",
+            "line": " src/preloadjs/XHRLoader.js:534"
+        }
+    ]
+}

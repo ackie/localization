@@ -1,0 +1,2169 @@
+{
+    "project": {},
+    "files": {
+        "src/easeljs/events/EventDispatcher.js": {
+            "name": "src/easeljs/events/EventDispatcher.js",
+            "modules": {},
+            "classes": {
+                "EventDispatcher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/tweenjs/CSSPlugin.js": {
+            "name": "src/tweenjs/CSSPlugin.js",
+            "modules": {},
+            "classes": {
+                "CSSPlugin": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/tweenjs/Ease.js": {
+            "name": "src/tweenjs/Ease.js",
+            "modules": {},
+            "classes": {
+                "Ease": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/tweenjs/MotionGuidePlugin.js": {
+            "name": "src/tweenjs/MotionGuidePlugin.js",
+            "modules": {},
+            "classes": {
+                "MotionGuidePlugin": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/tweenjs/SamplePlugin.js": {
+            "name": "src/tweenjs/SamplePlugin.js",
+            "modules": {},
+            "classes": {
+                "SamplePlugin": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/tweenjs/Timeline.js": {
+            "name": "src/tweenjs/Timeline.js",
+            "modules": {},
+            "classes": {
+                "Timeline": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/tweenjs/Tween.js": {
+            "name": "src/tweenjs/Tween.js",
+            "modules": {
+                "TweenJS": 1
+            },
+            "classes": {
+                "Tween": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "TweenJS": {
+            "name": "TweenJS",
+            "submodules": {},
+            "classes": {
+                "EventDispatcher": 1,
+                "CSSPlugin": 1,
+                "Ease": 1,
+                "MotionGuidePlugin": 1,
+                "SamplePlugin": 1,
+                "Timeline": 1,
+                "Tween": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/tweenjs/Tween.js",
+            "line": 63,
+            "description": "TweenJS Javascriptライブラリは、シンプルですがパワフルなトゥイーンのインタフェースを提供します。\nこれは、オブジェクトの数値プロパティやCSSのスタイルプロパティ間のトゥイーンをサポートし、トゥイーンやアクションを\n一緒にチェーンすることで、複雑なシーケンスを作成することを可能にします。\n\n<h4>単純なトゥイーン</h4>\nこのトゥイーンは、ターゲットのalphaプロパティを0から1まで１秒でトゥイーンし、関数<code>onComplete</code>を呼びます。\n\n\t    target.alpha = 0;\n\t    Tween.get(target).to({alpha:1}, 1000).call(onComplete);\n\t    function onComplete() {\n\t    \t//Tween complete\n\t    }\n\n<h4>チェーン可能なトゥイーン</h4> \nこのトゥイーンは、0.5秒待ち、ターゲットのalphaプロパティを1秒で0にトゥイーンし、そのvisibleをfalseにします。\nそして、関数<code>onComplete</code>を呼びます。\n\n\t    target.alpha = 1;\n\t    Tween.get(target).wait(500).to({alpha:0, visible:false}, 1000).call(onComplete);\n\t    function onComplete() {\n\t    \t//Tween complete\n\t    }"
+        }
+    },
+    "classes": {
+        "EventDispatcher": {
+            "name": "EventDispatcher",
+            "shortname": "EventDispatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "TweenJS",
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 34,
+            "description": "EventDispatcher は、優先順位の付いたイベントリスナのキューの管理とイベントを発行するメソッドを提供します。全ての\n{{#crossLink \"DisplayObject\"}}{{/crossLink}} クラスはイベントを発行します。{{#crossLink \"Ticker\"}}{{/crossLink}} 等のいくつかのユーティリティも同様です。\n\nこのクラスを拡張することもできますし、EventDispatcher {{#crossLink \"EventDispatcher/initialize\"}}{{/crossLink}} メソッドを使って、既存の prototype やインスタンスに\nこのクラスのメソッドを追加することもできます。\n\n<h4>例</h4>\nEventDispatcher の機能を \"MyClass\" クラスに追加します。\n\n     EventDispatcher.initialize(MyClass.prototype);\n\nイベントを 1 つ追加します。 ({{#crossLink \"EventDispatcher/addEventListener\"}}{{/crossLink}} を参照)\n\n     instance.addEventListener(\"eventName\", handlerMethod);\n     function handlerMethod(event) {\n         console.log(event.target + \" がクリックされました\");\n     }\n\n<b>適切なスコープの管理</b><br />\nEventDispatcher をクラス内で使用する場合、<code>Function.bind</code> やその他の方法を使用してメソッドのスコープを\n保持したい場合があるかもしれません。Function.bind はいくつかの古いブラウザーではサポートされない点に注意して下さい。\n\n     instance.addEventListener(\"click\", handleClick.bind(this));\n     function handleClick(event) {\n         console.log(\"メソッドが呼ばれたスコープは: \" + this);\n     }\n\n現在、EventDispatcher はイベントの優先順位やバブリングをサポートしないことに注意して下さい。将来のバージョンでは\nこれらの機能のどちらか、あるいは両方のサポートが追加されるかもしれません。",
+            "is_constructor": 1
+        },
+        "CSSPlugin": {
+            "name": "CSSPlugin",
+            "shortname": "CSSPlugin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "TweenJS",
+            "file": "src/tweenjs/CSSPlugin.js",
+            "line": 33,
+            "description": "数値のCSS文字列プロパティ（例. top, left）と共に動作するTweenJSプラグインです。\nTweenJSがロードされた後に単純にinstallを使用します:\n\n     createjs.CSSPlugin.install();\n\nCSSプロパティは、<code>cssSuffixMap</code>プロパティを修正することで調整できます。\n現在は、top、left、bottom、right、width、heightは、後ろに \"px\"サフィックスをつけます。",
+            "is_constructor": 1
+        },
+        "Ease": {
+            "name": "Ease",
+            "shortname": "Ease",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "TweenJS",
+            "file": "src/tweenjs/Ease.js",
+            "line": 35,
+            "description": "Easeクラスは、TweenJSと共に使用するためのイージング関数のコレクションを提供します。それは、標準の４パラメータイージング\n署名を使いません。代わりにトゥイーンの現在のリニア比(0から1)を示す単一のパラメータを使います。\n\nEase上のほとんどのメソッドは、イージング関数として直接渡すことができます:\n\n     Tween.get(target).to({x:100}, 500, Ease.linear);\n\nしかしながら、\"get\"で始まるメソッドはパラメータの値に基づいてイージング関数を返します:\n\n     Tween.get(target).to({y:200}, 500, Ease.getPowIn(2.2));\n\n<a href=\"http://tweenjs.com\">TweenJS.com</a>のさまざまなイースタイプの概要は\n<a href=\"http://www.createjs.com/#!/TweenJS/demos/sparkTable\">spark table demo</a>を参照してください。\n\n<i>数式の由来はRobert Pennerによります。</i>",
+            "static": 1
+        },
+        "MotionGuidePlugin": {
+            "name": "MotionGuidePlugin",
+            "shortname": "MotionGuidePlugin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "TweenJS",
+            "file": "src/tweenjs/MotionGuidePlugin.js",
+            "line": 33,
+            "description": "モーションガイドと共に動作するTweenJSプラグイン。\n\n使用するには、TweenJSがロードされた後でプラグインをインストールします。次に、以下に述べるように、オブジェクトと\n共に'guide'プロパティをトゥイーンします。\n\n      createjs.MotionGuidePlugin.install();\n\n<h4>例</h4>\n\n     // モーションガイドを使う\n\t    Tween.get(target).to({guide:{ path:[0,0, 0,200,200,200, 200,0,0,0] }},7000);\n\t    // ラインを可視化する\n\t    graphics.moveTo(0,0).curveTo(0,200,200,200).curveTo(200,0,0,0);\n\nそれぞれのパスは、そこで高速のパフォーマンスを確保するために事前の計算を必要とします。事前の計算のために、パスの\n内部サポートは中間のトゥイーンを変更しません。Guideオブジェクトのプロパティは以下になります:<UL>\n     <LI> path: 必須, Array : moveToと1からn個のcurveTo呼び出しにより描画するためのx/yを示します。</LI>\n     <LI> start: オプション, 0-1 : 初期位置, 同じパスが続くのでなければ、ディフォルトは0。</LI>\n     <LI> end: オプション, 0-1 : 最終位置, 何も指定されなければ、ディフォルトは1。</LI>\n     <LI> orient: オプション, bool : その位置でのカーブに沿ったターゲットの回転をセットします。</LI>\n</UL>\nGuideオブジェクトは、たとえすべてのプロパティが同じ場合でも、トゥイーン間で共有されるべきではありません。\nライブラリはバックグランドでこれらのオブジェクトに情報を保存し、それらを共有することで予期しないふるまいを引き起こします。\nトゥイーンの0-1以外の範囲の値は、定義されたカーブの適切な部分から、最良の推測となるでしょう。",
+            "is_constructor": 1
+        },
+        "SamplePlugin": {
+            "name": "SamplePlugin",
+            "shortname": "SamplePlugin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "TweenJS",
+            "file": "src/tweenjs/SamplePlugin.js",
+            "line": 33,
+            "description": "TweenJSプラグインのサンプル。このプラグインは、実際には決してトゥイーンに影響を与えません。単にTweenJSプラグインの\n作り方を記録することを意図するものです。インライン・コメントのためにコードを見てください。\n\nTweenJSプラグインは単に、１つのプロパティ(priority)と３つのメソッド (init, step, and tween)を公開しているだけのオブジェクトです。\n通常、プラグインは同様に<code>install</code>メソッドも公開しています。けれども、これは厳密には必要ありません。",
+            "is_constructor": 1
+        },
+        "Timeline": {
+            "name": "Timeline",
+            "shortname": "Timeline",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "TweenJS",
+            "file": "src/tweenjs/Timeline.js",
+            "line": 34,
+            "description": "Timelineクラスは、複数のトゥイーンを同期し、１つのグループとして管理するようにします。\nタイムラインがループしている場合は、トゥイーンの\"loop\"プロパティがfalseになっていてもタイムライン上のトゥイーンが\nループするようにみえる場合があることに注意してください。",
+            "params": [
+                {
+                    "name": "tweens",
+                    "description": "このタイムラインに追加するトゥイーンの配列。詳しくは addTweenを見てください。"
+                },
+                {
+                    "name": "labels",
+                    "description": "gotoAndPlay/Stop用のラベルを定義するオブジェクト。 \n詳細は }{{/crossLink}}を見てください。",
+                    "type": "#crossLink \"Timeline/setLabels\""
+                },
+                {
+                    "name": "props",
+                    "description": "このトゥイーンインスタンスに適用する構成プロパティ (ex. )。\nすべてのプロパティのディフォルトは falseとなります。\nサポートされるプロパティは次のとおり:<UL>\n   <LI> loop: このトゥイーンにloopプロパティを設定します。</LI>\n   <LI> useTicks: すべての時間にミリ秒ではなく tickを使用します。</LI>\n   <LI> ignoreGlobalPause: このトゥイーンに ignoreGlobalPause を設定します。</LI>\n   <LI> paused: 一時停止されたトゥイーンが開始するかどうかを示します。</LI>\n   <LI> position: このタイムラインの最初の位置を示します。</LI>\n   <LI> onChanged: このタイムラインの onChange ハンドラを示します。</LI>\n</UL>",
+                    "type": "Loop:true"
+                }
+            ],
+            "is_constructor": 1
+        },
+        "Tween": {
+            "name": "Tween",
+            "shortname": "Tween",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "TweenJS",
+            "namespace": "",
+            "file": "src/tweenjs/Tween.js",
+            "line": 63,
+            "description": "トゥイーンインスタンスは、単一ターゲットのプロパティをトゥイーンする。インスタンスメソッドは、簡単な構築と順序づけのために\nチェーンさせることができる:\n\n<h4>例</h4>\n\n     target.alpha = 1;\n\t    Tween.get(target)\n\t         .wait(500)\n\t         .to({alpha:0, visible:false}, 1000)\n\t         .call(onComplete);\n\t    function onComplete() {\n\t    \t//Tween complete\n\t    }\n\n複数のトゥイーンは、同じインスタンスを指すことができる。しかしながら、それらが同じプロパティに影響を与える場合に\n予期しないふるまいとなる可能性がある。\nオブジェクトのすべてのトゥイーンを止めるには、{{#crossLink \"Tween/removeTweens\"}}{{/crossLink}} を使うか、もしくは\n<code>override:true</code>をプロパティの引数で渡してください。\n\n     Tween.get(target, {override:true}).to({x:100});\n\nターゲットのプロパティが変化したときに知らせてもらうには、\"change\"イベントを登録してください。\n\n     Tween.get(target, {override:true}).to({x:100}).addEventListener(\"change\", handleChange);\n     function handleChange(event) {\n         // The tween changed.\n     }\n\n追加パラメータのドキュメントは、トゥイーン {{#crossLink \"Tween/get\"}}{{/crossLink}} メソッドを参照してください。",
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 74,
+            "description": "EventDispatcher のメソッドをミックスインする静的な初期化機能",
+            "itemtype": "method",
+            "name": "initialize",
+            "static": 1,
+            "params": [
+                {
+                    "name": "target",
+                    "description": "EventDispatcher のメソッドを追加する対象のオブジェクトです。インスタンスと prototype の\nどちらも指定可能です。",
+                    "type": "Object"
+                }
+            ],
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 90,
+            "access": "protected",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_listeners",
+            "type": "Object",
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 98,
+            "description": "初期化メソッド",
+            "itemtype": "method",
+            "name": "initialize",
+            "access": "protected",
+            "tagname": "",
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 106,
+            "description": "指定されたイベントリスナを追加します。",
+            "itemtype": "method",
+            "name": "addEventListener",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "イベントの種類を文字列で指定します",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "handleEvent メソッドを持つオブジェクト、またはイベントが発行された時に\n呼ばれる関数です",
+                    "type": "Function | Object"
+                }
+            ],
+            "return": {
+                "description": "listener を連携や代入等の目的に使用できるように返します",
+                "type": "Function | Object"
+            },
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 124,
+            "description": "指定されたイベントリスナを削除します。",
+            "itemtype": "method",
+            "name": "removeEventListener",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "イベントの種類を文字列で指定します。",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "リスナ関数又はオブジェクトです。",
+                    "type": "Function | Object"
+                }
+            ],
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 144,
+            "description": "指定された種類、または全ての種類に対して関連付けられたリスナを全て削除します。",
+            "itemtype": "method",
+            "name": "removeAllEventListeners",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "イベントの種類を指定します。省略すると全ての種類に対応する全てのリスナが削除されます。",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 154,
+            "description": "指定されたイベントを発行します。",
+            "itemtype": "method",
+            "name": "dispatchEvent",
+            "params": [
+                {
+                    "name": "eventObj",
+                    "description": "\"type\" プロパティを持つオブジェクト、もしくは種類を指定する文字列です。\ndispatchEvent  \"type\" と \"params\" プロパティを持つ汎用イベントオブジェクトを生成します。",
+                    "type": "Object | String"
+                },
+                {
+                    "name": "target",
+                    "description": "イベントオブジェクトの target プロパティとして使うオブジェクトです。デフォルト値は\nイベントを発行したオブジェクトです。",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "リスナが 1 つでも true を返したら true になります。",
+                "type": "Boolean"
+            },
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 180,
+            "description": "指定されたイベントの種類に対して 1 つ以上のリスナが存在するかを調べます。",
+            "itemtype": "method",
+            "name": "hasEventListener",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "イベントの種類を文字列で指定します。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "指定されたイベントのリスナが存在すると true を返します。",
+                "type": "Boolean"
+            },
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/easeljs/events/EventDispatcher.js",
+            "line": 191,
+            "itemtype": "method",
+            "name": "toString",
+            "return": {
+                "description": "インスタンスを表現する文字列です。",
+                "type": "String"
+            },
+            "class": "EventDispatcher"
+        },
+        {
+            "file": "src/tweenjs/CSSPlugin.js",
+            "line": 49,
+            "description": "CSSトゥイーンのためのディフォルトのサフィックスマップを定義します。これは、個々のトゥイーンにcssSuffixMap値を\n指定することで、トゥイーン基盤ごとに上書き可能です。このオブジェクトは、それらのプロパティが読み出し、または\n設定されるときに、サフィックスにCSSプロパティ名をマップします。たとえば、フォーム{top:\"px\"}のマップは、\"top\"\nCSSプロパティがトゥイーンするときに\"px\"サフィックスを指定すべきことを示します（例. target.style.top = \"20.5px\"）。\nこれは、\"css\"コンフィグプロパティをtrueに設定すると共にトゥイーンに適用します。",
+            "itemtype": "property",
+            "name": "cssSuffixMap",
+            "type": "Object",
+            "static": 1,
+            "class": "CSSPlugin"
+        },
+        {
+            "file": "src/tweenjs/CSSPlugin.js",
+            "line": 61,
+            "itemtype": "property",
+            "name": "priority",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "CSSPlugin"
+        },
+        {
+            "file": "src/tweenjs/CSSPlugin.js",
+            "line": 68,
+            "description": "TweenJSと共に使用するために、このプラグインをインストールします。このプラグインを有効にするために\nTweenJSがロードされた後で一度、これを呼び出してください。",
+            "itemtype": "method",
+            "name": "install",
+            "static": 1,
+            "class": "CSSPlugin"
+        },
+        {
+            "file": "src/tweenjs/CSSPlugin.js",
+            "line": 81,
+            "itemtype": "method",
+            "name": "init",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "CSSPlugin"
+        },
+        {
+            "file": "src/tweenjs/CSSPlugin.js",
+            "line": 99,
+            "itemtype": "method",
+            "name": "step",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "CSSPlugin"
+        },
+        {
+            "file": "src/tweenjs/CSSPlugin.js",
+            "line": 109,
+            "itemtype": "method",
+            "name": "tween",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "CSSPlugin"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 59,
+            "itemtype": "method",
+            "name": "linear",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 65,
+            "description": "linearと同一。",
+            "itemtype": "method",
+            "name": "none",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 72,
+            "description": "Flash Proにおける単純な-100から100までのイージングを模倣しています。",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "amount",
+                    "description": "イースの強さや方向を示す -1(ease in)から 1 (ease out)までの値。"
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 88,
+            "description": "設定可能な指数関数のイース。",
+            "itemtype": "method",
+            "name": "getPowIn",
+            "params": [
+                {
+                    "name": "pow",
+                    "description": "使用する指数 (例. 3 は、３次のイースを返します）。"
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 101,
+            "description": "設定可能な指数関数のイース。",
+            "itemtype": "method",
+            "name": "getPowOut",
+            "params": [
+                {
+                    "name": "pow",
+                    "description": "使用する指数 (例. 3 は、３次のイースを返します）。"
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 114,
+            "description": "設定可能な指数関数のイース。",
+            "itemtype": "method",
+            "name": "getPowInOut",
+            "params": [
+                {
+                    "name": "pow",
+                    "description": "使用する指数 (例. 3 は、３次のイースを返します）。"
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 128,
+            "itemtype": "method",
+            "name": "quadIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 133,
+            "itemtype": "method",
+            "name": "quadOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 138,
+            "itemtype": "method",
+            "name": "quadInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 145,
+            "itemtype": "method",
+            "name": "cubicIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 150,
+            "itemtype": "method",
+            "name": "cubicOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 155,
+            "itemtype": "method",
+            "name": "cubicInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 162,
+            "itemtype": "method",
+            "name": "quartIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 167,
+            "itemtype": "method",
+            "name": "quartOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 172,
+            "itemtype": "method",
+            "name": "quartInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 179,
+            "itemtype": "method",
+            "name": "quintIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 184,
+            "itemtype": "method",
+            "name": "quintOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 189,
+            "itemtype": "method",
+            "name": "quintInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 196,
+            "itemtype": "method",
+            "name": "sineIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 204,
+            "itemtype": "method",
+            "name": "sineOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 212,
+            "itemtype": "method",
+            "name": "sineInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 221,
+            "description": "設定可能な \"back in\"イース。",
+            "itemtype": "method",
+            "name": "getBackIn",
+            "params": [
+                {
+                    "name": "amount",
+                    "description": "イースの強さ。"
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 232,
+            "itemtype": "method",
+            "name": "backIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 238,
+            "description": "設定可能な \"back out\"イース。",
+            "itemtype": "method",
+            "name": "getBackOut",
+            "params": [
+                {
+                    "name": "amount",
+                    "description": "イースの強さ。"
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 249,
+            "itemtype": "method",
+            "name": "backOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 255,
+            "description": "設定可能な \"back in out\"イース。",
+            "itemtype": "method",
+            "name": "getBackInOut",
+            "params": [
+                {
+                    "name": "amount",
+                    "description": "イースの強さ。"
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 268,
+            "itemtype": "method",
+            "name": "backInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 275,
+            "itemtype": "method",
+            "name": "circIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 283,
+            "itemtype": "method",
+            "name": "circOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 291,
+            "itemtype": "method",
+            "name": "circInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 300,
+            "itemtype": "method",
+            "name": "bounceIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 308,
+            "itemtype": "method",
+            "name": "bounceOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 324,
+            "itemtype": "method",
+            "name": "bounceInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 334,
+            "description": "設定可能な弾性のイース。",
+            "itemtype": "method",
+            "name": "getElasticIn",
+            "params": [
+                {
+                    "name": "amplitude",
+                    "description": ""
+                },
+                {
+                    "name": "period",
+                    "description": ""
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 349,
+            "itemtype": "method",
+            "name": "elasticIn",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 355,
+            "description": "設定可能な弾性のイース。",
+            "itemtype": "method",
+            "name": "getElasticOut",
+            "params": [
+                {
+                    "name": "amplitude",
+                    "description": ""
+                },
+                {
+                    "name": "period",
+                    "description": ""
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 370,
+            "itemtype": "method",
+            "name": "elasticOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 376,
+            "description": "設定可能な弾性のイース。",
+            "itemtype": "method",
+            "name": "getElasticInOut",
+            "params": [
+                {
+                    "name": "amplitude",
+                    "description": ""
+                },
+                {
+                    "name": "period",
+                    "description": ""
+                }
+            ],
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/Ease.js",
+            "line": 391,
+            "itemtype": "method",
+            "name": "elasticInOut",
+            "static": 1,
+            "class": "Ease"
+        },
+        {
+            "file": "src/tweenjs/MotionGuidePlugin.js",
+            "line": 67,
+            "itemtype": "property",
+            "name": "priority",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "MotionGuidePlugin"
+        },
+        {
+            "file": "src/tweenjs/MotionGuidePlugin.js",
+            "line": 74,
+            "description": "TweenJSと共に使用するために、このプラグインをインストールします。このプラグインを有効にするために、TweenJSが\nロードされた後で一度これを呼び出してください。",
+            "itemtype": "method",
+            "name": "install",
+            "static": 1,
+            "class": "MotionGuidePlugin"
+        },
+        {
+            "file": "src/tweenjs/MotionGuidePlugin.js",
+            "line": 85,
+            "itemtype": "method",
+            "name": "init",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "MotionGuidePlugin"
+        },
+        {
+            "file": "src/tweenjs/MotionGuidePlugin.js",
+            "line": 98,
+            "itemtype": "method",
+            "name": "step",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "MotionGuidePlugin"
+        },
+        {
+            "file": "src/tweenjs/MotionGuidePlugin.js",
+            "line": 149,
+            "itemtype": "method",
+            "name": "tween",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "MotionGuidePlugin"
+        },
+        {
+            "file": "src/tweenjs/MotionGuidePlugin.js",
+            "line": 168,
+            "description": "パスに沿って与えられた比率により、パスにふさわしいx/y/rotation情報を決定します。\nすべてのオプションパラメータが指定されたpathオブジェクトを仮定します。",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "トゥイーンにおける\"guide:\"プロパティに渡すDataオブジェクト"
+                },
+                {
+                    "name": "ratio",
+                    "description": "0-1 パスに沿った距離, 0-1以外の値は、\"最良の推測\""
+                },
+                {
+                    "name": "target",
+                    "description": "結果をコピーするためのオブジェクト, 指定されない場合は新しいオブジェクトが使われます"
+                }
+            ],
+            "return": {
+                "description": "トゥイーンされたプロパティ付きのターゲットオブジェクトもしくは、新しいオブジェクト",
+                "type": "Object"
+            },
+            "static": 1,
+            "class": "MotionGuidePlugin"
+        },
+        {
+            "file": "src/tweenjs/SamplePlugin.js",
+            "line": 47,
+            "description": "TweenJSによって、このプラグインを呼ぶときに決定するために使われます。高プライオリティのプラグインは、\n低プライオリティのプラグインの前に呼ばれるメソッドを持っています。priorityの値は、任意の正または負の数値です。",
+            "itemtype": "property",
+            "name": "priority",
+            "static": 1,
+            "class": "SamplePlugin"
+        },
+        {
+            "file": "src/tweenjs/SamplePlugin.js",
+            "line": 55,
+            "description": "TweenJSと一緒に使用するために、このプラグインをインストールします。そして、このプラグインが扱うプロパティのリストを\n登録します。このプラグインを有効にするために、TweenJSがロードされた後で一度、これを呼び出してください。",
+            "itemtype": "method",
+            "name": "install",
+            "static": 1,
+            "class": "SamplePlugin"
+        },
+        {
+            "file": "src/tweenjs/SamplePlugin.js",
+            "line": 66,
+            "description": "このプラグインが登録される新しいトゥイーンプロパティが初期化するときにTweenJSによって呼ばれます。\n一般的に、<code>Plugin.init</code>呼び出しは、<code>Plugin.to</code>に続いて即座に行われます。",
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "関連するトゥイーンインスタンス。",
+                    "type": "Tween"
+                },
+                {
+                    "name": "prop",
+                    "description": "初期化されるプロパティの名前。",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "トゥインのターゲット上のプロパティの現在値。",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "プロパティの開始トゥイーン値。多くの場合、単に値のパラメータを返します。\nしかし、いくつかのプラグインは開始値の変更が必要になるかもしれません。",
+                "type": "Any"
+            },
+            "static": 1,
+            "class": "SamplePlugin"
+        },
+        {
+            "file": "src/tweenjs/SamplePlugin.js",
+            "line": 84,
+            "description": "プラグインが登録されるプロパティを含むトゥイーンに新しいステップが追加されるときにTweenJSによって呼び出されます。\n（すなわち、新しい\"to\"アクションがトゥイーンに追加されるとき）。",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "関連するトゥイーンインスタンス。",
+                    "type": "Tween"
+                },
+                {
+                    "name": "prop",
+                    "description": "トゥイーンされるプロパティの名前。",
+                    "type": "String"
+                },
+                {
+                    "name": "startValue",
+                    "description": "始まりのステップにおけるプロパティの値。もし、これが最初のステップなら、初期値と同じになります。\nもしくは、そうでないなら、前のステップのendValueと同じになります。",
+                    "type": "Any"
+                },
+                {
+                    "name": "injectProps",
+                    "description": "プラグインが、このステップ上で更新すべき他のプロパティに追加できる汎用オブジェクト。",
+                    "type": "Object"
+                },
+                {
+                    "name": "endValue",
+                    "description": "最後のステップにおけるプロパティの値。",
+                    "type": "Any"
+                }
+            ],
+            "static": 1,
+            "class": "SamplePlugin"
+        },
+        {
+            "file": "src/tweenjs/SamplePlugin.js",
+            "line": 99,
+            "description": "このプラグインが登録されるトゥイーンプロパティを進めるときに呼び出されます。",
+            "itemtype": "method",
+            "name": "tween",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "関連するトゥイーンインスタンス。",
+                    "type": "Tween"
+                },
+                {
+                    "name": "prop",
+                    "description": "トゥイーンされるプロパティの名前。",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "TweenJSによって計算された、プロパティの現在のトゥイーンされた値。",
+                    "type": "Any"
+                },
+                {
+                    "name": "startValues",
+                    "description": "現在のステップの始まりにおけるすべてのプロパティのハッシュ値。startValues[prop]を\n使うことで現在のプロパティの開始値にアクセスできます。",
+                    "type": "Object"
+                },
+                {
+                    "name": "endValues",
+                    "description": "現在のステップの終わりにおけるすべてのプロパティのハッシュ値。",
+                    "type": "Object"
+                },
+                {
+                    "name": "ratio",
+                    "description": "現在のステップでのイースのプログレスを示す値。この数値は通常0と1の間になります。\nけれども、いくつかのイースはこの範囲外の値を生成します。",
+                    "type": "Number"
+                },
+                {
+                    "name": "wait",
+                    "description": "現在のステップが\"wait\"ステップかどうかを示します。",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "end",
+                    "description": "トゥイーンが終わりに到達したかどうかを示します。",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "ターゲットプロパティに代入された値を返します。たとえば、<code>Math.round(value)</code>は、\n整数としての計算値を代入します。Tween.IGNOREは、ターゲットプロパティに値を代入するのを防ぎます。",
+                "type": "Any"
+            },
+            "static": 1,
+            "class": "SamplePlugin"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 61,
+            "description": "グローバルポーズがアクティブのとき、このタイムラインの再生を継続します。",
+            "itemtype": "property",
+            "name": "ignoreGlobalPause",
+            "type": "Boolean",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 68,
+            "description": "ミリ秒（useTicksがtrueの場合はtick）単位でこのタイムラインのトータルの時間を示すリードオンリープロパティ。\nこの値はタイムラインの変更に応じて通常自動的に更新されます。詳しくは updateDuration を見てください。",
+            "itemtype": "property",
+            "name": "duration",
+            "type": "Number",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 76,
+            "description": "trueなら、タイムラインは最後に到達したときにループします。propsパラメータ経由で設定できます。",
+            "itemtype": "property",
+            "name": "loop",
+            "type": "Boolean",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 83,
+            "description": "このタイムラインの位置が変わるたびに、このタイムラインインスタンスを参照する単一のパラメータと共に呼ばれます。",
+            "itemtype": "property",
+            "name": "onChange",
+            "type": "Function",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 90,
+            "description": "リードオンリー。現在の正規化されたタイムラインの位置。これは常に0とdurationの間の値となります。\nこのプロパティを直接変更することは、何の影響もありません。",
+            "itemtype": "property",
+            "name": "position",
+            "type": "Object",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 100,
+            "itemtype": "property",
+            "name": "_paused",
+            "type": "Boolean",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 107,
+            "itemtype": "property",
+            "name": "_tweens",
+            "type": "Array[Tween]",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 114,
+            "itemtype": "property",
+            "name": "_labels",
+            "type": "Array[String]",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 121,
+            "itemtype": "property",
+            "name": "_prevPosition",
+            "type": "Number",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 128,
+            "itemtype": "property",
+            "name": "_prevPos",
+            "type": "Number",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 135,
+            "itemtype": "property",
+            "name": "_useTicks",
+            "type": "Boolean",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 143,
+            "description": "初期化メソッド。",
+            "itemtype": "method",
+            "name": "initialize",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 164,
+            "description": "１つ以上のトゥイーン（もしくはタイムライン）をこのタイムラインに追加します。\nそれらのトゥイーンは（通常のtickシステムから削除するために）一時停止し、このタイムラインによって管理されます。\n１つのトゥイーンを複数のタイムラインに追加することで、予期しないふるまいが生じます。",
+            "itemtype": "method",
+            "name": "addTween",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "追加するトゥイーン。複数の引数を受け入れます。"
+                }
+            ],
+            "return": {
+                "description": "Tween 指定された最初のトゥイーン。"
+            },
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 188,
+            "description": "このタイムラインから１つ以上のトゥイーンを削除します。",
+            "itemtype": "method",
+            "name": "removeTween",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "削除されるトゥイーン。複数の引数を受け入れます。"
+                }
+            ],
+            "return": {
+                "description": "Boolean すべてのトゥイーンが正常に削除された場合に trueを返します。"
+            },
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 209,
+            "description": "gotoAndPlay/Stopで使用されるラベルを追加します。",
+            "itemtype": "method",
+            "name": "addLabel",
+            "params": [
+                {
+                    "name": "label",
+                    "description": "ラベル名。"
+                },
+                {
+                    "name": "position",
+                    "description": "このラベルが描画される位置。"
+                }
+            ],
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 219,
+            "description": "gotoAndPlay/Stop用のラベルを定義します。以前に設定されたラベルを上書きします。",
+            "itemtype": "method",
+            "name": "addLabel",
+            "params": [
+                {
+                    "name": "o",
+                    "description": "書式  （timeはミリ秒単位。useTicksがtrueの場合はtick単位。）でgotoAndPlay/Stop用のラベルを定義するオブジェクト。",
+                    "type": "LabelName:time"
+                }
+            ],
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 228,
+            "description": "一時停止を解除し、指定された位置もしくはラベルにジャンプします。",
+            "itemtype": "method",
+            "name": "gotoAndPlay",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "ミリ秒単位（useTicksがtrueならtick）の位置。"
+                }
+            ],
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 238,
+            "description": "このタイムラインを一時停止し、指定された位置もしくはラベルにジャンプします。",
+            "itemtype": "method",
+            "name": "gotoAndStop",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "ミリ秒単位（useTicksがtrueならtick）の位置もしくはジャンプするラベル。"
+                }
+            ],
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 248,
+            "description": "指定された位置にタイムラインを進めます。",
+            "itemtype": "method",
+            "name": "setPosition",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "ミリ秒単位（useTicksがtrueならtick）でシークする位置。"
+                },
+                {
+                    "name": "actionsMode",
+                    "description": "どうアクションを扱うかを示す任意のパラメータ。詳細はTween.setPositionを見てください。"
+                }
+            ],
+            "return": {
+                "description": "Boolean タイムラインが完了された場合にtrueを返します。（すなわち、すべてのタイムラインが実行され、loopがfalse）"
+            },
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 271,
+            "description": "このタイムラインを一時停止もしくは再生します。",
+            "itemtype": "method",
+            "name": "setPaused",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "トゥイーンが一時停止されるべきか(true)、再生されるべきか(false)を示します。"
+                }
+            ],
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 281,
+            "description": "タイムラインの時間を再計算します。\nトゥイーンが追加または削除される際に時間は自動的に更新されますが、このメソッドはトゥイーンがタイムラインに\n追加された後で修正する場合に有益です。",
+            "itemtype": "method",
+            "name": "updateDuration",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 295,
+            "description": "このタイムラインをミリ秒単位（useTicksがtrueの場合はtick）で指定した分だけ進めます。\nこれは通常自動的にトゥイーンエンジンによって（Tween.tick経由で）呼ばれますが、上級者用に見せています。",
+            "itemtype": "method",
+            "name": "tick",
+            "params": [
+                {
+                    "name": "delta",
+                    "description": "ミリ秒単位（useTicksがtrueの場合はtick）で進める時間。"
+                }
+            ],
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 305,
+            "description": "数値による位置が渡された場合、それは変更されることなく返されます。文字列が渡された場合、対応するフレーム\nラベルが返されます。もしくは、一致するラベルがない場合は、nullが返されます。",
+            "itemtype": "method",
+            "name": "resolve",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "数値による位置もしくはラベル文字列。"
+                }
+            ],
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 317,
+            "description": "このオブジェクトの文字列の表現を返します。",
+            "itemtype": "method",
+            "name": "toString",
+            "return": {
+                "description": "インスタンスの文字列表現。",
+                "type": "String"
+            },
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 326,
+            "itemtype": "method",
+            "name": "clone",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Timeline.js",
+            "line": 335,
+            "itemtype": "method",
+            "name": "_goto",
+            "access": "protected",
+            "tagname": "",
+            "class": "Timeline"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 102,
+            "description": "setPositionと共に使用するためにアクションモード以外に定義する定数",
+            "itemtype": "property",
+            "name": "NONE",
+            "type": "Number",
+            "default": "0",
+            "static": 1,
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 111,
+            "description": "setPositionと共に使用するためにループアクションモードを定義する定数",
+            "itemtype": "property",
+            "name": "LOOP",
+            "type": "Number",
+            "default": "1",
+            "static": 1,
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 120,
+            "description": "setPositionと共に使用するためにリバースアクションモードを定義する定数",
+            "itemtype": "property",
+            "name": "REVERSE",
+            "type": "Number",
+            "default": "2",
+            "static": 1,
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 129,
+            "description": "ディフォルトの割り当てを使わないようにトゥイーンに伝えるためにプラグインによって返される定数",
+            "itemtype": "property",
+            "name": "IGNORE",
+            "type": "Object",
+            "static": 1,
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 137,
+            "itemtype": "property",
+            "name": "_listeners",
+            "type": "Array[Tween]",
+            "static": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 145,
+            "itemtype": "property",
+            "name": "_plugins",
+            "type": "Object",
+            "static": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 153,
+            "description": "新しいトゥイーンインスタンスを返す。これは \"new Tween(...)\"を使うのと機能的に同じです。\nしかし、TweenJSのチェーンされた構文でよりきれいに見えます。",
+            "example": [
+                "\n\tvar tween = createjs.Tween.get(target);"
+            ],
+            "itemtype": "method",
+            "name": "get",
+            "static": 1,
+            "params": [
+                {
+                    "name": "target",
+                    "description": "トゥイーンされたプロパティを持つターゲットオブジェクト",
+                    "type": "Object"
+                },
+                {
+                    "name": "props",
+                    "description": "このツゥイーンインスタンスを適用するプロパティ（例. <code>{loop:true, paused:true}</code>）。\nすべてのプロパティのディフォルトはfalse。サポートされるプロパティは:<UL>\n   <LI> loop: このツゥイーンにループをセットする。</LI>\n   <LI> useTicks: すべての期間にミリ秒の代わりにtickを使用する。</LI>\n   <LI> ignoreGlobalPause: このトゥイーン上でGlobalPauseを無視する。</LI>\n   <LI> override: trueならば、 同じターゲットを持つ他のトゥイーンを削除するためにTween.removeTweens(target)が呼ばれる。\n   <LI> paused: 一時停止されたツゥイーンが開始するかどうかを示す。</LI>\n   <LI> position: このツゥイーンの最初の位置を示す。</LI>\n   <LI> onChange: このツゥイーンのonChangeハンドラを指定する。これは \"change\"イベントを後継として将来廃止される可能性が\n   あることに注意してください。</LI>\n</UL>",
+                    "type": "Object"
+                },
+                {
+                    "name": "pluginData",
+                    "description": "インストールされたプラグインによって使用されるデータを含むオブジェクト。\n詳細は個々のプラグインのドキュメントを参照してください。",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "override",
+                    "description": "trueなら、同じターゲットの先行するツゥイーンは削除されます。これは、\n<code>Tween.removeTweens(target)</code>を呼ぶことと同じです。",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "作成されたトゥイーンへの参照。追加のチェーンされたツゥイーン、メソッド呼び出し、コールバックは\n返されたツゥイーンインスタンスに適用することができます。",
+                "type": "Tween"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 184,
+            "description": "すべてのツゥイーンを進めます。これは、通常（EaselJSライブラリで利用可能な）Tickerクラスを使います。しかし、\nもし、独自の\"heartbeat\"実装が使いたい場合は、手動でそれを呼ぶこともできます。",
+            "itemtype": "method",
+            "name": "tick",
+            "static": 1,
+            "params": [
+                {
+                    "name": "delta",
+                    "description": "最後のtickからの時間の変化（単位ミリ秒）。すべてのツゥイーンで<code>useTicks</code>がtrueでないことが\n要求されます。",
+                    "type": "Number"
+                },
+                {
+                    "name": "paused",
+                    "description": "グローバルポーズが実施されているかどうかを示します。 <code>ignoreGlobalPause</code>がセットされた\nトゥイーンはこれを無視します。しかし、もしこれがtrueなら、すべてのトゥイーンはポーズします。",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 205,
+            "description": "ターゲットのすべての存在するツィーンを削除します。\n<code>override</code>プロパティがtrueなら、新しいトゥイーンによって、これは自動的に呼ばれます。",
+            "itemtype": "method",
+            "name": "removeTweens",
+            "static": 1,
+            "params": [
+                {
+                    "name": "target",
+                    "description": "存在するトゥイーンを削除するためのターゲットオブジェクト。",
+                    "type": "Object"
+                }
+            ],
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 224,
+            "description": "（指定されていれば）ターゲットオブジェクト上に有効なトゥイーンがあるか、一般的かを示します。",
+            "itemtype": "method",
+            "name": "hasActiveTweens",
+            "static": 1,
+            "params": [
+                {
+                    "name": "target",
+                    "description": "オプション。指定されなければ、戻り値は、いずれかのターゲット上でアクティブなツゥイーンがあるか\nどうかを示します。",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "アクティブツゥイーンがあるかどうかを示すブール値。",
+                "type": "Boolean"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 237,
+            "description": "トゥイーン時にどうプロパティを扱うかを修正できるプラグインをインストールします。\nTweenJSプラグインをどのように書くかの例は CSSPluginを参照してください。",
+            "itemtype": "method",
+            "name": "installPlugin",
+            "static": 1,
+            "params": [
+                {
+                    "name": "plugin",
+                    "description": "インストールするプラグインクラス",
+                    "type": "Object"
+                },
+                {
+                    "name": "properties",
+                    "description": "プラグインが扱うプロパティの配列",
+                    "type": "Array"
+                }
+            ],
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 261,
+            "description": "tickシステムでのトゥイーンを登録もしくは解除します。",
+            "itemtype": "method",
+            "name": "_register",
+            "static": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 292,
+            "description": "グローバルポーズがアクティブのとき、このツゥイーンは再生を継続します。たとえば、TweenJSがTickerを使用しているなら、\nこれをtrueにセットすることで（ディフォルト）、<code>Ticker.setPaused(true)</code>が呼ばれるとき、このトゥイーンはポーズします。\n詳細は、Tween.tick()を参照してください。プロパティのパラメータ経由で設定できます。",
+            "itemtype": "property",
+            "name": "ignoreGlobalPause",
+            "type": "Boolean",
+            "default": "false",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 302,
+            "description": "trueなら、最後まで達したときにトゥイーンはループします。プロパティのパラメータ経由でセット可能です。",
+            "itemtype": "property",
+            "name": "loop",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 310,
+            "description": "リードオンリー。このトゥイーンの合計の期間をミリ秒単位で示します。（もしくは、useTicksがtrueなら、tick単位)\nこの値は、トゥイーンが修正されるなら、自動的に更新されます。直接、値を変更することは予期しないふるまいになる\n可能性があります。",
+            "itemtype": "property",
+            "name": "duration",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 320,
+            "description": "インストールされるプラグインによって使用されるデータを指定できるようにします。それぞれのプラグインは、これを別に使います。\nしかし、通常はプラグインクラスとして同じ名前でプラグインデータのプロパティに設定します。",
+            "example": [
+                "\n\tmyTween.pluginData.PluginClassName = data;\n<br/>\nほとんどのプラグインは、これらを有効または無効にするプロパティもサポートします。\nこれは通常は、プラグインのクラス名に \"_enabled\"を続けます。<br/>",
+                " \n\tmyTween.pluginData.PluginClassName_enabled = false;<br/>\n<br/>\nいくつかのプラグインは、オブジェクトにインスタンスデータも保存します。これは通常、_PluginClassName\nという名前のプロパティになります。詳細は、個々のプラグインのドキュメントを参照してください。"
+            ],
+            "itemtype": "property",
+            "name": "pluginData",
+            "type": "{Object}",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 338,
+            "description": "単一パラメータでこのツゥイーンインスタンスを参照して、トゥイーンの位置の変更する場合に呼び出されます。",
+            "itemtype": "property",
+            "name": "onChange",
+            "type": "{Function}",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 345,
+            "description": "単一パラメータでこのツゥイーンインスタンスを参照して、トゥイーンの位置の変更する場合に呼び出されます。",
+            "itemtype": "event",
+            "name": "change",
+            "since": "0.4.0",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 352,
+            "description": "リードオンリー。このトゥイーンのターゲット。これは、トゥイーンされるプロパティが変更するオブジェクトです。\nトゥイーンが生成された後、このプロパティを変更することでは、他の効果はありません。",
+            "itemtype": "property",
+            "name": "target",
+            "type": "{Object}",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 360,
+            "description": "リードオンリー。現在の正常化された(Normalized)トゥイーンの位置。これは常に0からdurationの間の値となります\n直接このプロパティを変更することでは、他の効果はありません。",
+            "itemtype": "property",
+            "name": "position",
+            "type": "{Object}",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 370,
+            "itemtype": "property",
+            "name": "_paused",
+            "type": "{Boolean}",
+            "default": "false",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 378,
+            "itemtype": "property",
+            "name": "_curQueueProps",
+            "type": "{Object}",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 385,
+            "itemtype": "property",
+            "name": "_initQueueProps",
+            "type": "{Object}",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 392,
+            "itemtype": "property",
+            "name": "_steps",
+            "type": "{Array}",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 399,
+            "itemtype": "property",
+            "name": "_actions",
+            "type": "{Array}",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 406,
+            "description": "Raw position.",
+            "itemtype": "property",
+            "name": "_prevPosition",
+            "type": "{Number}",
+            "default": "0",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 415,
+            "description": "現在のステップ内の位置",
+            "itemtype": "property",
+            "name": "_stepPosition",
+            "type": "{Number}",
+            "default": "0",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 424,
+            "description": "正常化された(Normalized)位置",
+            "itemtype": "property",
+            "name": "_prevPos",
+            "type": "{Number}",
+            "default": "-1",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 433,
+            "itemtype": "property",
+            "name": "_target",
+            "type": "{Object}",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 440,
+            "itemtype": "property",
+            "name": "_useTicks",
+            "type": "{Boolean}",
+            "default": "false",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 449,
+            "itemtype": "method",
+            "name": "initialize",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "props",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "pluginData",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 477,
+            "description": "待ちのキューをつくります（基本的に空のトゥイーン）",
+            "example": [
+                "                                                   \n\t//このトゥイーンはalphaが0になる前に1秒待ちます。\n\tcreatejs.Tween.get(target).wait(1000).to({alpha:0}, 1000);"
+            ],
+            "itemtype": "method",
+            "name": "wait",
+            "params": [
+                {
+                    "name": "duration",
+                    "description": "ミリ秒単位の待ち時間 (もしくは、<code>useTicks</code>がtrueなら、tick単位)。",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "このトゥイーンインスタンス（変更呼び出しのための）。",
+                "type": "Tween"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 492,
+            "description": "現在の値からターゲットプロパティへのトゥイーンのキューをつくります。これらの値にジャンプするためにdurationに\n0をセットします。数値プロパティは、現在の値からターゲット値までで、トゥイーンします。非数値プロパティは、\n指定されたdurationの終わりで、セットされます。",
+            "example": [
+                "\n\tcreatejs.Tween.get(target).to({alpha:0}, 1000);"
+            ],
+            "itemtype": "method",
+            "name": "to",
+            "params": [
+                {
+                    "name": "props",
+                    "description": "このトゥイーンのプロパティのターゲット値に指定したオブジェクト。\n     （例．　<code>{x:300}</code>は、ターゲットのxプロパティを300にトゥイーンします。）",
+                    "type": "Object"
+                },
+                {
+                    "name": "duration",
+                    "description": "オプション。ミリ秒単位での待ち時間（もしくは、<code>useTicks</code>がtrueなら、tick単位。\n     ディフォルトは、0。",
+                    "type": "Number"
+                },
+                {
+                    "name": "ease",
+                    "description": "オプション。このトゥイーンのイージング関数。ディフォルトは、リニア。",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "このトゥイーンインスタンス（変更呼び出しのための）。",
+                "type": "Tween"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 511,
+            "description": "指定した関数を呼ぶためのアクションのキューをつくります。",
+            "example": [
+                "\n  \t//would call myFunction() after 1s.      \n  \tmyTween.wait(1000).call(myFunction);"
+            ],
+            "itemtype": "method",
+            "name": "call",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "呼び出すための関数。",
+                    "type": "Function"
+                },
+                {
+                    "name": "params",
+                    "description": "オプション。関数と共に呼び出すパラメータ。これがない場合は、関数はこのトゥイーンを指す\n     単一のパラメータのみで呼び出されます。",
+                    "type": "Array"
+                },
+                {
+                    "name": "scope",
+                    "description": "オプション。関数を呼ぶためのスコープ。これがない場合は、ターゲットのスコープで呼び出されます。",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "このトゥイーンインスタンス（変更呼び出しのための）。",
+                "type": "Tween"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 528,
+            "description": "指定されたターゲット上で指定したプロパティをセットするアクションのキューをつくります。ターゲットがnullなら、\nこのトゥイーンのターゲットを使います。",
+            "example": [
+                "\n\tmyTween.wait(1000).set({visible:false},foo);"
+            ],
+            "itemtype": "method",
+            "name": "set",
+            "params": [
+                {
+                    "name": "props",
+                    "description": "セットするプロパティ（例. <code>{visible:false}</code>）。",
+                    "type": "Object"
+                },
+                {
+                    "name": "target",
+                    "description": "オプション。プロパティをセットするターゲット。これがなければ、そのトゥイーンのターゲットにセットされます。",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "このトゥイーンインスタンス（変更呼び出しのための）。",
+                "type": "Tween"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 542,
+            "description": "指定されたトゥイーンを再生する（ポーズを解除する）ためのアクションのキューをつくります。\nこれは複数トゥイーンのシーケンスを可能にします。",
+            "example": [
+                " \n\tmyTween.to({x:100},500).play(otherTween);"
+            ],
+            "itemtype": "method",
+            "name": "play",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "再生するためのトゥイーン。",
+                    "type": "Tween"
+                }
+            ],
+            "return": {
+                "description": "このトゥイーンインスタンス（変更呼び出しのための）。",
+                "type": "Tween"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 555,
+            "description": "指定されたトゥイーンを停止するためのアクションのキューをつくります。",
+            "itemtype": "method",
+            "name": "pause",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "再生するためのトゥイーン。nullならば、このトゥイーンを停止します。",
+                    "type": "Tween"
+                }
+            ],
+            "return": {
+                "description": "このトゥイーンインスタンス（変更呼び出しのための）。",
+                "type": "Tween"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 566,
+            "description": "指定された位置にトゥイーンを進めます。",
+            "itemtype": "method",
+            "name": "setPosition",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "シークするミリ秒単位の位置（もしくは、useTicksがtrueなら、tick単位）",
+                    "type": "Number"
+                },
+                {
+                    "name": "actionsMode",
+                    "description": "アクションをどう扱うかを示すオプションのパラメータ（例. call, set, play, pause):\n     <code>Tween.NONE</code> (0) - アクションを実行しません。<code>Tween.LOOP</code> (1) - もし新しい位置が古い位置より小さいなら、\n     古い位置とdurationの間のアクションをすべて実行し、0と新しい位置の間のアクションをすべて実行します。ディフォルトは、<code>LOOP</code>になります。\n     <code>Tween.REVERSE</code> (2) - もし、新しい位置が古い位置より前ならば、この間のすべてのアクションを逆に実行します。",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "このトゥイーンが完了したら、trueを返します。(例. すべてのトゥイーンを実行し、loopがfalseならば）",
+                "type": "Boolean"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 632,
+            "description": "このトゥイーンを指定された量のミリ秒単位の時間によって進めます（もしくは、 <code>useTicks</code>がtrueの場合は、tick単位）。\nこれは通常トゥイーンエンジンによって自動的に呼び出されます（<code>Tween.tick</code>経由）。しかし、上級者向けに見えるようにしてあります。",
+            "itemtype": "method",
+            "name": "tick",
+            "params": [
+                {
+                    "name": "delta",
+                    "description": "進めるためのミリ秒単位の時間（もしくは、 <code>useTicks</code>がtrueの場合は、tick単位）",
+                    "type": "Number"
+                }
+            ],
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 643,
+            "description": "このトゥイーンの一時停止もしくは再生",
+            "itemtype": "method",
+            "name": "setPaused",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "トゥイーンが一時停止されるべきか(true)、再生されるべきか(false)を指定します。",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "このトゥイーンインスタンス（変更呼び出しのための）。",
+                "type": "Tween"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 661,
+            "description": "このオブジェクトの文字列表現を返します。",
+            "itemtype": "method",
+            "name": "toString",
+            "return": {
+                "description": "インスタンスの文字列表現。",
+                "type": "String"
+            },
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 670,
+            "itemtype": "method",
+            "name": "clone",
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 679,
+            "itemtype": "method",
+            "name": "_updateTargetProps",
+            "params": [
+                {
+                    "name": "step",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "ratio",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 719,
+            "itemtype": "method",
+            "name": "_runActions",
+            "params": [
+                {
+                    "name": "startPos",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "endPos",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "includeStart",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 748,
+            "itemtype": "method",
+            "name": "_appendQueueProps",
+            "params": [
+                {
+                    "name": "o",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 783,
+            "itemtype": "method",
+            "name": "_cloneProps",
+            "params": [
+                {
+                    "name": "props",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 796,
+            "itemtype": "method",
+            "name": "_addStep",
+            "params": [
+                {
+                    "name": "o",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 810,
+            "itemtype": "method",
+            "name": "_addAction",
+            "params": [
+                {
+                    "name": "o",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        },
+        {
+            "file": "src/tweenjs/Tween.js",
+            "line": 821,
+            "itemtype": "method",
+            "name": "_set",
+            "params": [
+                {
+                    "name": "props",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "o",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "Tween",
+            "module": "TweenJS"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nパスに沿って与えられた比率により、パスにふさわしいx/y/rotation情報を決定します。\nすべてのオプションパラメータが指定されたpathオブジェクトを仮定します。",
+            "line": " src/tweenjs/MotionGuidePlugin.js:168"
+        },
+        {
+            "message": "Missing item type\nプラグインが登録されるプロパティを含むトゥイーンに新しいステップが追加されるときにTweenJSによって呼び出されます。\n（すなわち、新しい\"to\"アクションがトゥイーンに追加されるとき）。",
+            "line": " src/tweenjs/SamplePlugin.js:84"
+        }
+    ]
+}

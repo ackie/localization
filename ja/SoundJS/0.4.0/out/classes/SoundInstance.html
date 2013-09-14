@@ -1,0 +1,5092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SoundInstance</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/FlashPlugin.html">FlashPlugin</a></li>
+            
+                <li><a href="../classes/HTMLAudioPlugin.html">HTMLAudioPlugin</a></li>
+            
+                <li><a href="../classes/Log.html">Log</a></li>
+            
+                <li><a href="../classes/Sound.html">Sound</a></li>
+            
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
+            
+                <li><a href="../classes/WebAudioPlugin.html">WebAudioPlugin</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/SoundJS.html">SoundJS</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1>SoundInstance Class</h1>
+<div class="box meta">
+    
+        <div class="uses">
+            Uses
+            <ul class="inline commas">
+                
+                    <li><a href="EventDispatcher.html">EventDispatcher</a></li>
+                
+            </ul>
+        </div>
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_soundjs_WebAudioPlugin.js.html#l357"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:357</code></a>
+        </div>
+    
+
+    
+        
+            Module: <a href="../modules/SoundJS.html">SoundJS</a>
+        
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>Sound API �̃��\�b�h <a href="../classes/Sound.html#method_play" class="crosslink">play</a> �� <a href="../classes/Sound.html#method_createInstance" class="crosslink">createInstance</a> �Ȃǂ��Ă΂ꂽ�ہA
+���������� SoundInstance �ł��BSoundInstance �́A���[�U�[�����삷�邽�߂Ɏg�p���̃v���O�C���ɂ����ĕԂ����܂��B</p>
+<p><h4>Example</h4>
+     Sound.play("myAssetPath/mySrcFile.mp3");</p>
+<p>�ǉ��p�����[�^�̐��ɂ����A�������ōĐ������Ă��邩�ȒP�ɓ��肷�鎖���ł��܂��B
+�������X�g�� Sound API �̃��\�b�h <a href="../classes/Sound.html#method_play" class="crosslink">play</a> ���Q�Ƃ��������B</p>
+<p>���x SoundInstance �������������ƁA���[�U�[�������𒼐ڑ����ł��� SoundInstance �̎Q�Ƃ��ێ����邱�Ƃ��ł��܂��B
+�����A���̎Q�Ƃ����[�U�[���ێ����Ȃ������ꍇ�ASoundInstance �͂��̉������Ō��܂ŉ��t���i���[�v���ĉ��t���j�A
+<a href="../classes/Sound.html" class="crosslink">Sound</a> �N���X�����̎Q�Ƃ��������邽�߁A�����ŏ��������܂��B
+�����ێ������Q�Ƃ̉��Đ����������Ă����ꍇ�A<a href="../classes/SoundInstance.html#method_play" class="crosslink">play</a>�C���X�^���X�̃��\�b�h�̌Ăяo���ɂ����A
+���삷�邽�߂̐V����Sound�N���X�ւ̎Q�Ƃ����������܂��B</p>
+<pre class="code prettyprint"><code> var myInstance = Sound.play("myAssetPath/mySrcFile.mp3");
+ myInstance.addEventListener("complete", playAgain);
+ function playAgain(event) {
+     myInstance.play();
+ }</code></pre>
+<p>���̍Đ������������ꍇ�A���[�v�����ꍇ�A�Đ��Ɏ��s�����ꍇ�ɁA�C���X�^���X�����C�x���g�����s�����܂��B
+Events are dispatched from the instance to notify when the sound has completed, looped, or when playback fails</p>
+<pre class="code prettyprint"><code> var myInstance = Sound.play("myAssetPath/mySrcFile.mp3");
+ myInstance.addEventListener("complete", playAgain);
+ myInstance.addEventListener("loop", handleLoop);
+ myInstance.addEventListener("playbackFailed", handleFailed);</code></pre>
+
+</div>
+
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_SoundInstance" class="method item">
+    <h3 class="name"><code>SoundInstance</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>src</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>owner</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l357"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:357</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�����̃p�X�ƃt�@�C�����ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">owner</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>���� SoundInstance �𐶐������v���O�C���C���X�^���X�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_addEventListener">addEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_beginPlaying">beginPlaying</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_cleanup">cleanup</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_dispatchEvent">dispatchEvent</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getDuration">getDuration</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getMute">getMute</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getPan">getPan</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getPosition">getPosition</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getVolume">getVolume</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_hasEventListener">hasEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_init">init</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected inherited">
+                                <a href="#method_initialize">initialize</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_interrupt">interrupt</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method deprecated">
+                                <a href="#method_mute">mute</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_mute">mute</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_pause">pause</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_play">play</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_removeAllEventListeners">removeAllEventListeners</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_removeEventListener">removeEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_resume">resume</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_sendEvent">sendEvent</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setPan">setPan</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setPosition">setPosition</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setVolume">setVolume</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_stop">stop</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_toString">toString</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_updateVolume">updateVolume</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property protected inherited">
+                                <a href="#property__listeners">_listeners</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_delay">delay</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_delayTimeoutId">delayTimeoutId</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_gainNode">gainNode</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_muted">muted</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_offset">offset</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onComplete">onComplete</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onLoop">onLoop</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onPlayFailed">onPlayFailed</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onPlayInterrupted">onPlayInterrupted</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onPlaySucceeded">onPlaySucceeded</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onReady">onReady</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_owner">owner</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_pan">pan</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_pan">pan</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_panNode">panNode</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_paused">paused</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_playState">playState</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_remainingLoops">remainingLoops</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_soundCompleteTimeout">soundCompleteTimeout</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_sourceNode">sourceNode</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_src">src</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_startTime">startTime</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_uniqueId">uniqueId</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_volume">volume</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events">
+                        
+                            <li class="index-item event">
+                                <a href="#event_complete">complete</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_failed">failed</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_interrupted">interrupted</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_loop">loop</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_ready">ready</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_succeeded">succeeded</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_addEventListener" class="method item inherited">
+    <h3 class="name"><code>addEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Function | Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_addEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l106"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:106</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントリスナを追加します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>handleEvent メソッドを持つオブジェクト、またはイベントが発行された時に
+呼ばれる関数です</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Function | Object</span>:
+                    
+                    <p>listener を連携や代入等の目的に使用できるように返します</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_beginPlaying" class="method item protected">
+    <h3 class="name"><code>beginPlaying</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>offset</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>loop</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>volume</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>pan</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l835"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:835</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���Đ��̏��񂪊��������i�x�������������j��Sound�N���X�����Ă΂��܂��B�������ǂݍ��܂��Ă����΍Đ����J�n���܂����A�����łȂ����΍Đ��Ɏ��s���܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">offset</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�Đ����J�n�����ʒu���~���b�P�ʂŎw�肵�܂��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">loop</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�J���Ԃ��Đ������񐔂��w�肵�܂��B�i�v���[�v�̎w���ɂ�-1���g�p���ĉ������B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">volume</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>0�`1�̊Ԃŉ��ʂ��w�肵�܂��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">pan</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>-1(��)�`1(�E)�̊Ԃŉ��̒��ʂ��w�肵�܂��BHTML Audio�ł͒��ʂ͓����Ȃ����ɒ��ӂ��Ă��������B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_cleanup" class="method item protected">
+    <h3 class="name"><code>cleanup</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l732"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:732</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�����ꂢ�ɂ��܂��B�Q�Ƃ��폜���Atimer�̂悤�Ȓǉ��v���p�e�B�����ׂč폜���܂��B</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_dispatchEvent" class="method item inherited">
+    <h3 class="name"><code>dispatchEvent</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>eventObj</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[target]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_dispatchEvent">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l154"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:154</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントを発行します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">eventObj</code>
+                        <span class="type">Object | String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>&quot;type&quot; プロパティを持つオブジェクト、もしくは種類を指定する文字列です。
+dispatchEvent  &quot;type&quot; と &quot;params&quot; プロパティを持つ汎用イベントオブジェクトを生成します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[target]</code>
+                        <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントオブジェクトの target プロパティとして使うオブジェクトです。デフォルト値は
+イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>リスナが 1 つでも true を返したら true になります。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getDuration" class="method item">
+    <h3 class="name"><code>getDuration</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l1082"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:1082</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̍Đ����Ԃ��~���b�P�ʂŎ擾���܂��B
+�قƂ��ǂ̏ꍇ�A�Đ����Ԃ𐳊m�ɂ��邽�߂ɂ�<a href="../classes/SoundInstance.html#method_play" class="crosslink">play</a> �� 
+Sound.play�ɂ����ĉ����Đ������K�v�������܂��B</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number</span>:
+                    
+                    <p>�T�E���h�C���X�^���X�̍Đ����Ԃ��~���b�P�ʂŕԂ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getMute" class="method item">
+    <h3 class="name"><code>getMute</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l1001"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:1001</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̏������Ԃ��擾���܂��B</p>
+<p><h4>Example</h4>
+     var isMuted = myInstance.getMute();</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>���������Ă��邩���Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getPan" class="method item">
+    <h3 class="name"><code>getPan</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l1033"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:1033</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̍��E���ʂ��擾���܂��B3D�����̏ꍇ WebAudioPlugin ��x�l�����Ԃ��Ȃ����ɒ��ӂ��ĉ������B</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number</span>:
+                    
+                    <p>-1(��)�`1(�E)�̊Ԃŉ��̒��ʂ��w�肵�܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getPosition" class="method item">
+    <h3 class="name"><code>getPosition</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l1042"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:1042</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̍Đ����J�n�����ʒu���~���b�P�ʂŎ擾���܂��B</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number</span>:
+                    
+                    <p>���̍Đ��ʒu���~���b�P�ʂŕԂ��܂��B
+         The position of the playhead in the sound, in milliseconds.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getVolume" class="method item">
+    <h3 class="name"><code>getVolume</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l959"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:959</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̉��ʒl���擾���܂��B���ۂ̏o�͒l�͉��L���ɂ����Čv�Z�ł��܂��F</p>
+<pre class="code prettyprint"><code> instance.getVolume() x Sound.getVolume();</code></pre>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    <p>�C���X�^���X�̌��݂̉��ʂ��Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_hasEventListener" class="method item inherited">
+    <h3 class="name"><code>hasEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_hasEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l180"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:180</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントの種類に対して 1 つ以上のリスナが存在するかを調べます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>指定されたイベントのリスナが存在すると true を返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_init" class="method item protected">
+    <h3 class="name"><code>init</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>src</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>owner</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l707"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:707</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>SoundInstance �����������܂��B���̃��\�b�h�̓R���X�g���N�^�����Ăяo�����܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�����̃t�@�C���p�X�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">owner</code>
+                        <span class="type">Class</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>���̃C���X�^���X�𐶐������v���O�C���ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_initialize" class="method item protected inherited">
+    <h3 class="name"><code>initialize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_initialize">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l98"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:98</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>初期化メソッド</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_interrupt" class="method item protected">
+    <h3 class="name"><code>interrupt</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l758"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:758</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�����𒆒f���܂��B</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_mute" class="method item deprecated">
+    <h3 class="name"><code>mute</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+        <span class="flag deprecated" title="���̃��\�b�h��setMute�ɒu���������܂����B">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l971"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:971</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: ���̃��\�b�h��setMute�ɒu���������܂����B</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���̏����A�����������s���܂��B�������ꂽ���ł����Ă�����0�ōĐ������܂��B�������Ă��Ȃ����ł����Ă� Sound�N���X�̉��ʁA�C���X�^���X���ʁASound�N���X��mute�ɂ����Ă͏��������鎖�ɒ��ӂ��Ă��������B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Boolean</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�������������邩�A�������������邩���w�肵�܂��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>�����ɐ��󂵂������Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_mute" class="method item">
+    <h3 class="name"><code>mute</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l984"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:984</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̏����A�����������s���܂��B�������ꂽ���ł����Ă�����0�ōĐ������܂��B�������Ă��Ȃ����ł����Ă� Sound�N���X�̉��ʁA�C���X�^���X���ʁASound�N���X��mute�ɂ����Ă͏��������鎖�ɒ��ӂ��Ă��������B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Boolean</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�������������邩�A�������������邩���w�肵�܂��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>�����ɐ��󂵂������Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_pause" class="method item">
+    <h3 class="name"><code>pause</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l869"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:869</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̍Đ����ꎞ���~���܂��B�ꎞ���~���̉����͒��~���Ă����A<a href="../classes/SoundInstance.html#method_resume" class="crosslink">resume</a>�ɂ����ĕ��A�ł��܂��B</p>
+<p><h4>Example</h4>
+     myInstance.pause();</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>�ꎞ���~�����󂵂������Ԃ��܂��B�������Đ����łȂ��ꍇ�Afalse���Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_play" class="method item">
+    <h3 class="name"><code>play</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code class="optional">[interrupt=none]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[delay=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[offset=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[loop=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[volume=1]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[pan=0]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l814"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:814</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X���Đ����܂��B���̃��\�b�h�́A���łɑ��݂����i�T�E���hAPI CreateInstance �Ő������ꂽ���A�Đ����������������x�Đ������K�v�������ꍇ�j SoundInstances ���Ăяo���܂��B</p>
+<p><h4>Example</h4>
+     var myInstance = createJS.Sound.createInstance(mySrc);
+     myInstance.play(createJS.Sound.INTERRUPT_ANY);</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[interrupt=none]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>���������̑��̃C���X�^���X���ǂ̂悤�ɒ��f���邩�B
+���f���@���w�肷���l�́A<a href="../classes/Sound.html" class="crosslink">Sound</a>���ɒ萔�Ƃ��Ē��`�����Ă��܂��B�f�t�H���g�l��<code>Sound.INTERRUPT_NONE</code>�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[delay=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�Đ����J�n�����܂ł̒x�����~���b�P�ʂŎw�肵�܂��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[offset=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�Đ����J�n�����ʒu���~���bSound�Ŏw�肵�܂��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[loop=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�J���Ԃ��Đ������񐔂��w�肵�܂��B�i�v���[�v�̎w���ɂ�-1���g�p���ĉ������B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[volume=1]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>0�`1�̊Ԃŉ��ʂ��w�肵�܂��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[pan=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>-1(��)�`1(�E)�̊Ԃŉ��̒��ʂ��w�肵�܂��BHTML Audio�ł͒��ʂ͓����Ȃ����ɒ��ӂ��Ă��������B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeAllEventListeners" class="method item inherited">
+    <h3 class="name"><code>removeAllEventListeners</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code class="optional">[type]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_removeAllEventListeners">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l144"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:144</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定された種類、または全ての種類に対して関連付けられたリスナを全て削除します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[type]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を指定します。省略すると全ての種類に対応する全てのリスナが削除されます。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeEventListener" class="method item inherited">
+    <h3 class="name"><code>removeEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_removeEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l124"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:124</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントリスナを削除します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>リスナ関数又はオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_resume" class="method item">
+    <h3 class="name"><code>resume</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l896"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:896</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p><a href="../classes/SoundInstance.html#method_pause" class="crosslink">pause</a>�ňꎞ���~���ꂽ�C���X�^���X�𕜋A���܂��B
+�Đ����J�n���Ă��Ȃ������ł́A���̃��\�b�h���Ăяo���Ă��Đ����܂����B</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>���A�ɐ��󂵂������Ԃ��܂��B�������ꎞ���~���Ă��Ȃ��ꍇ�Afalse���Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_sendEvent" class="method item private">
+    <h3 class="name"><code>sendEvent</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l692"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:692</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>SoundInstance �̑S�C�x���g�𔭍s���邽�߂̃w���p�[���\�b�h�ł��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The event type</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setPan" class="method item">
+    <h3 class="name"><code>setPan</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>-1(��)�&#x60;1(�E)�̊Ԃŉ��̒��ʂ��w�肵�܂��B</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l1015"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:1015</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̍��E���ʂ��ݒ肵�܂��B<a href="../classes/HTMLAudioPlugin.html" class="crosslink">HTMLAudioPlugin</a> �͒��ʂɑΉ����Ă��炸�A
+<a href="../classes/WebAudioPlugin.html" class="crosslink">WebAudioPlugin</a>�ɂ̂ݎ��������Ă��邱�Ƃɒ��ӂ��Ă��������B�f�t�H���g��0�i�����j�ł��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">-1(��)�&#x60;1(�E)�̊Ԃŉ��̒��ʂ��w�肵�܂��B</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number</span>:
+                    
+                    <p>�Ăяo���ɐ��󂵂������Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_setPosition" class="method item">
+    <h3 class="name"><code>setPosition</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l1058"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:1058</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̍Đ����J�n�����ʒu���~���b�P�ʂŐݒ肵�܂��B���̒l�́A���̍Đ����A�ꎞ���~���A�܂����~���ł����Ă��ݒ肷�邱�Ƃ��ł��܂��B</p>
+<p><h4>Example</h4>
+     myInstance.setPosition(myInstance.getDuration()/2); // set audio to it&#39;s halfway point.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>���̍Đ��ʒu���~���b�P�ʂŕԂ��܂��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setVolume" class="method item">
+    <h3 class="name"><code>setVolume</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l922"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:922</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̉��ʂ��ݒ肵�܂��B<a href="../classes/SoundInstance.html#method_getVolume" class="crosslink">getVolume</a>�Ō��݂̉��ʂ��擾���鎖���o���܂��B</p>
+<p><h4>Example</h4>
+     myInstance.setVolume(0.5);</p>
+<p>Sound API ��<a href="../classes/Sound.html#method_setVolume" class="crosslink">setVolume</a> ���\�b�h���g�p���Đݒ肷���}�X�^�[�{�����[���̓C���X�^���X�{�����[���̏ォ�炳���ɓK�p�����܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>0�`1�̊Ԃ̉��ʒl�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>�Ăяo���ɐ��󂵂������Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_stop" class="method item">
+    <h3 class="name"><code>stop</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l910"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:910</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̍Đ������~���܂��B���~�������͍Đ��ʒu�����Z�b�g�����A<a href="../classes/SoundInstance.html#method_resume" class="crosslink">resume</a>�Ăяo���ɂ����s���܂��B</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>���~�ɐ��󂵂������Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_toString" class="method item inherited">
+    <h3 class="name"><code>toString</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_toString">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l191"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:191</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                    <p>インスタンスを表現する文字列です。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_updateVolume" class="method item protected">
+    <h3 class="name"><code>updateVolume</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l944"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:944</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�{�����[���A�}�X�^�[�{�����[���A�C���X�^���X�̏����A�y�у}�X�^�[�����̒l���Q�l�ɉ��ʒl���X�V���������֐��ł��B</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>���ʂ̍X�V�ɐ��󂵂������Ԃ��܂��B</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property__listeners" class="property item protected inherited">
+    <h3 class="name"><code>_listeners</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#property__listeners">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l90"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:90</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_delay" class="property item protected">
+    <h3 class="name"><code>delay</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l445"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:445</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�����Đ��������܂ł̎��Ԃ��~���b�P�ʂŎ����܂��B
+���̃v���p�e�B��<code>Sound</code>�ɂ����đ��삳���܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_delayTimeoutId" class="property item protected">
+    <h3 class="name"><code>delayTimeoutId</code></h3>
+    <span class="type">TimeoutVariable</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l496"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:496</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>SoundInstance ���x���ƂƂ��ɉ��t�������ۂɁA<code>Sound</code> �ɂ����č�������Timeout�ł��B
+�����ɂ����ASoundInstance���Đ��J�n�����O�ɒ��~�A�ꎞ���~�A�C���X�^���X�폜���s���ꂽ�ꍇ�ɁA�x�����j�����鎖���o�����悤�ɂ��܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_gainNode" class="property item">
+    <h3 class="name"><code>gainNode</code></h3>
+    <span class="type">AudioGainNode</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l529"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:529</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̃v���p�e�B�� <code>WebAudioPlugin</code> �ɂ̂ݑ��݂��A�㋉���[�U�[���g�p�����O���ł��鎖�ɒ��ӂ��Ă��������B
+<code>SoundInstance</code>�̉��ʂ𑀍삷�� GainNode �ł��B<code>panNode</code> �Ɛڑ������܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_muted" class="property item protected">
+    <h3 class="name"><code>muted</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l551"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:551</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���݂̏������Ԃł��B�A�N�Z�X�ɂ�<code>getMute</code>��<code>setMute</code>���g�p���Ă��������B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_offset" class="property item protected">
+    <h3 class="name"><code>offset</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l435"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:435</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�Đ����J�n�����ʒu���~���b�P�ʂŎ����܂��B���̒l�� play ���Ăяo�����ɓn�����A���̃g���b�N���ǂ̈ʒu�ɂ��邩�ɂ���
+pause �� setPosition �ŎQ�Ƃ����܂��B���̒l��WebAudio API�̈��ѐ��̂��߂ɁA�~���b�P�ʂ����b�P�ʂɕϊ������鎖�ɒ��ӂ��Ă��������B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onComplete" class="property item deprecated">
+    <h3 class="name"><code>onComplete</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;complete&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l675"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:675</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;complete&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ������������ۂɌĂяo�����܂��B</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onLoop" class="property item deprecated">
+    <h3 class="name"><code>onLoop</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;loop&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l683"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:683</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;loop&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ������������[�v�Đ����܂��c���Ă����ꍇ�ɌĂяo�����܂��B</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onPlayFailed" class="property item deprecated">
+    <h3 class="name"><code>onPlayFailed</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;failed&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l667"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:667</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;failed&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ��Ɏ��s�����ۂɌĂяo�����܂��B</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onPlayInterrupted" class="property item deprecated">
+    <h3 class="name"><code>onPlayInterrupted</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;interrupted&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l659"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:659</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;interrupted&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ������f�����ۂɌĂяo�����܂��B</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onPlaySucceeded" class="property item deprecated">
+    <h3 class="name"><code>onPlaySucceeded</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;succeeded&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l651"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:651</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;succeeded&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ��ɐ��󂵂��ۂɌĂяo�����܂��B</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onReady" class="property item deprecated">
+    <h3 class="name"><code>onReady</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;ready&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l643"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:643</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;ready&quot; �C�x���g���g�p���Ă��������B�����̃o�[�W�����Ŕp�~�����܂��B</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�������Đ��\�ɂȂ����ۂɌĂяo�����܂��B</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_owner" class="property item protected">
+    <h3 class="name"><code>owner</code></h3>
+    <span class="type"><a href="../classes/WebAudioPlugin.html" class="crosslink">WebAudioPlugin</a></span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l426"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:426</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���̃C���X�^���X�𐶐������v���O�C���ł��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_pan" class="property item protected">
+    <h3 class="name"><code>pan</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l466"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:466</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>-1(��)�`1(�E)�̊Ԃ̒l���Ƃ鉹�̒��ʂł��B���ʂ�HTML Audio�ł͋@�\���Ȃ����ɒ��ӂ��ĉ������B
+�A�N�Z�X�ɂ�<code>getPan</code> �� <code>setPan</code>���g���ĉ������B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_pan" class="property item protected">
+    <h3 class="name"><code>pan</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l477"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:477</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�����̒������~���b�P�ʂŎ����܂��B
+�A�N�Z�X�ɂ�<code>getDuration</code>���g���Ă��������B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_panNode" class="property item">
+    <h3 class="name"><code>panNode</code></h3>
+    <span class="type">AudioPannerNode</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l518"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:518</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̃v���p�e�B�� <code>WebAudioPlugin</code> �ɂ̂ݑ��݂��A�㋉���[�U�[���g�p�����O���ł��鎖�ɒ��ӂ��Ă��������B
+panNode �́A���E�`�����l���̒��ʂ̑����̂ݍs���܂��B<code>context.destination</code>�Ɍq�����Ă���<code>WebAudioPlugin.gainNode</code>�ɐڑ����܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_paused" class="property item protected">
+    <h3 class="name"><code>paused</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l560"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:560</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���݂̈ꎞ���~���Ԃł��B�ݒ��ɂ�<code>pause()</code>��<code>resume()</code>���g�p���Ă��������B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_playState" class="property item">
+    <h3 class="name"><code>playState</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l418"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:418</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>���݂̉��̏���(state)�������܂��B���̏��Ԃ�<code>Sound</code>�N���X�̒萔�Œ��`�����Ă��܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_remainingLoops" class="property item protected">
+    <h3 class="name"><code>remainingLoops</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l487"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:487</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�c���̃��[�v���ł��B���l�͉i�v�Ƀ��[�v���܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_soundCompleteTimeout" class="property item protected">
+    <h3 class="name"><code>soundCompleteTimeout</code></h3>
+    <span class="type">TimeoutVariable</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l507"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:507</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>�Đ������𑀍삷�邽�߂ɏ��������ɐ��������� Timeout �ł��B
+���~�A�ꎞ���~�A�C���X�^���X�폜���s���ꂽ�ۂɁA����Timeout���j�����܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_sourceNode" class="property item">
+    <h3 class="name"><code>sourceNode</code></h3>
+    <span class="type">AudioSourceNode</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l540"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:540</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̃v���p�e�B�� <code>WebAudioPlugin</code> �ɂ̂ݑ��݂��A�㋉���[�U�[���g�p�����O���ł��鎖�ɒ��ӂ��Ă��������B
+sourceNode �́A�����ł��B<code>gainNode</code> �Ɛڑ������܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_src" class="property item protected">
+    <h3 class="name"><code>src</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l401"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:401</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�����̃t�@�C���p�X�ł��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_startTime" class="property item">
+    <h3 class="name"><code>startTime</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l569"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:569</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>WebAudioPlugin�ł̂ݗL���ł��B�b�P�ʂŎ����܂��B�Đ��ʒu�̐ݒ��Ǝ擾�A�ꎞ���~�����̉񕜎��Ɏg�����܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_uniqueId" class="property item">
+    <h3 class="name"><code>uniqueId</code></h3>
+    <span class="type">String | Number</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l410"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:410</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>�C���X�^���X�̈��ӂ� ID �ł��B���� ID �� <code>Sound</code> �ɂ����Đݒ肳���܂��B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> -1</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_volume" class="property item protected">
+    <h3 class="name"><code>volume</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l456"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:456</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>0�`1�̊Ԃ̒l���Ƃ鉹�ʂł��B
+�A�N�Z�X�ɂ�<code>getVolume</code> �� <code>setVolume</code>���g���ĉ������B</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_complete" class="events item">
+    <h3 class="name"><code>complete</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l634"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:634</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ������������ۂɔ��s�����܂��B�����̓��[�v�Đ����܂߂ĉ��̍Đ����I���������Ƃ��Ӗ����܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The object that dispatched the event.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The event type.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_failed" class="events item">
+    <h3 class="name"><code>failed</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l617"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:617</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ��Ɏ��s�����ۂɔ��s�����܂��B�����͓����������Đ����̃`�����l�������������ꍇ���A
+(�܂��A���̏ꍇ�A���C���X���^���X�̒��f�͔������܂���)�A404�G���[�Ȃǂŉ������Đ��ł��Ȃ������ꍇ�ɋN�����܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�𔭍s�����^�[�Q�b�g�I�u�W�F�N�g�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�^�C�v�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_interrupted" class="events item">
+    <h3 class="name"><code>interrupted</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l609"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:609</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ������f�����ۂɔ��s�����܂��B�����͓��������̕ʂ̃C���X�^���X�����f�I�v�V�����ōĐ����ꂽ�ۂɋN�����܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�𔭍s�����^�[�Q�b�g�I�u�W�F�N�g�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�^�C�v�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_loop" class="events item">
+    <h3 class="name"><code>loop</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l626"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:626</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ������������[�v�Đ����܂��c���Ă����ꍇ�ɔ��s�����܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�𔭍s�����^�[�Q�b�g�I�u�W�F�N�g�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�^�C�v�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_ready" class="events item">
+    <h3 class="name"><code>ready</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l593"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:593</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>�������Đ��\�ɂȂ����ۂɔ��s�����܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�𔭍s�����^�[�Q�b�g�I�u�W�F�N�g�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�^�C�v�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_succeeded" class="events item">
+    <h3 class="name"><code>succeeded</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_WebAudioPlugin.js.html#l601"><code>src&#x2F;soundjs&#x2F;WebAudioPlugin.js:601</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>���̍Đ��ɐ��󂵂��ۂɔ��s�����܂��B</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�𔭍s�����^�[�Q�b�g�I�u�W�F�N�g�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>�C�x���g�^�C�v�ł��B</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+            </div>
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

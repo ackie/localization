@@ -1,0 +1,7729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>LoadQueue</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AbstractLoader.html">AbstractLoader</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/LoadQueue.html">LoadQueue</a></li>
+            
+                <li><a href="../classes/Log.html">Log</a></li>
+            
+                <li><a href="../classes/TagLoader.html">TagLoader</a></li>
+            
+                <li><a href="../classes/XHRLoader.html">XHRLoader</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/PreloadJS.html">PreloadJS</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1>LoadQueue Class</h1>
+<div class="box meta">
+    
+
+    
+        <div class="extends">
+            Extends <a href="../classes/AbstractLoader.html" class="crosslink">AbstractLoader</a>
+        </div>
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_preloadjs_LoadQueue.js.html#l88"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:88</code></a>
+        </div>
+    
+
+    
+        
+            Module: <a href="../modules/PreloadJS.html">PreloadJS</a>
+        
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>LoadQueueクラスはコンテンツをプリロードするメインAPIです。
+LoadQueueはロードマネージャであり、単一のファイルあるいはファイルのキューを管理します。</p>
+<p><b>キューの生成</b><br />
+LoadQueueを使用するためにLoadQueueインスタンスを生成します。
+可能であればタグローディングを強制したい場合は、useXHR引数をfalseに設定します。</p>
+<pre class="code prettyprint"><code> var queue = new createjs.LoadQueue(true);</code></pre>
+<p><b>イベントのリスニング</b><br />
+設定したいリスナーをキューに設定します。
+PreloadJS 0.3.0以降、<a href="../classes/EventDispatcher.html" class="crosslink">EventDispatcher</a>はイベントに好きなだけリスナーを設定できるようになりました。
+complete、error、fileload、progress、fileprogressイベントを設定することができます。</p>
+<pre class="code prettyprint"><code> queue.addEventListener("fileload", handleFileLoad);
+ queue.addEventListener("complete", handleComplete);</code></pre>
+<p><b>ファイルの追加とマニフェスト</b><br />
+ロードしたいファイルを<a href="../classes/LoadQueue.html#method_loadFile" class="crosslink">loadFile</a>を使用して追加します。
+<a href="../classes/LoadQueue.html#method_loadManifest" class="crosslink">loadManifest</a>を使用すると複数ファイルを一度に追加できます。
+ファイルはキューに追加されます。
+よって、これらのメソッドは好きなときに好きなだけ使うことができます。</p>
+<pre class="code prettyprint"><code> queue.loadFile("filePath/file.jpg");
+ queue.loadFile({id:"image", src:"filePath/file.jpg"});
+ queue.loadManifest(["filePath/file.jpg", {id:"image", src:"filePath/file.jpg"}];</code></pre>
+<p>第2引数にfalseを渡した場合、キューはすぐにはロード開始しません（すでにロード開始してない限り）。
+一時停止しているキューを開始するには<a href="../classes/AbstractLoader.html#method_load" class="crosslink">load</a>メソッドを呼んでください。
+一時停止しているキューは新しいファイルが追加されると自動的に再開します。</p>
+<pre class="code prettyprint"><code> queue.load();</code></pre>
+<p><b>結果の処理</b><br />
+ファイルがダウンロード終了した時、"fileload"イベントが発行されます。
+上記の例の中にfileloadへのイベントリスナーのスニペットがあります。
+ロードされたファイルはすぐに使用できるオブジェクトとなっており以下を含みます:</p>
+<ul>
+    <li>Image: &lt;img /&gt; タグ</li>
+    <li>Audio: &lt;audio /&gt; タグ</a>
+    <li>JavaScript: &lt;script /&gt; タグ</li>
+    <li>CSS: &lt;link /&gt; タグ</li>
+    <li>XML: XML DOM ノード</li>
+    <li>SVG: &lt;object /&gt; タグ</li>
+    <li>JSON: フォーマットされたJavaScriptオブジェクト</li>
+    <li>Text: 生のテキスト</li>
+    <li>Binary: バイナリのロード結果</li>
+</ul>
+
+<pre class="code prettyprint"><code> function handleFileLoad(event) {
+     var item = event.item; // 渡されたアイテムへの参照
+     var type = item.type;
+
+     // ページのbodyに任意の画像を追加する
+     if (type == createjs.LoadQueue.IMAGE) {
+         document.body.appendChild(event.result);
+     }
+ }</code></pre>
+<p>ファイルがロード完了した後（通常はキューが完了した後）であれば、結果は<a href="../classes/LoadQueue.html#method_getResult" class="crosslink">getResult</a>
+を使用してidにより検索することができます。
+idを付与していなければ、"src"あるいはファイルパスを代わりに用いることができます。
+常にidを渡すことを推奨します。</p>
+<pre class="code prettyprint"><code> var image = queue.getResult("image");
+ document.body.appendChild(image);</code></pre>
+<p>生のロードされたコンテンツは、<code>fileload</code>イベントの<code>rawResult</code>プロパティによってアクセス可能です。
+また<a href="../classes/LoadQueue.html#method_getResult" class="crosslink">getResult</a>の第二引数にtrueを渡すことで検索可能です。
+この方法はブラウザによってパースされるコンテンツにのみ適用可能です。具体的にあげると、JavaScript、CSS、XML、SVG、JSONオブジェクトです。</p>
+<pre class="code prettyprint"><code> var image = queue.getResult("image", true);</code></pre>
+<p><b>プラグイン</b><br />
+LoadQueはコンテンツの処理とプリロードを補助するシンプルなプラグインアーキテクチャを備えています。
+例えば、オーディオをプリロードするには<a href="http://soundjs.com">SoundJS</a>のSoundクラスを必ずインストールしてください。
+SoundクラスはHTML audio、Flash audio、WebAudioファイルのプリロードを補助します。
+オーディオファイルをロードする<b>前に</b>インストールする必要があります。</p>
+<pre class="code prettyprint"><code> queue.installPlugin(createjs.Sound);</code></pre>
+<p><h4>既知のブラウザの問題</h4></p>
+<ul><li>audioをサポートしないブラウザはオーディオファイルをロードできません。</li>
+     <li>audioタグは<code>canPlayThrough</code>イベントが発火されるまでしかダウンロードを行いません。
+     Chrome以外のブラウザはバックグラウンドでダウンロードし続けます。
+     <li>スクリプトをタグを使ってロードした場合、自動的にdocumentに追加されます。</li>
+     <li>XHRを使ってロードしたスクリプトはブラウザのツールで正常に検査できないことがあります。</li>
+     <li>XML、Text、JSONのロードではXHRを必要とするため、IE6とIE7（それと他のいくつかのブラウザ）ではロードできないことがあります。
+     <li>タグを使ってロードしたコンテンツは進捗を取得出来ません。また、キャンセルしてもバックグランドでダウンロードし続けます。</li>
+</ul>
+</div>
+
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_LoadQueue" class="method item">
+    <h3 class="name"><code>LoadQueue</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code class="optional">[useXHR=true]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l88"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:88</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[useXHR=true]</code>
+                        <span class="type">Boolean</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>プリロードインスタンスにXHR（XML HTTP Request）を使用するかHTMLタグを使用するかを指定します。
+<code>false</code>の場合、LoadQueは可能であればタグによるロードを行い、必要であればXHRに戻ります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods extends">
+                        
+                            <li class="index-item method private">
+                                <a href="#method__addItem">_addItem</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__checkScriptLoadOrder">_checkScriptLoadOrder</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__createLoader">_createLoader</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__createLoadItem">_createLoadItem</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__createTag">_createTag</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__disposeItem">_disposeItem</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__handleFileComplete">_handleFileComplete</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__handleFileError">_handleFileError</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__handleProgress">_handleProgress</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected inherited">
+                                <a href="#method__isCanceled">_isCanceled</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__loadItem">_loadItem</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__loadNext">_loadNext</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected inherited">
+                                <a href="#method__parseURI">_parseURI</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__removeLoadItem">_removeLoadItem</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected inherited">
+                                <a href="#method__sendComplete">_sendComplete</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected inherited">
+                                <a href="#method__sendError">_sendError</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__sendFileComplete">_sendFileComplete</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__sendFileProgress">_sendFileProgress</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected inherited">
+                                <a href="#method__sendLoadStart">_sendLoadStart</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected inherited">
+                                <a href="#method__sendProgress">_sendProgress</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__updateProgress">_updateProgress</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_addEventListener">addEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_close">close</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_dispatchEvent">dispatchEvent</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getItem">getItem</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getResult">getResult</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_hasEventListener">hasEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private inherited inherited">
+                                <a href="#method_initialize">initialize</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_installPlugin">installPlugin</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_isBinary">isBinary</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_load">load</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_loadFile">loadFile</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_loadManifest">loadManifest</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private deprecated">
+                                <a href="#method_proxy">proxy</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_remove">remove</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_removeAll">removeAll</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_removeAllEventListeners">removeAllEventListeners</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_removeEventListener">removeEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_reset">reset</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setMaxConnections">setMaxConnections</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setPaused">setPaused</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setUseXHR">setUseXHR</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_toString">toString</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                        
+                            <li class="index-item property private">
+                                <a href="#property__currentLoads">_currentLoads</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__currentlyLoadingScript">_currentlyLoadingScript</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__extensionCallbacks">_extensionCallbacks</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private inherited">
+                                <a href="#property__item">_item</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected inherited">
+                                <a href="#property__listeners">_listeners</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__loadedRawResults">_loadedRawResults</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__loadedResults">_loadedResults</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__loadedScripts">_loadedScripts</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__loadItemsById">_loadItemsById</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__loadItemsBySrc">_loadItemsBySrc</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__loadQueue">_loadQueue</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__loadQueueBackup">_loadQueueBackup</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__loadStartWasDispatched">_loadStartWasDispatched</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__maxConnections">_maxConnections</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__numItems">_numItems</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__numItemsLoaded">_numItemsLoaded</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__scriptOrder">_scriptOrder</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__typeCallbacks">_typeCallbacks</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_BINARY">BINARY</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property inherited">
+                                <a href="#property_canceled">canceled</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_CSS">CSS</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_IMAGE">IMAGE</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_JAVASCRIPT">JAVASCRIPT</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_JSON">JSON</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_LOAD_TIMEOUT">LOAD_TIMEOUT</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property inherited">
+                                <a href="#property_loaded">loaded</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_maintainScriptOrder">maintainScriptOrder</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_next">next</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated inherited">
+                                <a href="#property_onComplete">onComplete</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated inherited">
+                                <a href="#property_onError">onError</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onFileLoad">onFileLoad</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onFileProgress">onFileProgress</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated inherited">
+                                <a href="#property_onLoadStart">onLoadStart</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated inherited">
+                                <a href="#property_onProgress">onProgress</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property inherited">
+                                <a href="#property_progress">progress</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_SOUND">SOUND</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_stopOnError">stopOnError</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_SVG">SVG</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_TEXT">TEXT</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_useXHR">useXHR</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_XML">XML</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events extends">
+                        
+                            <li class="index-item event inherited">
+                                <a href="#event_complete">complete</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event inherited">
+                                <a href="#event_error">error</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_fileload">fileload</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_fileprogress">fileprogress</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event inherited">
+                                <a href="#event_loadStart">loadStart</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event inherited">
+                                <a href="#event_progress">progress</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__addItem" class="method item private">
+    <h3 class="name"><code>_addItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l913"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:913</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>キューにアイテムを追加します。
+アイテムはコンテンツをロードするのに必要なプロパティをすべて格納した有用なオブジェクトにフォーマットされます。
+ロードキューには、ユーザから渡されたロードアイテムでなく、プリロードを実行するローダーインスタンスが入ります。
+ロードアイテムをidあるいはsrcによって検索するには、LoadQueue.getItemメソッドを使用してください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">String | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>キューに追加するアイテムです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__checkScriptLoadOrder" class="method item private">
+    <h3 class="name"><code>_checkScriptLoadOrder</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1191"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1191</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>スクリプトのロードとイベント発行の正確な順序を保証します。
+XHRを使用するとき、スクリプトは追加された順に配列に&quot;null&quot;値として貯めこまれます。
+ロード完了した時、値はロードしたアイテムに設定され、イベント発行された時に値は<code>true</code>に設定されます。
+このメソッドは単純に配列をイテレートし、<code>null</code>が配列の前要素にないすべてのロードアイテムがイベント発行されたことを保証します。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__createLoader" class="method item private">
+    <h3 class="name"><code>_createLoader</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/AbstractLoader.html" class="crosslink">AbstractLoader</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1032"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1032</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロードアイテムのローダーを生成します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ローダーを生成するために使用するフォーマットされたロードアイテムです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/AbstractLoader.html" class="crosslink">AbstractLoader</a></span>:
+                    
+                    <p>コンテンツをロードするために使用するローダーです。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__createLoadItem" class="method item private">
+    <h3 class="name"><code>_createLoadItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l943"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:943</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>すべての必要なプロパティ（src、type、extension、tag）を格納したロードアイテムを生成します。
+アイテムのタイプはブラウザのサポート状況、ファイルタイプに基づいた要件、開発者の設定によって決定されます。
+例えば、XHRは新しいブラウザでサポートされるファイルタイプでのみ使用されます。</p>
+<p>アイテムが返される前に、タイプあるいは拡張子に対応するために登録されたプラグインが発火されます。
+それにより、ロードアイテムに変更が加えられることがあります。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">String | Object | HTMLAudioElement | HTMLImageElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>プリロードする必要のあるアイテムです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p>使用されるローダーインスタンスです。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__createTag" class="method item private">
+    <h3 class="name"><code>_createTag</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">HTMLImageElement | HTMLAudioElement | HTMLScriptElement | HTMLLinkElement | Object</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1283"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1283</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>HTMLタグを生成します。
+データをロードする方法が何であれ、タグで返す必要があるかもしれないため、
+このメソッドは<a href="../classes/TagLoader.html" class="crosslink">TagLoader</a>の中でなくLoadQueで定義されています。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>アイテムタイプです。アイテムは開発者によって渡されるか、拡張子によって決定されます。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">HTMLImageElement | HTMLAudioElement | HTMLScriptElement | HTMLLinkElement | Object</span>:
+                    
+                    <p>生成されるタグです。
+タグはHTMLのbodyには追加されません。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__disposeItem" class="method item private">
+    <h3 class="name"><code>_disposeItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1268"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1268</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>メモリから解放するために、アイテムの結果を除去します。
+主にロードされたアイテムと結果は内部のハッシュからクリアされます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>プリロード用に渡されたアイテムです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__handleFileComplete" class="method item private">
+    <h3 class="name"><code>_handleFileComplete</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1147"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1147</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>アイテムがロード完了しました。
+アイテム全体がロードされ、すぐ使えるようにパースされ、ロードアイテムの"result"プロパティとして利用可能になっていることを保証します。
+パースされたアイテム（JSON、XML、CSS、JavaScriptなどのような）の生のテキストの結果は"rawResult"イベントとして使用可能であり、また
+<a href="../classes/LoadQueue.html#method_getResult" class="crosslink">getResult</a>を用いて検索可能です。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ローダーからのイベントオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__handleFileError" class="method item private">
+    <h3 class="name"><code>_handleFileError</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1123"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1123</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ローダーがエラーに遭遇したときに発火されるコールバックです。
+<code>stopOnError</code>がtrueに設定されていない限りキューはロードを継続します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>エラーイベントです。関連するエラー情報を格納しています。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__handleProgress" class="method item private">
+    <h3 class="name"><code>_handleProgress</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1229"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1229</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>アイテムがprogressイベントを発行して来ました。
+progressを伝搬させ、LoadQue全体のprogressを更新します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>アイテムのprogressイベントです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__isCanceled" class="method item protected inherited">
+    <h3 class="name"><code>_isCanceled</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#method__isCanceled">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l296"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:296</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロードがキャンセルされたかどうかを判定します。
+キューがクリーンアップされた後にメソッド呼び出しあるいは非同期イベントが問題を引き起こさないことを保証します。</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>ローダーがキャンセルされたか否かです。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__loadItem" class="method item private">
+    <h3 class="name"><code>_loadItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>loader</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1109"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1109</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>アイテムのロードを開始します。ロードが開始されるまで、イベントはローダーに追加されません。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">loader</code>
+                        <span class="type"><a href="../classes/AbstractLoader.html" class="crosslink">AbstractLoader</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>開始するローダーのインスタンスです。現在、XHRLoaderあるいはTagLoaderとなります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__loadNext" class="method item private">
+    <h3 class="name"><code>_loadNext</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1064"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1064</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>キューの次のアイテムをロードします。
+キューが空の場合（すべてのアイテムがロード完了している場合）はcompleteイベントが発行されます。
+キューはLoadQueue.setMaxConnectionsによって指定された最大接続数まで空のスロットを
+埋めます。
+唯一の例外はタグによってロードされるスクリプトで、ロードの順番を維持するために一度に1つだけロードされる必要があります。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__parseURI" class="method item protected inherited">
+    <h3 class="name"><code>_parseURI</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>path</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Array</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#method__parseURI">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l310"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:310</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>正規表現パターン<code>AbstractLoader.FILE_PATTERN</code>を用いてファイルURIをパースします。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">path</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>パースするファイルパスです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Array</span>:
+                    
+                    <p>マッチしたファイルパスの各文字列です。詳しくは<code>AbstractLoader.FILE_PATTERN</code>プロパティを参照してください。
+マッチしなかった場合はnullを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__removeLoadItem" class="method item private">
+    <h3 class="name"><code>_removeLoadItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>loader</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1214"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1214</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロードアイテムが完了したかあるいはキャンセルされました。LoadQueから削除される必要があります。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">loader</code>
+                        <span class="type"><a href="../classes/AbstractLoader.html" class="crosslink">AbstractLoader</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>削除するローダーインスタンスです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__sendComplete" class="method item protected inherited">
+    <h3 class="name"><code>_sendComplete</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#method__sendComplete">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l268"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:268</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>completeイベントを発行します（同時にonCompleteコールバックを呼び出します）。
+イベントオブジェクトの内容の詳細については<code>AbstractLoader.loadStart</code>を参照してください。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__sendError" class="method item protected inherited">
+    <h3 class="name"><code>_sendError</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#method__sendError">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l280"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:280</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>errorイベントを発行します（同時にonErrorコールバックを呼び出します）。
+イベントオブジェクトの内容の詳細については<code>AbstractLoader.loadStart</code>を参照してください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>特定のエラープロパティを含むエラーオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__sendFileComplete" class="method item protected">
+    <h3 class="name"><code>_sendFileComplete</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1388"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1388</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>fileloadイベント（それとonFileLoadコールバック）を発行します。
+イベントの内容の詳細については<code>LoadQueue.fileload</code>を見てください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロード中のアイテムです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__sendFileProgress" class="method item protected">
+    <h3 class="name"><code>_sendFileProgress</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>progress</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1363"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1363</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>fileprogressイベント（それとonFileProgressコールバック）を発行します。
+イベントの内容の詳細については<code>LoadQueue.fileprogress</code>を見てください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロードされているアイテムです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">progress</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロードされたアイテムの量です。（0と1の間の値を取ります。）</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__sendLoadStart" class="method item protected inherited">
+    <h3 class="name"><code>_sendLoadStart</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#method__sendLoadStart">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l232"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:232</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>loadStartイベントを発行します（同時にonLoadStartコールバックを呼び出します）。
+イベントオブジェクトの内容の詳細については<code>AbstractLoader.loadStart</code>を参照してください。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__sendProgress" class="method item protected inherited">
+    <h3 class="name"><code>_sendProgress</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#method__sendProgress">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l244"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:244</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>progressイベントを発行します（同時にonProgressコールバックを呼び出します）。
+イベントオブジェクトの内容の詳細については<code>AbstractLoader.loadStart</code>を参照してください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Number | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロードされているアイテムの進捗あるいは<code>loaded</code>と<code>total</code>プロパティを含むオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__updateProgress" class="method item private">
+    <h3 class="name"><code>_updateProgress</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1242"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1242</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>全体の進捗が変化したので、新しい進捗値を決定し発行します。
+アイテムがprogressあるいはcompleteを発行すると全体の進捗値は必ず変化します。
+ロード完了するまではアイテムの実際のファイルサイズは知りえず、また、ロード完了してもサイズを知りえるのはXHRでロードされたアイテムのみです。
+よって、各アイテムに&quot;slot&quot;を定義し（10アイテム中の1アイテムは10%となります）、既にロードされたアイテムに進捗値をを追加することで全体の進捗値を計算しています。</p>
+<p>例えば、5/10のアイテムがロード完了したとき、6番目のアイテムが20%ロードされていれば、全体の進捗値は以下になります。：<ul>
+     <li>キューにあるアイテムの5/10(50%)</li>
+     <li>アイテム6のスロットの20%を追加(2%)</li>
+     <li>52%となります</li></ul></p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_addEventListener" class="method item inherited">
+    <h3 class="name"><code>addEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Function | Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_addEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l106"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:106</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントリスナを追加します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>handleEvent メソッドを持つオブジェクト、またはイベントが発行された時に
+呼ばれる関数です</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Function | Object</span>:
+                    
+                    <p>listener を連携や代入等の目的に使用できるように返します</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_close" class="method item inherited">
+    <h3 class="name"><code>close</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#method_close">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l220"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:220</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>アクティブなキューをクローズします。
+キューをクローズするとキューは完全に空になり、残っていたアイテムはダウンロード開始しなくなります。
+現時点でアクティブなロードはオープンなまま残り、イベントも処理されます。</p>
+<p>キューをストップし再開するには、こちらの代わりに<a href="../classes/LoadQueue.html#method_setPaused" class="crosslink">setPaused</a>を使用してください。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_dispatchEvent" class="method item inherited">
+    <h3 class="name"><code>dispatchEvent</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>eventObj</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[target]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_dispatchEvent">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l154"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:154</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントを発行します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">eventObj</code>
+                        <span class="type">Object | String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>&quot;type&quot; プロパティを持つオブジェクト、もしくは種類を指定する文字列です。
+dispatchEvent  &quot;type&quot; と &quot;params&quot; プロパティを持つ汎用イベントオブジェクトを生成します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[target]</code>
+                        <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントオブジェクトの target プロパティとして使うオブジェクトです。デフォルト値は
+イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>リスナが 1 つでも true を返したら true になります。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getItem" class="method item">
+    <h3 class="name"><code>getItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l845"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:845</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロード開始時に指定された&quot;id&quot;あるいは&quot;src&quot;を用いてロードアイテムを検索します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロードアイテムの<code>id</code>あるいは<code>src</code>です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p><a href="../classes/LoadQueue.html#method_loadFile" class="crosslink">loadFile</a>あるいは<a href="../classes/LoadQueue.html#method_loadManifest" class="crosslink">loadManifest</a>
+によってリクエストされたロードアイテムです。このオブジェクトは"fileload"イベントの"item"パラメータによっても返されます。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getResult" class="method item">
+    <h3 class="name"><code>getResult</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[rawResult=false]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l856"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:856</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロード開始時に指定された&quot;id&quot;あるいは&quot;src&quot;を用いてロード結果を検索します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロードアイテムの<code>id</code>あるいは<code>src</code>です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[rawResult=false]</code>
+                        <span class="type">Boolean</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>フォーマットされた結果の代わりに生の結果を返すようにします。
+スクリプト、XML、CSS、それに画像のような、XHRを使ってロードされたコンテンツに適用されます。
+生の結果がない場合、代わりにフォーマットされた結果が返されます。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p>以下の様なロードされたコンテンツを含む結果オブジェクトです。</p>
+<p><ul>
+     <li>画像はimageタグ(&lt;image /&gt;)</li>
+     <li>オーディオはaudioタグ(&lt;audio &gt;)</li>
+     <li>JavaScriptiはscriptタグ(&lt;script /&gt;)。タグによってロードされたスクリプトはHTML headに追加されることがあります。</li>
+     <li>CSSはstyleタグ(&lt;style /&gt;)</li>
+     <li>TEXTは生のテキスト</li>
+     <li>JSONによって定義されたフォーマットされたJavaScriptオブジェクト</li>
+     <li>XMLドキュメント</li>
+     <li>XHRによってロードされたバイナリarraybuffer</li>
+</ul>
+このオブジェクトは&quot;fileload&quot;イベントの&quot;item&quot;パラメータによっても返されます。
+生の結果を求めてそれがなかった場合はこのフォーマットされた結果が返されます。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_hasEventListener" class="method item inherited">
+    <h3 class="name"><code>hasEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_hasEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l180"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:180</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントの種類に対して 1 つ以上のリスナが存在するかを調べます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>指定されたイベントのリスナが存在すると true を返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_initialize" class="method item private inherited">
+    <h3 class="name"><code>initialize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="../classes/EventDispatcher.html#method_initialize">
+                EventDispatcher
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l201"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:201</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ローダーを初期化します。これはコンストラクタによって呼ばれます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_installPlugin" class="method item">
+    <h3 class="name"><code>installPlugin</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>plugin</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l711"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:711</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>プラグインを登録します。
+プラグインはロードタイプ（音声、画像など）に対応させることができますし、拡張子（png、mp3など）に対応させることもできます。
+現在、タイプ/拡張子ごとに一個だけプラグインを対応させることができます。
+プラグインは以下を含むオブジェクトを返さねばなりません:
+ <ul><li>callback: 呼び出す関数です。</li>
+     <li>types: 対応させるタイプの配列です。</li>
+     <li>extensions: 対応させる拡張子の配列です。適用可能なタイプのハンドラが発火されてないときのみ発火します。</li></ul>
+プラグインがタイプハンドラと拡張子ハンドラの両方にマッチした場合、タイプハンドラのみが発火されます。
+例えば、タイプがsoundのハンドラと拡張子がmp3のハンドラを保持したとすると、mp3ファイルがロードされたときはタイプハンドラのみが
+発火されます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">plugin</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>インストールするプラグインです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_isBinary" class="method item private">
+    <h3 class="name"><code>isBinary</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l690"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:690</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたファイルタイプがバイナリファイルとしてロードされるべきかどうかを判定します。
+現在、画像および&quot;binary&quot;と印をつけられたアイテムのみがバイナリとしてロードされます。
+オーディオはバイナリタイプではなく、バイナリとしてロードした場合audioタグを使って再生することはできません。
+プラグインは結果をバイナリで受け取る必要がある場合、アイテムタイプをバイナリに変更することがあります。
+バイナリファイルはXHR2を使ってロードされます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>アイテムタイプです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    <p>指定されたタイプがバイナリであるか否かです。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_load" class="method item inherited">
+    <h3 class="name"><code>load</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#method_load">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l208"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:208</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>キューに入ったアイテムをロード開始します。
+このメソッドは、<a href="../classes/LoadQueue.html" class="crosslink">LoadQueue</a>を準備した後にすぐにはロード開始しなかったときに呼び出せます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code> var queue = new createjs.LoadQueue();
+ queue.addEventListener(&quot;complete&quot;, handleComplete);
+ queue.loadManifest(fileArray, false); // 2番目の引数により、キューにまだロード開始しないことを指示しています。
+ queue.load();</code></pre>
+
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_loadFile" class="method item">
+    <h3 class="name"><code>loadFile</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>file</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[loadNow=true]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l755"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:755</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>一つのファイルをロードします。
+一度に複数のファイルを追加するには<a href="../classes/LoadQueue.html#method_loadManifest" class="crosslink">loadManifest</a>メソッドを使ってください。</p>
+<p>ファイルは常に現在のキューに対して追加されるため、このメソッドは何度でも使用することができます。
+キューを最初にクリアするには、<a href="../classes/AbstractLoader.html#method_close" class="crosslink">close</a>メソッドを使ってください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">file</code>
+                        <span class="type">Object | String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ファイルオブジェクトあるいはロードするファイルパスです。以下のいずれかを設定出来ます。</p>
+<ol>
+    <li>リソースへのパス文字列。この方法で指定したロードアイテムはバックグラウンドでオブジェクト（下記参照）に変換されます。</li>
+    <li>以下を含むオブジェクト。:<ul>
+        <li>src: ロードするファイルのソースです。このプロパティは<b>必須</b>です。文字列（推奨します）あるいはHTMLタグを設定できます。</li>
+        <li>type: ロードするファイルタイプ（画像、音声、JSONなど）です。PreloadJSは拡張子を用いてタイプの自動検出を行います。
+        サポートされるタイプはLoadQueに<code>LoadQueue.IMAGE</code>のようにして定義されています。
+        通常のファイルURIでないもの（phpスクリプトなど）を使う場合はタイプを指定することを推奨します。
+        <li>id: ロードオブジェクトの参照として使用できる識別子です。</li>
+        <li>data: 任意のデータオブジェクトです。ロードオブジェクトに含まれます。</li>
+    </ul>
+</ol>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[loadNow=true]</code>
+                        <span class="type">Boolean</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>即座にロードを開始する（true）かloadメソッドが呼ばれるのを待つか（false）を指定します。デフォルト値はtrueです。
+キューが<a href="../classes/LoadQueue.html#method_setPaused" class="crosslink">setPaused</a>を用いて一時停止しており、値がtrueのときは、自動的に再開します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_loadManifest" class="method item">
+    <h3 class="name"><code>loadManifest</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>manifest</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[loadNow=true]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l789"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:789</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>アイテムの配列をロードします。
+単独のファイルのロードであれば、<a href="../classes/LoadQueue.html#method_loadFile" class="crosslink">loadFile</a>メソッドを使用してください。
+マニフェスト内のファイルは定義した順番でリクエストされますが、<a href="../classes/LoadQueue.html#method_setMaxConnections" class="crosslink">setMaxConnections</a>
+によって最大接続数が1を上回る値に設定されている時、異なる順番でロード完了することがあります。
+スクリプトは<code>loadQueue.maintainScriptOrder</code>がtrue（デフォルト値です）である限り、正しい順番でロードされます。</p>
+<p>ファイルは必ず現在のキューに追加されるので、このメソッドは複数回呼び出してファイルを追加することができます。
+キューを最初にクリアするには、<a href="../classes/AbstractLoader.html#method_close" class="crosslink">close</a>メソッドを使ってください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">manifest</code>
+                        <span class="type">Array</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロードするファイルのリストです。それぞれのファイルには以下のいずれかを設定できます:</p>
+<ol>
+    <li>リソースへのパス文字列。この方法で指定したロードアイテムはバックグラウンドでオブジェクト（下記参照）に変換されます。</li>
+    <li>以下を含むオブジェクト:<ul>
+        <li>src: ロードするファイルのソースです。このプロパティは<b>必須</b>です。文字列（推奨します）あるいはHTMLタグを設定できます。</li>
+        <li>type: ロードするファイルタイプ（画像、音声、JSONなど）です。PreloadJSは拡張子を用いてタイプの自動検出を行います。
+        サポートされるタイプはLoadQueに<code>LoadQueue.IMAGE</code>のようにして定義されています。
+        通常のファイルURIでないもの（phpスクリプトなど）を使う場合はタイプを指定することを推奨します。
+        <li>id: ロードオブジェクトの参照として使用できる識別子です。</li>
+        <li>data: 任意のデータオブジェクトです。ロードオブジェクトに含まれます。</li>
+    </ul>
+</ol>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[loadNow=true]</code>
+                        <span class="type">Boolean</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>即座にロードを開始する（true）かloadメソッドが呼ばれるのを待つか（false）です。デフォルト値はtrueです。
+キューが<a href="../classes/LoadQueue.html#method_setPaused" class="crosslink">setPaused</a>を用いて一時停止しており、値がtrueのときは、自動的に再開します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_proxy" class="method item private deprecated">
+    <h3 class="name"><code>proxy</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>method</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>scope</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="createjs.proxyメソッドを推奨します。(LoadQueueのソースを参照してください)">deprecated</span>
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l1418"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:1418</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: createjs.proxyメソッドを推奨します。(LoadQueueのソースを参照してください)</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>PreloadJSメソッドの関数プロキシです。
+デフォルトの動作では、JavaScriptのメソッドはスコープを維持しません。
+そのため、メソッドをコールバックとして渡すと呼び出し側のスコープの中でメソッドが呼ばれることになります。
+プロキシを使うことでメソッドが正確なスコープの中で呼ばれることを保証します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">method</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>呼び出す関数です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">scope</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>メソッドが呼び出されるスコープです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_remove" class="method item">
+    <h3 class="name"><code>remove</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>idsOrUrls</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l589"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:589</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>アイテムのロードを停止し、キューから削除します。
+何も引数に渡さなければすべてのアイテムが削除されます。
+ロードされたアイテムへの内部的な参照も削除します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">idsOrUrls</code>
+                        <span class="type">String | Array</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>このキューから削除するidあるいは複数のidです。
+一個のアイテムを渡せるだけでなく、アイテムの配列を渡すこともできますし、複数の引数としてアイテムを渡すこともできます。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeAll" class="method item">
+    <h3 class="name"><code>removeAll</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l578"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:578</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>キューに追加されているローディング中のアイテムをすべて停止し、キューをクリアします。
+ロードされたコンテンツのすべての内部的な参照が削除され、キューは再使用できる状態になります。
+まだロード開始していないアイテムは<a href="../classes/AbstractLoader.html#method_load" class="crosslink">load</a>メソッドを使用してロードを開始できます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeAllEventListeners" class="method item inherited">
+    <h3 class="name"><code>removeAllEventListeners</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code class="optional">[type]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_removeAllEventListeners">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l144"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:144</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定された種類、または全ての種類に対して関連付けられたリスナを全て削除します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[type]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を指定します。省略すると全ての種類に対応する全てのリスナが削除されます。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeEventListener" class="method item inherited">
+    <h3 class="name"><code>removeEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_removeEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l124"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:124</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントリスナを削除します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>リスナ関数又はオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_reset" class="method item">
+    <h3 class="name"><code>reset</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l666"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:666</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>すべての実行中のロードを停止し、すべてのロードしたアイテムを破壊し、キューをリセットします。
+すべてのアイテムは<a href="../classes/AbstractLoader.html#method_load" class="crosslink">load</a>を呼ぶことよにより再度ロードできます。
+アイテムはキューからは削除されません。
+アイテムをキューから削除するには、<a href="../classes/LoadQueue.html#method_remove" class="crosslink">remove</a>あるいは<a href="../classes/LoadQueue.html#method_removeAll" class="crosslink">removeAll</a>
+メソッドを使ってください。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setMaxConnections" class="method item">
+    <h3 class="name"><code>setMaxConnections</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l740"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:740</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>同時最大接続数を設定します。
+ブラウザやサーバは独自の最大接続数設定を保持できますので、ブラウザが接続を開通するまでは追加の接続は待ち状態となります。
+<code>maintainScriptOrder=true</code>の設定の下でタグを使ってスクリプトをロードする場合、ブラウザの制限のため一度に一つの
+スクリプトしかロードされません。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>許容する同時接続数です。デフォルトでは、LoadQueごとに一つまでしか接続されません。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setPaused" class="method item">
+    <h3 class="name"><code>setPaused</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l887"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:887</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>現在のロードを一時停止あるいは再生します。
+アクティブなロードはキャンセルされませんが、アクティブなロードが完了した時、キューにある次のアイテムは処理されません。
+LoadQueはデフォルトでは一時停止されません。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Boolean</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>キューを一時停止する（true）か再開する（false）かです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setUseXHR" class="method item">
+    <h3 class="name"><code>setUseXHR</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l563"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:563</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>useXHRの値を変更します。
+trueに設定しても、ブラウザのサポート次第で無効な場合があります。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Boolean</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>設定する新しいuseXHRの値です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>新しいuseXHRの値です。XHRがブラウザによってサポートされてない場合、引数がtrueであってもfalseを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_toString" class="method item inherited">
+    <h3 class="name"><code>toString</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="../classes/EventDispatcher.html#method_toString">
+                EventDispatcher
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l323"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:323</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>オブジェクトの文字列表現を返します。</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                    <p>オブジェクトの文字列表現です。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property__currentLoads" class="property item private">
+    <h3 class="name"><code>_currentLoads</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l438"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:438</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>現在ダウンロード中のファイルを格納する配列です。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__currentlyLoadingScript" class="property item private">
+    <h3 class="name"><code>_currentlyLoadingScript</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l429"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:429</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>現在スクリプトをローディング中か否かです。
+プリロードにscriptタグを用いる場合は、一度に一つだけスクリプトをロードすることを保証する処理に寄与します。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__extensionCallbacks" class="property item private">
+    <h3 class="name"><code>_extensionCallbacks</code></h3>
+    <span class="type">Null</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l399"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:399</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ファイルがロードされる前にファイル拡張子に応じて発火されるコールバックをまとめたハッシュオブジェクトです。
+プラグインがロードのプロパティをオーバーライドするのを可能にします。
+詳しくは<a href="../classes/LoadQueue.html#method_installPlugin" class="crosslink">installPlugin</a>メソッドを参照してください。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__item" class="property item private inherited">
+    <h3 class="name"><code>_item</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#property__item">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l93"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:93</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>このローダーの対応するアイテムです。
+<a href="../classes/LoadQueue.html" class="crosslink">LoadQueue</a>においてはnullですが、
+<a href="../classes/XHRLoader.html" class="crosslink">XHRLoader</a>や<a href="../classes/TagLoader.html" class="crosslink">TagLoader</a>のようなローダーでは使用可能です。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__listeners" class="property item protected inherited">
+    <h3 class="name"><code>_listeners</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#property__listeners">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l90"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:90</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__loadedRawResults" class="property item private">
+    <h3 class="name"><code>_loadedRawResults</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l491"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:491</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロード完了したパースされていないアイテムのオブジェクトハッシュです。
+ロードしたアイテムのIDによりインデックスされています。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__loadedResults" class="property item private">
+    <h3 class="name"><code>_loadedResults</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l481"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:481</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロード完了したアイテムのオブジェクトハッシュです。
+ロードしたアイテムのIDによりインデックスされています。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__loadedScripts" class="property item private">
+    <h3 class="name"><code>_loadedScripts</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l529"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:529</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロード完了したスクリプトの配列です。
+アイテムはリクエストされたときにこの配列に<code>null</code>として追加されます。
+ロード完了しているけどユーザに通知されていない状態ではロードされたアイテムを格納しています。
+一旦ロード完了し発行されたら<code>true</true>が入ります。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__loadItemsById" class="property item private">
+    <h3 class="name"><code>_loadItemsById</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l462"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:462</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ダウンロード完了したアイテムのオブジェクトハッシュです。
+アイテムのIDによりインデックスされています。
+An object hash of items that have finished downloading, indexed by item IDs.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__loadItemsBySrc" class="property item private">
+    <h3 class="name"><code>_loadItemsBySrc</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l472"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:472</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ダウンロード完了したアイテムのオブジェクトハッシュです。
+アイテムのソースによりインデックスされています。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__loadQueue" class="property item private">
+    <h3 class="name"><code>_loadQueue</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l446"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:446</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>まだダウンロード開始していないキューのアイテムを格納する配列です。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__loadQueueBackup" class="property item private">
+    <h3 class="name"><code>_loadQueueBackup</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l454"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:454</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>LoadQueが適切にリセットできるよう、まだ完了していないダウンロードを格納している配列です。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__loadStartWasDispatched" class="property item private">
+    <h3 class="name"><code>_loadStartWasDispatched</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l409"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:409</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>loadStartイベントが既に発行されたか否かです。
+このイベントは最初のファイルがリクエストされたときに一回だけ発火されます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__maxConnections" class="property item private">
+    <h3 class="name"><code>_maxConnections</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l419"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:419</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>LoadQueueが維持しようとする最大接続数です。
+詳しくは<a href="../classes/LoadQueue.html#method_setMaxConnections" class="crosslink">setMaxConnections</a>を見てください。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 1</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__numItems" class="property item private">
+    <h3 class="name"><code>_numItems</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l500"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:500</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>リクエストされたアイテム数です。
+ダウンロード前でファイルサイズがわからない状態で全体の進捗管理に寄与します。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__numItemsLoaded" class="property item private">
+    <h3 class="name"><code>_numItemsLoaded</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l510"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:510</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロード完了したアイテム数です。
+ダウンロード前でファイルサイズがわからない状態で全体の進捗管理に寄与します。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__scriptOrder" class="property item private">
+    <h3 class="name"><code>_scriptOrder</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l520"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:520</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>リクエストされた順にスクリプトを並べた配列です。
+スクリプトが正しい順番で&quot;completed&quot;状態になるのを保証するのに寄与します。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__typeCallbacks" class="property item private">
+    <h3 class="name"><code>_typeCallbacks</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l389"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:389</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ファイルがロードされる前にファイルタイプに応じて発火されるコールバックをまとめたハッシュオブジェクトです。
+プラグインがロードのプロパティをオーバーライドするのを可能にします。
+詳しくは<a href="../classes/LoadQueue.html#method_installPlugin" class="crosslink">installPlugin</a>メソッドを参照してください。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_BINARY" class="property item">
+    <h3 class="name"><code>BINARY</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l203"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:203</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>一般的なバイナリのためのプリロードタイプです。画像と音声ファイルはバイナリとして扱われます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> binary</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_canceled" class="property item inherited">
+    <h3 class="name"><code>canceled</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#property_canceled">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l73"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:73</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ローダーがキャンセルされたか否かです。
+キャンセルされたロードは完了イベントを発火しません。
+<a href="../classes/LoadQueue.html" class="crosslink">LoadQueue</a>のキューはcanceledでなく<a href="../classes/AbstractLoader.html#method_close" class="crosslink">close</a>
+によってクローズすべきです。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_CSS" class="property item">
+    <h3 class="name"><code>CSS</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l212"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:212</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>CSSファイルのためのプリロードタイプです。CSSファイルはLINKあるいはSTYLEタグ（どちらになるかはロードタイプ次第です）によってロードされます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> css</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_IMAGE" class="property item">
+    <h3 class="name"><code>IMAGE</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l221"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:221</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>画像ファイル（通常はpng、gif、jpg/jpegのファイル）のためのプリロードタイプです。
+画像はIMAGEタグによりロードされます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> image</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_JAVASCRIPT" class="property item">
+    <h3 class="name"><code>JAVASCRIPT</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l231"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:231</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>javascriptファイル（通常は拡張子jsのファイル）のためのプリロードタイプです。
+JavaScriptはSCRIPTタグによりロードされます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> javascript</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_JSON" class="property item">
+    <h3 class="name"><code>JSON</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l241"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:241</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>jsonファイル（通常は拡張子jsonのファイル）のためのプリロードタイプです。
+JSONデータはロードされJavaScriptオブジェクトにパースされます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> json</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_LOAD_TIMEOUT" class="property item">
+    <h3 class="name"><code>LOAD_TIMEOUT</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l193"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:193</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロードが失敗したと判定するまでの時間（ミリセカンド）です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 8000</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_loaded" class="property item inherited">
+    <h3 class="name"><code>loaded</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#property_loaded">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l63"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:63</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ローダーがロード完了したか否かです。
+これにより素早いチェックが可能です。
+また、ローディングに使用された複数通りの方法が<code>complete</code>イベントを複数発行しないことを保証するためにも使用されます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_maintainScriptOrder" class="property item">
+    <h3 class="name"><code>maintainScriptOrder</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l314"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:314</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロードしたスクリプトが指定した順に&quot;complete&quot;となることを保証します。
+タグを使用してロードされたスクリプトは一度に一個しかロードされず、ロード完了後はdocumentに追加されます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_next" class="property item">
+    <h3 class="name"><code>next</code></h3>
+    <span class="type"><a href="../classes/LoadQueue.html" class="crosslink">LoadQueue</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l334"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:334</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>このプリロードキューがcompleteしたときに処理開始する次のプリロードキューです。
+現在のキューでエラーが投げられ、<code>loadQueue.stopOnError</code>が<code>true</code>であるときは、次のキューは処理開始されません。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onComplete" class="property item deprecated inherited">
+    <h3 class="name"><code>onComplete</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;complete&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#property_onComplete">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l162"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:162</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;complete&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ローダーのアイテムが全てロードされたときに発火されるコールバックです。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onError" class="property item deprecated inherited">
+    <h3 class="name"><code>onError</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;error&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#property_onError">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l170"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:170</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;error&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ローダーがエラーに遭遇した時に発火されるコールバックです。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onFileLoad" class="property item deprecated">
+    <h3 class="name"><code>onFileLoad</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;fileload&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l371"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:371</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;fileload&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>個別のファイルがロード完了した時に発火されるコールバックです。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onFileProgress" class="property item deprecated">
+    <h3 class="name"><code>onFileProgress</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;fileprogress&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l379"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:379</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;fileprogress&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>個別のファイルの進捗が変化したときに発火されるコールバックです。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onLoadStart" class="property item deprecated inherited">
+    <h3 class="name"><code>onLoadStart</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;loadStart&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#property_onLoadStart">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l154"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:154</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;loadStart&quot;イベントの使用を推奨します。将来のバージョンで削除されるでしょう。</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ロード開始時に発火されるコールバックです。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onProgress" class="property item deprecated inherited">
+    <h3 class="name"><code>onProgress</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;progress&quot;イベントの使用をします。将来のバージョンで削除されるでしょう。">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#property_onProgress">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l146"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:146</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;progress&quot;イベントの使用をします。将来のバージョンで削除されるでしょう。</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>全体の進捗が変化したときに発火されるコールバックです。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_progress" class="property item inherited">
+    <h3 class="name"><code>progress</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#property_progress">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l84"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:84</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>このアイテムの現在のロード進捗（パーセンテージ）です。
+0と1の間の値をとります。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_SOUND" class="property item">
+    <h3 class="name"><code>SOUND</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l251"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:251</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>音声ファイル（通常はmp3、ogg、wavファイル）のためのプリロードタイプです。
+音声はAUDIOタグによってロードされます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> sound</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_stopOnError" class="property item">
+    <h3 class="name"><code>stopOnError</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l306"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:306</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>エラーに遭遇した時に現在のキューを処理停止するか否かです。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_SVG" class="property item">
+    <h3 class="name"><code>SVG</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l261"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:261</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>SVGファイルのためのプリロードタイプです。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> svg</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_TEXT" class="property item">
+    <h3 class="name"><code>TEXT</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l270"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:270</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>テキストファイルのためのプリロードタイプであり、タイプが決定できない時のデフォルトファイルタイプです。
+テキストは生のテキストとしてロードされます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> text</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_useXHR" class="property item">
+    <h3 class="name"><code>useXHR</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l292"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:292</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>可能であればXMLHttpRequest（XHR）を使います。
+LoadQueueはメディアタイプによってタグローディングかXHRローディングに決まります。
+例えば、HTML audioタグはXHRではロードできませんし、WebAudioはタグではロードできません。
+そのため、ユーザが定義したタイプでなく、デフォルトのタイプを使用することになります。</p>
+<p><b>注意: このプロパティは読み取り専用です。</b> 変更するには、<a href="../classes/LoadQueue.html#method_setUseXHR" class="crosslink">setUseXHR</a>メソッドを使用してください。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_XML" class="property item">
+    <h3 class="name"><code>XML</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l280"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:280</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>xmlファイルのためのプリロードタイプです。
+XMLはXMLドキュメントとしてロードされます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> xml</p>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_complete" class="events item inherited">
+    <h3 class="name"><code>complete</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#event_complete">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l123"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:123</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>キューの全アイテムがロードされたときに発火されるイベントです。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントタイプです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_error" class="events item inherited">
+    <h3 class="name"><code>error</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#event_error">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l131"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:131</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>ローダーがエラーに遭遇した時に発火されるイベントです。
+ファイルに関するエラーの場合、原因となったアイテムが格納されます。
+エラー原因のようなプロパティがイベントオブジェクトに追加されることがあります。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントタイプです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[item]</code>
+                        <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロード中にエラーが発生したアイテムです。アイテムは<a href="../classes/LoadQueue.html#method_loadFile" class="crosslink">loadFile</a>
+ あるいは<a href="../classes/LoadQueue.html#method_loadManifest" class="crosslink">loadManifest</a>の呼び出しで指定されています。
+ 文字列のパスあるいはタグが指定された場合は、オブジェクトはその値をプロパティとして格納しています。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[error]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>エラーオブジェクトあるいはエラーメッセージです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_fileload" class="events item">
+    <h3 class="name"><code>fileload</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l344"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:344</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>個別のファイルがロードされ処理完了したときに発火されるイベントです。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントタイプです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">{{#crossLink</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>"LoadQueue/loadFile"}}{{/crossLink}}あるいは{{#crossLink "LoadQueue/loadManifest"}}{{/crossLink}}
+の呼び出しにより指定されたファイルアイテムです。文字列パスあるいはタグのみが指定された場合、オブジェクトはその値をプロパティとして格納します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">result</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロードしたアイテムのHTMLタグあるいはパース結果です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">rawResult</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>未処理の結果であり、通常は使用可能なオブジェクトに変換する前の生のテキストあるいはバイナリデータです。
+to a usable object.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_fileprogress" class="events item">
+    <h3 class="name"><code>fileprogress</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_preloadjs_LoadQueue.js.html#l357"><code>src&#x2F;preloadjs&#x2F;LoadQueue.js:357</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>個別のファイルのロード進捗が変化したときに発火されるイベントです。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントタイプです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">{{#crossLink</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>"LoadQueue/loadFile"}}{{/crossLink}}あるいは{{#crossLink "LoadQueue/loadManifest"}}{{/crossLink}}
+の呼び出しにより指定されたファイルアイテムです。文字列パスあるいはタグのみが指定された場合、オブジェクトはその値をプロパティとして格納します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">loaded</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロード完了したバイト数です。パーセンテージとして1の値をとることがあります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">total</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>全体のバイト数です。未知の場合、値は1です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">percent</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロード完了したパーセンテージです。0と1の間の値をとります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_loadStart" class="events item inherited">
+    <h3 class="name"><code>loadStart</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#event_loadStart">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l115"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:115</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>ロード開始時に発火されるイベントです。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントタイプです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_progress" class="events item inherited">
+    <h3 class="name"><code>progress</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/AbstractLoader.html#event_progress">AbstractLoader</a>:
+            
+        
+        
+        <a href="../files/src_preloadjs_AbstractLoader.js.html#l104"><code>src&#x2F;preloadjs&#x2F;AbstractLoader.js:104</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>全体の進捗が変化したときに発火されるイベントです。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントタイプです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">loaded</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>現時点でロードした量です。特記事項として、ロードの開始前はファイルサイズが未知のため、1となることがあります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">total</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>全バイト数です。1となることがあります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">percent</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ロードしたパーセンテージです。0と1の間の値をとります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+            </div>
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>EaselJS</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AlphaMapFilter.html">AlphaMapFilter</a></li>
+            
+                <li><a href="../classes/AlphaMaskFilter.html">AlphaMaskFilter</a></li>
+            
+                <li><a href="../classes/Bitmap.html">Bitmap</a></li>
+            
+                <li><a href="../classes/BitmapAnimation.html">BitmapAnimation</a></li>
+            
+                <li><a href="../classes/BoxBlurFilter.html">BoxBlurFilter</a></li>
+            
+                <li><a href="../classes/ColorFilter.html">ColorFilter</a></li>
+            
+                <li><a href="../classes/ColorMatrix.html">ColorMatrix</a></li>
+            
+                <li><a href="../classes/ColorMatrixFilter.html">ColorMatrixFilter</a></li>
+            
+                <li><a href="../classes/Command.html">Command</a></li>
+            
+                <li><a href="../classes/Container.html">Container</a></li>
+            
+                <li><a href="../classes/DisplayObject.html">DisplayObject</a></li>
+            
+                <li><a href="../classes/DOMElement.html">DOMElement</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/Filter.html">Filter</a></li>
+            
+                <li><a href="../classes/Graphics.html">Graphics</a></li>
+            
+                <li><a href="../classes/Log.html">Log</a></li>
+            
+                <li><a href="../classes/Matrix2D.html">Matrix2D</a></li>
+            
+                <li><a href="../classes/MouseEvent.html">MouseEvent</a></li>
+            
+                <li><a href="../classes/MovieClip.html">MovieClip</a></li>
+            
+                <li><a href="../classes/MovieClipPlugin.html">MovieClipPlugin</a></li>
+            
+                <li><a href="../classes/Point.html">Point</a></li>
+            
+                <li><a href="../classes/Rectangle.html">Rectangle</a></li>
+            
+                <li><a href="../classes/Shadow.html">Shadow</a></li>
+            
+                <li><a href="../classes/Shape.html">Shape</a></li>
+            
+                <li><a href="../classes/SpriteSheet.html">SpriteSheet</a></li>
+            
+                <li><a href="../classes/SpriteSheetBuilder.html">SpriteSheetBuilder</a></li>
+            
+                <li><a href="../classes/SpriteSheetUtils.html">SpriteSheetUtils</a></li>
+            
+                <li><a href="../classes/Stage.html">Stage</a></li>
+            
+                <li><a href="../classes/Text.html">Text</a></li>
+            
+                <li><a href="../classes/Ticker.html">Ticker</a></li>
+            
+                <li><a href="../classes/Touch.html">Touch</a></li>
+            
+                <li><a href="../classes/UID.html">UID</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/EaselJS.html">EaselJS</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1>EaselJS Module</h1>
+<div class="box clearfix meta">
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_easeljs_utils_UID.js.html#l34"><code>src&#x2F;easeljs&#x2F;utils&#x2F;UID.js:34</code></a>
+        </div>
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>EaselJSはcanvas向けに保持されたグラフィックスモードを提供するJavascriptライブラリであり、完全な階層構造の表示リスト、
+コアインタラクションモデル、canvasでの2Dグラフィックスを簡易にするヘルパークラスを含みます。
+EaselJSはリッチなHTML5Canvasにおけるリッチなグラフィックスやインタラクションに役立つソリューションを提供します。</p>
+<p><h4>はじめに</h4>
+Easelをはじめるために、まずはCANVAS要素を覆う<a href="../classes/Stage.html" class="crosslink">Stage</a>を作成し、<a href="../classes/DisplayObject.html" class="crosslink">DisplayObject</a>
+インスタンスを子として加えてみましょう。
+EaselJSは以下をサポートしています:</p>
+<ul>
+     <li><a href="../classes/Bitmap.html" class="crosslink">Bitmap</a>による画像表示</li>
+     <li><a href="../classes/Shape.html" class="crosslink">Shape</a>と<a href="../classes/Graphics.html" class="crosslink">Graphics</a>によるベクターグラフィックス</li>
+     <li><a href="../classes/SpriteSheet.html" class="crosslink">SpriteSheet</a>と<a href="../classes/BitmapAnimation.html" class="crosslink">BitmapAnimation</a>によるビットマップアニメーション
+     <li><a href="../classes/Text.html" class="crosslink">Text</a>によるシンプルなテキスト</li>
+     <li><a href="../classes/Container.html" class="crosslink">Container</a>による他のDisplayObjectを格納するコンテナ</li>
+     <li><a href="../classes/DOMElement.html" class="crosslink">DOMElement</a>によるHTML DOM要素の制御</li>
+</ul>
+
+<p>全ての表示オブジェクトはステージに子として加えるか、canvasに直接描画できます。</p>
+<p><b>ユーザインタラクション</b><br />
+全てのステージ上（DOMElementを除く）の表示オブジェクトはマウスあるいはタッチで操作したときにイベントを発行します。
+EaselJSは使いやすいドラッグアンドドロップモデルだけでなく、hover、press、それとreleaseイベントをサポートします。
+詳しくは<a href="../classes/MouseEvent.html" class="crosslink">MouseEvent</a>を参照してください。</p>
+<p><h4>簡単な例</h4>
+この例ではEaselJSの描画APIを用いて<a href="../classes/Stage.html" class="crosslink">Stage</a>上に<a href="../classes/Shape.html" class="crosslink">Shape</a>を生成して配置する方法を説眼します。</p>
+<pre class="code prettyprint"><code>    //canvasへの参照を渡してステージを作成します。
+    stage = new createjs.Stage("demoCanvas");
+    //Shape DisplayOBjectを生成します。
+    circle = new createjs.Shape();
+    circle.graphics.beginFill("red").drawCircle(0, 0, 40);
+    //Shapeインスタンスの位置を設定します。
+    circle.x = circle.y = 50;
+    //表示リストにShapeインスタンスを加えます。
+    stage.addChild(circle);
+    //ステージの更新により次のフレームを描画します。
+    stage.update();</code></pre>
+<p><b>シンプルなアニメーションの例</b><br />
+この例では、前のデモで作成したシェイプを画面上で動かします。</p>
+<pre class="code prettyprint"><code>    //ステージの更新により次のフレームを描画します。
+    createjs.Ticker.addEventListener("tick", handleTick);
+
+    function handleTick() {
+     //円を右に10単位動かします。
+        circle.x += 10;
+        //円を最初の位置に戻します。
+        if (circle.x &gt; stage.canvas.width) { circle.x = 0; }
+        stage.update();
+    }</code></pre>
+<p><h4>他の特長</h4>
+EaselJSは以下をサポートするように構築されています。</p>
+<ul><li><a href="../classes/Shadow.html" class="crosslink">Shadow</a>やCompositeOperationといったcanvasの特長</li>
+     <li><a href="../classes/Ticker.html" class="crosslink">Ticker</a>、オブジェクトが受け取ることのできるグローバルな鼓動</li>
+     <li><a href="../classes/ColorMatrixFilter.html" class="crosslink">ColorMatrixFilter</a>, <a href="../classes/AlphaMaskFilter.html" class="crosslink">AlphaMaskFilter</a>,
+     <a href="../classes/AlphaMapFilter.html" class="crosslink">AlphaMapFilter</a>, <a href="../classes/BoxBlurFilter.html" class="crosslink">BoxBlurFilter</a>といったフィルター。
+     詳しくは<a href="../classes/Filter.html" class="crosslink">Filter</a>を参照してください。</li>
+     <li>簡単にインタラクティブなボタンを作成するためのButtonHelperユーティリティ。</li>
+     <li>実行時に<a href="../classes/SpriteSheet.html" class="crosslink">SpriteSheet</a>の機能を構築し管理するのを助ける
+     <a href="../classes/SpriteSheetUtils.html" class="crosslink">SpriteSheetUtils</a>と<a href="../classes/SpriteSheetBuilder.html" class="crosslink">SpriteSheetBuilder</a>。
+</ul>
+</div>
+
+
+
+<div class="yui3-g">
+    <div class="yui3-u-1-2">
+        
+            <p>This module provides the following classes:</p>
+
+            <ul class="module-classes">
+            
+                <li class="module-class">
+                    <a href="../classes/AlphaMapFilter.html">
+                        AlphaMapFilter
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/AlphaMaskFilter.html">
+                        AlphaMaskFilter
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Bitmap.html">
+                        Bitmap
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/BitmapAnimation.html">
+                        BitmapAnimation
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/BoxBlurFilter.html">
+                        BoxBlurFilter
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/ColorFilter.html">
+                        ColorFilter
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/ColorMatrix.html">
+                        ColorMatrix
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/ColorMatrixFilter.html">
+                        ColorMatrixFilter
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Command.html">
+                        Command
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Container.html">
+                        Container
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/DisplayObject.html">
+                        DisplayObject
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/DOMElement.html">
+                        DOMElement
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/EventDispatcher.html">
+                        EventDispatcher
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Filter.html">
+                        Filter
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Graphics.html">
+                        Graphics
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Log.html">
+                        Log
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Matrix2D.html">
+                        Matrix2D
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/MouseEvent.html">
+                        MouseEvent
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/MovieClip.html">
+                        MovieClip
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/MovieClipPlugin.html">
+                        MovieClipPlugin
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Point.html">
+                        Point
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Rectangle.html">
+                        Rectangle
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Shadow.html">
+                        Shadow
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Shape.html">
+                        Shape
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/SpriteSheet.html">
+                        SpriteSheet
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/SpriteSheetBuilder.html">
+                        SpriteSheetBuilder
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/SpriteSheetUtils.html">
+                        SpriteSheetUtils
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Stage.html">
+                        Stage
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Text.html">
+                        Text
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Ticker.html">
+                        Ticker
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Touch.html">
+                        Touch
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/UID.html">
+                        UID
+                    </a>
+                </li>
+            
+            </ul>
+        
+    </div>
+
+    <div class="yui3-u-1-2">
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

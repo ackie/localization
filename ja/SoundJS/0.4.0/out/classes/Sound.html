@@ -1,0 +1,6134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sound</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/FlashPlugin.html">FlashPlugin</a></li>
+            
+                <li><a href="../classes/HTMLAudioPlugin.html">HTMLAudioPlugin</a></li>
+            
+                <li><a href="../classes/Log.html">Log</a></li>
+            
+                <li><a href="../classes/Sound.html">Sound</a></li>
+            
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
+            
+                <li><a href="../classes/WebAudioPlugin.html">WebAudioPlugin</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/SoundJS.html">SoundJS</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1>Sound Class</h1>
+<div class="box meta">
+    
+        <div class="uses">
+            Uses
+            <ul class="inline commas">
+                
+                    <li><a href="EventDispatcher.html">EventDispatcher</a></li>
+                
+            </ul>
+        </div>
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_soundjs_Sound.js.html#l79"><code>src&#x2F;soundjs&#x2F;Sound.js:79</code></a>
+        </div>
+    
+
+    
+        
+            Module: <a href="../modules/SoundJS.html">SoundJS</a>
+        
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>Sound クラスは、音の生成、全体の音量コントロール、プラグインの管理のための public API を提供します。
+このクラスの全ての Sound API は static メンバです。</p>
+<p><b>登録と事前読み込み(preload)</b><br />
+音を再生する前には、<b>必ず</b>登録を行わなければなりません。音の登録は、<a href="../classes/Sound.html#method_registerSound" class="crosslink">registerSound</a> メソッドを呼び出すか、
+複数の音源に対して<a href="../classes/Sound.html#method_registerManifest" class="crosslink">registerManifest</a> メソッドを呼び出す事で行います。
+すぐに登録しない場合でも、<a href="../classes/Sound.html#method_play" class="crosslink">play</a> メソッドで音の再生を試みるか、
+<a href="../classes/Sound.html#method_createInstance" class="crosslink">createInstance</a> メソッドで再生せずに音源を生成すると、自動的に登録されます。
+また、<a href="http://preloadjs.com" target="_blank">PreloadJS</a>を用いた場合は、音源の読み込み完了時に自動的に登録します。
+内部ですでに読み込んだ音源を用いる場合は登録用メソッドを用い、外部から読み込む場合は PreloadJS を用いる事をおすすめします。
+これにより、すぐに使用できるようになります。</p>
+<p><b>再生</b><br />
+読み込みと登録が完了した音源を一度再生するには、<a href="../classes/Sound.html#method_play" class="crosslink">play</a>メソッドを用います。
+このメソッドは、一時停止、一時停止の解除、消音などが行える <a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a> を返します。
+コントロール用APIについて、より詳しい解説は<a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a>を参照下さい。</p>
+<p><b>プラグイン</b><br />
+デフォルトでは、<a href="../classes/WebAudioPlugin.html" class="crosslink">WebAudioPlugin</a> か <a href="../classes/HTMLAudioPlugin.html" class="crosslink">HTMLAudioPlugin</a> 
+が（利用可能であれば）用いられます。一方、開発者はプラグインの優先度を変更したり、
+新たなプラグイン（たとえば<a href="../classes/FlashPlugin.html" class="crosslink">FlashPlugin</a>のような）を追加する事ができます。
+プラグインや再生 API について、より詳しい解説は<a href="../classes/Sound.html" class="crosslink">Sound</a>を参照下さい。
+また、プラグインをインストールしたり、新たなプラグインの優先度を指定する場合は、
+Sound/installPlugins を参照下さい。</p>
+<p><h4>実装例</h4>
+     createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.FlashPlugin]);
+     createjs.Sound.addEventListener("loadComplete", createjs.proxy(this.loadHandler, (this));
+     createjs.Sound.registerSound("path/to/mySound.mp3|path/to/mySound.ogg", "sound");
+     function loadHandler(event) {
+         // この関数は音源が登録されるたびに呼び出されます。
+         var instance = createjs.Sound.play("sound");  // IDを用いて再生します。sourceを用いる事もできます。
+         instance.addEventListener("playComplete", createjs.proxy(this.handleComplete, this));
+         instance.setVolume(0.5);
+     }</p>
+<p>一度に再生できる同じ音インスタンスの最大数は、<a href="../classes/Sound.html#method_registerSound" class="crosslink">registerSound</a>メソッドの引数""data"で指定できます。</p>
+<pre class="code prettyprint"><code> createjs.Sound.registerSound("sound.mp3", "soundId", 4);</code></pre>
+<p>Sound クラスは、PreloadJSで音源の事前読み込み(preload)を行う際のプラグインとしても使用できます。
+PreloadJS を用いて読み込んだ音源は、Sound クラスによって自動的に登録されます。
+音源を事前に読み込んでいない場合は(When audio is not preloaded)、Sound クラスが内部で事前読み込み(internal preload)を行うため、
+play メッソドが呼び出されると同時に音が再生されない可能性があります。
+<a href="../classes/Sound.html#method_loadComplete" class="crosslink">loadComplete</a>イベントを用いれば、内部的に音源の読み込みが完了したタイミングをとる事ができます。
+再生の前に全ての音源の読み込みを完了させてある方が望ましいです。</p>
+<pre class="code prettyprint"><code> createjs.PreloadJS.installPlugin(createjs.Sound);</code></pre>
+<p><h4>ブラウザ/OSにおける既知の問題点</h4>
+<b>IE9 html Audio の珍奇な振舞い</b><br />
+IE9 では、一度再生を開始してしまうと、タグでの音量の変更に遅延が生じる事がわかっています。
+このため全音を消音したとしても、内部で消音が適用されるまでのこの遅延の間は、音が再生され続けます。
+これは、どこで、どのように音量変更を適用したとしても、タグが音再生に必要な以上、必ず起こります。</p>
+<p><b>iOS 6 の制限</b><br /></p>
+<p><ul><li>音は初期状態では消音されており、一度ユーザーイベント(タッチイベント)内で再生しないと消音は解除されません。</li>
+    <li>反対意見にもかかわらず、SoundJSでは音量は内部の GainNode を用いて操作しています。</li></ul>
+     <li>(Despite suggestions to the opposite, we have control over audio volume through our gain nodes.)</li></ul>
+詳細(英語): <a href="http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api">http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api</a></p>
+<p><b>Android の制限</b><br /></p>
+<p><ul><li>Android Chrome は createjs.Sound.BrowserDetect.isChrome で true を返しますが、異なった処理能力を持った異なったブラウザです。</li>
+     <li>SoundJS で音量操作はできません。ユーザーが端末上でのみ音量を設定できます。</li>
+     <li>ユーザーイベント(タッチイベント)内でのみ音の再生ができます。これはつまり、現状ループ再生ができません。</li></p>
+
+</div>
+
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_addEventListener">addEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_beginPlaying">beginPlaying</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_createInstance">createInstance</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_dispatchEvent">dispatchEvent</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getCapabilities">getCapabilities</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getCapability">getCapability</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getMute">getMute</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_getPreloadHandlers">getPreloadHandlers</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_getSrcById">getSrcById</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getVolume">getVolume</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_hasEventListener">hasEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected inherited">
+                                <a href="#method_initialize">initialize</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_initializeDefaultPlugins">initializeDefaultPlugins</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_initLoad">initLoad</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_isReady">isReady</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_loadComplete">loadComplete</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method deprecated">
+                                <a href="#method_mute">mute</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_parsePath">parsePath</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_play">play</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_playFinished">playFinished</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_playInstance">playInstance</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected deprecated">
+                                <a href="#method_proxy">proxy</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_registerManifest">registerManifest</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_registerPlugin">registerPlugin</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_registerPlugins">registerPlugins</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_registerSound">registerSound</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_removeAllEventListeners">removeAllEventListeners</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_removeEventListener">removeEventListener</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_sendLoadComplete">sendLoadComplete</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setMute">setMute</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setVolume">setVolume</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_stop">stop</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_toString">toString</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property protected inherited">
+                                <a href="#property__listeners">_listeners</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_activePlugin">activePlugin</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_AUDIO_TIMEOUT">AUDIO_TIMEOUT</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_defaultInterruptBehavior">defaultInterruptBehavior</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_defaultSoundInstance">defaultSoundInstance</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_DELIMITER">DELIMITER</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_EXTENSION_MAP">EXTENSION_MAP</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_FILE_PATTERN">FILE_PATTERN</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_idHash">idHash</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_instances">instances</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_INTERRUPT_ANY">INTERRUPT_ANY</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_INTERRUPT_EARLY">INTERRUPT_EARLY</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_INTERRUPT_LATE">INTERRUPT_LATE</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_INTERRUPT_NONE">INTERRUPT_NONE</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_lastID">lastID</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_masterMute">masterMute</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_masterVolume">masterVolume</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property deprecated">
+                                <a href="#property_onLoadComplete">onLoadComplete</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_PLAY_FAILED">PLAY_FAILED</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_PLAY_FINISHED">PLAY_FINISHED</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_PLAY_INITED">PLAY_INITED</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_PLAY_INTERRUPTED">PLAY_INTERRUPTED</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_PLAY_SUCCEEDED">PLAY_SUCCEEDED</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_pluginsRegistered">pluginsRegistered</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_preloadHash">preloadHash</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_SUPPORTED_EXTENSIONS">SUPPORTED_EXTENSIONS</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events">
+                        
+                            <li class="index-item event">
+                                <a href="#event_loadComplete">loadComplete</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_addEventListener" class="method item inherited">
+    <h3 class="name"><code>addEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Function | Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_addEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l106"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:106</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントリスナを追加します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>handleEvent メソッドを持つオブジェクト、またはイベントが発行された時に
+呼ばれる関数です</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Function | Object</span>:
+                    
+                    <p>listener を連携や代入等の目的に使用できるように返します</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_beginPlaying" class="method item protected">
+    <h3 class="name"><code>beginPlaying</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>instance</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[interrupt=none]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[offset=instance.offset]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[loop=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[volume]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[pan=instance.pan]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l1044"><code>src&#x2F;soundjs&#x2F;Sound.js:1044</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>再生を開始します。この関数は、すぐに、又は遅延後に、<a href="../classes/Sound.html#method_playInstance" class="crosslink">playInstance</a>から呼び出されます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">instance</code>
+                        <span class="type"><a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>再生を開始する<a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a>です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[interrupt=none]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>このインスタンスが同じ音源の他のインスタンスからどのように中断されるかを指定します。
+デフォルトは <code>Sound.INTERRUPT_NONE</code> です。値は Sound クラス内の<code>INTERRUPT_TYPE</code>として定義されています。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[offset=instance.offset]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音の再生を開始する位置をミリ秒で指定します。デフォルトはこのインスタンスの現在の位置です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[loop=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音再生のループ回数を指定します。0 でループ無し、-1 で無限ループします。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[volume]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音量を 0 から 1 の範囲で指定します。デフォルトは現在インスタンスが持っている値です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[pan=instance.pan]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音の定位を -1（左）から1（右）の範囲で指定します。デフォルトは現在インスタンスが持っている値です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>音の再生を開始したかどうかを返します。再生に失敗した音は false を返します。再生遅延を指定した音は true を返しますが、再生時に失敗する可能性があります。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_createInstance" class="method item">
+    <h3 class="name"><code>createInstance</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>src</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l850"><code>src&#x2F;soundjs&#x2F;Sound.js:850</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>引数に渡したパス文字列を使って<a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a>を作ります。もしサポートする拡張子をもっていない場合、
+安全にメソッドを呼べますが何もしない、デフォルトの SoundInstance が返されます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音源のパス文字列</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a></span>:
+                    
+                    <p>コントロールが可能な<a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a>を返します。サポートされていない拡張子に対してはデフォルトの SoundInstance が返されます。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_dispatchEvent" class="method item inherited">
+    <h3 class="name"><code>dispatchEvent</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>eventObj</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[target]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_dispatchEvent">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l154"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:154</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントを発行します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">eventObj</code>
+                        <span class="type">Object | String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>&quot;type&quot; プロパティを持つオブジェクト、もしくは種類を指定する文字列です。
+dispatchEvent  &quot;type&quot; と &quot;params&quot; プロパティを持つ汎用イベントオブジェクトを生成します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[target]</code>
+                        <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントオブジェクトの target プロパティとして使うオブジェクトです。デフォルト値は
+イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>リスナが 1 つでも true を返したら true になります。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getCapabilities" class="method item">
+    <h3 class="name"><code>getCapabilities</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l570"><code>src&#x2F;soundjs&#x2F;Sound.js:570</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>使用中のプラグインの機能を返します。これは、プラグインが現在の環境で利用可能か、
+プラグインが特定の機能をサポートしているかについて判断する事ができます。
+返値には以下の情報が含まれています。:</p>
+<p><ul>
+    <li><b>panning:</b> 音の定位を右から左まで指定できるか</li>
+    <li><b>volume;</b> 音量を指定できるか</li>
+    <li><b>mp3:</b> MP3 オーディオがサポートされているか</li>
+    <li><b>ogg:</b> OGG オーディオがサポートされているか</li>
+    <li><b>wav:</b> Wav オーディオがサポートされているか</li>
+    <li><b>mpeg:</b> MPEG オーディオがサポートされているか</li>
+    <li><b>m4a:</b> M4A オーディオがサポートされているか</li>
+    <li><b>mp4:</b> MP4 オーディオがサポートされているか</li>
+    <li><b>aiff:</b> aiff オーディオがサポートされているか </li>
+    <li><b>wma:</b> wma オーディオがサポートされているか</li>
+    <li><b>mid:</b> mid オーディオがサポートされているか</li>
+    <li><b>tracks:</b> 最大同時再生数。制限がない場合、-1を返します。</li></p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p>使用中のプラグインがサポートする機能を含む Object です。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getCapability" class="method item">
+    <h3 class="name"><code>getCapability</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>key</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number | Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l598"><code>src&#x2F;soundjs&#x2F;Sound.js:598</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>使用中のプラグインが特定の機能をサポートするかを返します。機能の一覧は<a href="../classes/Sound.html#method_getCapabilities" class="crosslink">getCapabilities</a>を参照下さい。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">key</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>調べる機能を示す文字列です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number | Boolean</span>:
+                    
+                    <p>機能の示す値です。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getMute" class="method item">
+    <h3 class="name"><code>getMute</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l963"><code>src&#x2F;soundjs&#x2F;Sound.js:963</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>グローバルミュートの値を返します。
+各インスタンスの消音状態の取得は、代わりにSoundInstance <a href="../classes/SoundInstance.html#method_setVolume" class="crosslink">setVolume</a> を使って下さい。</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>Sound クラスの消音状態を返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getPreloadHandlers" class="method item protected">
+    <h3 class="name"><code>getPreloadHandlers</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l464"><code>src&#x2F;soundjs&#x2F;Sound.js:464</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Soundクラスを<a href="http://preloadjs.com" target="_blank">PreloadJS</a>のプラグインとして使用できるように、preloadルールを返します。
+適合したタイプや拡張子を持った読み込みは、コールバック関数を呼び出して、Soundクラスで変更可能な返値オブジェクトを使用します。
+これは、正しいパスの特定や、Soundクラスで音源インスタンスを登録するといった際に、利用されます。
+このメソッドは PreloadJS 以外からは、呼び出されるべきではありません。</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p>以下の情報を持ったオブジェクトです:</p>
+<ul><li>callback: ファイルが PreloadJS に読み込まれた時に呼び出される関数で、読み込みパラメータの修正、正しいファイルフォーマットの選択、
+     音源の登録などといった、Soundクラスの様々な機構を提供します。</li>
+     <li>types: Sound クラスがサポートするファイルタイプのリストです (現在は &quot;sound&quot; 型をサポートしています)。</li>
+     <li>extensions: Sound クラスがサポートするファイル拡張子ののリストです(Sound.SUPPORTED_EXTENSIONSを参照下さい)。</li></ul>
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getSrcById" class="method item protected">
+    <h3 class="name"><code>getSrcById</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l1074"><code>src&#x2F;soundjs&#x2F;Sound.js:1074</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>登録の時に指定した ID から音源のパス文字列を取得します。IDが見つからない場合、引数で渡した値を返します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>登録の時に指定した音源の ID です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                    <p>音源のパス文字列を返します。Returns null if src has been registered with this id. (訳注：すいません。分らなかったので仕様を調べてあとで訳します)</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getVolume" class="method item">
+    <h3 class="name"><code>getVolume</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l909"><code>src&#x2F;soundjs&#x2F;Sound.js:909</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sound クラスのマスターボリュームを取得します。マスターボリュームは各チャンネルの音量に乗算されます。
+各チャンネルの音量を取得するには、代わりにSoundInstance <a href="../classes/SoundInstance.html#method_setVolume" class="crosslink">setVolume</a> を使って下さい。</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number</span>:
+                    
+                    <p>マスターボリュームの値を返します。範囲は0～1の間です。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_hasEventListener" class="method item inherited">
+    <h3 class="name"><code>hasEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_hasEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l180"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:180</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントの種類に対して 1 つ以上のリスナが存在するかを調べます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>指定されたイベントのリスナが存在すると true を返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_initialize" class="method item protected inherited">
+    <h3 class="name"><code>initialize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_initialize">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l98"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:98</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>初期化メソッド</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_initializeDefaultPlugins" class="method item private">
+    <h3 class="name"><code>initializeDefaultPlugins</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l538"><code>src&#x2F;soundjs&#x2F;Sound.js:538</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>デフォルトプラグインを初期化します。このメソッドはユーザーがプラグインを登録せずに音を再生しようとした時に呼びだされ、
+手動でプラグインを設定しなくても、Sound クラスが動くようにします。現在の実装では、デフォルトプラグインとして、
+<a href="../classes/WebAudioPlugin.html" class="crosslink">WebAudioPlugin</a> の設定を試み、失敗したら <a href="../classes/HTMLAudioPlugin.html" class="crosslink">HTMLAudioPlugin</a>の設定を試みます。</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>プラグインが初期化されたか。もしブラウザがどのプラグインも初期化できなければ、false を返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_initLoad" class="method item protected">
+    <h3 class="name"><code>initLoad</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>src</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[type]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[id]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[data]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean | Object</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l613"><code>src&#x2F;soundjs&#x2F;Sound.js:613</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p><a href="http://preloadjs.com" target="_blank">PreloadJS</a>のプロセスマニュフェストアイテム(Process manifest items)です。
+このメソッドはプラグインから使用されるように想定されており、直接操作するものではありません。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>読み込むソース又はオブジェクトです。通常はパス文字列ですが、HTMLAudioElementや似た再生オブジェクトを渡す事も可能です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[type]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>オブジェクトのタイプです。通常は &quot;sound&quot; か &quot;null&quot; です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[id]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音を再生するためにユーザーが定義できるID(オプション)です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[data]</code>
+                        <span class="type">Number | String | Boolean | Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>アイテムと関連したデータです。Sound クラスはdataパラメータをaudioインスタンスのチャンネル数として使いますが、
+もしこのプロパティが他の情報に使われた場合でも、&quot;channels&quot; プロパティがdataオブジェクトに追加されます。何の値も設定されていない場合、デフォルトのチャンネル数は1です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean | Object</span>:
+                    
+                    <p>引数で渡した値を持つObjectを返します。また、プラグインが渡されたオーディオの型を再生できない場合、false を返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_isReady" class="method item">
+    <h3 class="name"><code>isReady</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l560"><code>src&#x2F;soundjs&#x2F;Sound.js:560</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sound クラスが初期化され、プラグインが有効化されたかどうかを返します。</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>Sound クラスが初期化されたかを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_loadComplete" class="method item">
+    <h3 class="name"><code>loadComplete</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>src</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l755"><code>src&#x2F;soundjs&#x2F;Sound.js:755</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>指定したソースが内部ローダーで読み込まれたかをチェックします。読み込みを完了していない音源を再生しようとする場合に、
+新たな内部読み込みを開始しないように、この関数が必要となります。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>読み込みをチェックする音源のパス文字列またはIDです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>src がすでに読み込み済みかを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_mute" class="method item deprecated">
+    <h3 class="name"><code>mute</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="この関数は将来廃止される可能性があります。setMuteを代わりに使ってください。">deprecated</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l920"><code>src&#x2F;soundjs&#x2F;Sound.js:920</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: この関数は将来廃止される可能性があります。setMuteを代わりに使ってください。</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>全ての出音を消音/消音解除します。<a href="../classes/Sound.html#method_setMute" class="crosslink">setMute</a>を参照下さい。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Boolean</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音を消音するか/消音解除するかを指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_parsePath" class="method item protected">
+    <h3 class="name"><code>parsePath</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[type]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[id]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[data]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l773"><code>src&#x2F;soundjs&#x2F;Sound.js:773</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>音源のパス文字列を解析します。通常はマニフェストの項目から読み込まれます。マニフェストのsrc項目では、
+単一のファイルパスと、<code>Sound.DELIMITER</code>（デフォルトは&quot;|&quot;）を用いた複数のファイルパスの両方をサポートします。
+現在のブラウザ/プラグインでサポートされている初期ファイルパスが使用されます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音源のパス文字列です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[type]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>パスの型です。この値は通常、&quot;sound&quot; 又は nullです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[id]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ユーザーが指定した sound ID です。nullの場合、パス文字列が代わりに使われます。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[data]</code>
+                        <span class="type">Number | String | Boolean | Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音源に追加する任意のデータで、通常は音源のチャンネル数を示しています。
+現在の実装では、この引数はメソッド内部で使われていません。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p><code>Sound.activePlugin</code>で登録可能、かつ、<a href="http://preloadjs.com" target="_blank">PreloadJS</a>のような
+ローダーに対して値を渡せるように整形したオブジェクトを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_play" class="method item">
+    <h3 class="name"><code>play</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>src</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[interrupt=&quot;none&quot;]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[delay=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[offset=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[loop=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[volume=1]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[pan=0]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l816"><code>src&#x2F;soundjs&#x2F;Sound.js:816</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>音を再生して、そのコントロールを行う<a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a>を返します。
+再生に失敗した場合、<code>Sound.PLAY_FAILED</code>の playState 値を持った SoundInstance が返されます。
+再生チャンネルの不足が原因で失敗した音であっても、SoundInstance <a href="../classes/SoundInstance.html#method_play" class="crosslink">play</a> を呼び出す事ができる点に注意してください。
+もし利用可能なプラグインが無い場合、音を再生しないがエラーも発生しない<code>Sound.defaultSoundInstance</code>が返されます。</p>
+<p><h4>例</h4>
+     createjs.Sound.registerSound("myAudioPath/mySound.mp3", "myID", 3);
+     // 読み込みが完了するまで待ちます
+     createjs.Sound.play("myID");
+     // このように次々とファイルを呼び出す事もできます
+     var myInstance = createjs.Sound.play("myAudioPath/mySound.mp3", createjs.Sound.INTERRUPT_ANY, 0, 0, -1, 1, 0);</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音源のパス文字列またはIDです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[interrupt=&quot;none&quot;]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>他のインスタンスを中断する方法を指定します。値は Sound クラス内の<code>INTERRUPT_TYPE</code>として定義されています。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[delay=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音の再生開始の遅延時間をミリ秒で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[offset=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音の再生開始位置をミリ秒で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[loop=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>再生終端に到達した際に何回ループさせるかを指定します。デフォルトは 0（ループしない）で、-1 を指定すると無限ループします。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[volume=1]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音量を 0 から 1 の範囲で指定します。マスターボリュームが各チャンネルのボリュームに対してさらに適用されることに注意してください。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[pan=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>（もしサポートされていれば）音の左右の定位を -1（左）から1（右）の範囲で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a></span>:
+                    
+                    <p>再生後に音をコントロールする <a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a> を返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_playFinished" class="method item protected">
+    <h3 class="name"><code>playFinished</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>instance</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l1089"><code>src&#x2F;soundjs&#x2F;Sound.js:1089</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>再生が完了、中断、失敗、停止した音を渡します。このメソッドは、Sound クラスの管理対象からインスタンスをはずします。
+もう一度音を再生する場合は、Sound クラスの管理対象にあらためて登録されます。このメソッドはインスタンス内部で呼び出される事に注意してください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">instance</code>
+                        <span class="type"><a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>再生を終了したインスタンスです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_playInstance" class="method item protected">
+    <h3 class="name"><code>playInstance</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>instance</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[interrupt=none]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[delay=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[offset=instance.offset]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[loop=0]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[volume]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[pan]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l992"><code>src&#x2F;soundjs&#x2F;Sound.js:992</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>インスタンスを再生します。この関数はスタティックAPIやプラグインから呼び出されます。
+この関数はコアクラスから再生遅延をコントロール出来るようにします。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">instance</code>
+                        <span class="type"><a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>再生を開始するための<a href="../classes/SoundInstance.html" class="crosslink">SoundInstance</a>です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[interrupt=none]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>このインスタンスが同じ音源の他のインスタンスからどのように中断されるかを指定します。
+デフォルトは <code>Sound.INTERRUPT_NONE</code> です。値は Sound クラス内の<code>INTERRUPT_TYPE</code>として定義されています。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[delay=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音の再生が開始するまでの遅延時間をミリ秒で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[offset=instance.offset]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音の再生を開始する位置をミリ秒で指定します。デフォルトはこのインスタンスの現在の位置です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[loop=0]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音再生のループ回数を指定します。0 でループ無し、-1 で無限ループします。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[volume]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音量を 0 から 1 の範囲で指定します。デフォルトは現在インスタンスが持っている値です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[pan]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音の定位を -1（左）から1（右）の範囲で指定します。デフォルトは現在インスタンスが持っている値です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>音の再生を開始したかどうかを返します。再生に失敗した音は false を返します。再生遅延を指定した音は true を返しますが、再生時に失敗する可能性があります。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_proxy" class="method item protected deprecated">
+    <h3 class="name"><code>proxy</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>method</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>scope</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="この関数は将来廃止される可能性があります。createjs.proxy を代わりに使ってください。">deprecated</span>
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l1105"><code>src&#x2F;soundjs&#x2F;Sound.js:1105</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: この関数は将来廃止される可能性があります。createjs.proxy を代わりに使ってください。</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sound メソッドの 関数プロキシ です。デフォルトでは JavaScript のメソッドはスコープを保持しないため、
+メソッドをコールバックとして渡すと、呼び出し元のスコープ内で呼ばれたメソッドとして結果を返します。
+プロキシを使う事で、正しいスコープ内でのメソッドを呼び出しを保障することができます。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">method</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>呼び出す関数です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">scope</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>指定したメソッドを呼び出すスコープです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_registerManifest" class="method item">
+    <h3 class="name"><code>registerManifest</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>読み込むオブジェクトの配列です。オブジェクトは{{#crossLink</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l724"><code>src&#x2F;soundjs&#x2F;Sound.js:724</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>再生する音源のマニフェストをSound クラスに登録します。
+適切に準備して読み込むためには、再生する必要のあるすべての音源を登録しておく事が望ましいです。
+Sound クラスは、必要になった時に内部で読み込みを行います。</p>
+<p><h4>例</h4>
+     var manifest = [
+         {src:&quot;assetPath/asset0.mp3|assetPath/asset0.ogg&quot;, id:&quot;example&quot;}, // Sound.DELIMITER に注意
+         {src:&quot;assetPath/asset1.mp3|assetPath/asset1.ogg&quot;, id:&quot;1&quot;, data:6},
+         {src:&quot;assetPath/asset2.mp3&quot;, id:&quot;works&quot;}
+     ];
+     createjs.Sound.addEventListener(&quot;loadComplete&quot;, doneLoading); // 各音源が読み込まれた時に doneLoading が呼び出されます
+     createjs.Sound.registerManifest(manifest);</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">読み込むオブジェクトの配列です。オブジェクトは{{#crossLink</code>
+                        <span class="type">Array</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>&quot;Sound/registerSound&quot;}}{{/crossLink}}で必要な
+フォーマットである事が期待されます。: <code>{src:srcURI, id:ID, data:Data, preload:UseInternalPreloader}</code>
+ただし、&quot;id&quot;, &quot;data&quot;, &quot;preload&quot; はオプションです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p>引数で渡した、音を定義した値を持つObjectを返します。ソースを解釈できなかった場合、falseを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_registerPlugin" class="method item">
+    <h3 class="name"><code>registerPlugin</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>plugin</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l486"><code>src&#x2F;soundjs&#x2F;Sound.js:486</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sound クラスのプラグインを登録します。プラグインは実際の音の再生を担当します。デフォルトプラグインは、
+(<a href="../classes/WebAudioPlugin.html" class="crosslink">WebAudioPlugin</a> で失敗したら <a href="../classes/HTMLAudioPlugin.html" class="crosslink">HTMLAudioPlugin</a>)
+で、ユーザーが音再生時に他のプラグインが存在していなければインストールされます。</p>
+<p><h4>例</h4>
+     createjs.FlashPlugin.BASE_PATH = "../src/SoundJS/";
+     createjs.Sound.registerPlugin(createjs.FlashPlugin);</p>
+<p>複数のプラグインを登録したい場合は、<a href="../classes/Sound.html#method_registerPlugins" class="crosslink">registerPlugins</a>を使ってください。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">plugin</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>インストールするプラグインのクラスです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>プラグインの初期化に成功したかを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_registerPlugins" class="method item">
+    <h3 class="name"><code>registerPlugins</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>plugins</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l515"><code>src&#x2F;soundjs&#x2F;Sound.js:515</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sound クラスプラグインを、リストの順番に登録します。単一のプラグインを登録する場合は、
+<a href="../classes/Sound.html#method_registerPlugin" class="crosslink">registerPlugin</a>を使用してください。</p>
+<p><h4>例</h4>
+     createjs.FlashPlugin.BASE_PATH = "../src/SoundJS/";
+     createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashPlugin]);</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">plugins</code>
+                        <span class="type">Array</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>インストールするプラグインクラスの配列です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>プラグインの初期化に成功したかを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_registerSound" class="method item">
+    <h3 class="name"><code>registerSound</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>src</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[id]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[data]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[preload=true]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l634"><code>src&#x2F;soundjs&#x2F;Sound.js:634</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Sound クラスで再生するために音源を登録します。この関数は<a href="http://preloadjs.com" target="_blank">PreloadJS</a>を使用した場合、自動的に呼ばれますが、
+もし自分で音源を登録したい場合は、このメソッドで操作します。適切に準備して読み込むためには、再生する必要のあるすべての音源を登録しておく事が望ましいです。
+Sound クラスは、必要になった時に内部で読み込みを行います。</p>
+<p><h4>例</h4>
+     createjs.Sound.registerSound(&quot;myAudioPath/mySound.mp3|myAudioPath/mySound.ogg&quot;, &quot;myID&quot;, 3);</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>ソースのパス文字列または、&quot;src&quot; プロパティを含むオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[id]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音をあとで再生するためにユーザーが指定できるIDです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[data]</code>
+                        <span class="type">Number | Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>アイテムと関連したデータです。Sound クラスはdataパラメータをaudioインスタンスのチャンネル数として使いますが、
+もしこのプロパティが他の情報に使われた場合でも、&quot;channels&quot; プロパティがdataオブジェクトに追加されます。何の値も設定されていない場合、デフォルトのチャンネル数は1です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[preload=true]</code>
+                        <span class="type">Boolean</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>外部のPreloaderを使用していないため音源を内部で読み込む必要があるかどうか、を示します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p>引数で渡した、音を定義した値を持つObjectを返します。ソースを解釈できなかった場合、falseを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeAllEventListeners" class="method item inherited">
+    <h3 class="name"><code>removeAllEventListeners</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code class="optional">[type]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_removeAllEventListeners">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l144"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:144</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定された種類、または全ての種類に対して関連付けられたリスナを全て削除します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[type]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を指定します。省略すると全ての種類に対応する全てのリスナが削除されます。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeEventListener" class="method item inherited">
+    <h3 class="name"><code>removeEventListener</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_removeEventListener">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l124"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:124</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>指定されたイベントリスナを削除します。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントの種類を文字列で指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>リスナ関数又はオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_sendLoadComplete" class="method item private">
+    <h3 class="name"><code>sendLoadComplete</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>src</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l438"><code>src&#x2F;soundjs&#x2F;Sound.js:438</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>読み込みが完了したイベントが発行されるべき Sound ファイルです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setMute" class="method item">
+    <h3 class="name"><code>setMute</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l937"><code>src&#x2F;soundjs&#x2F;Sound.js:937</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>全ての音を消音/消音解除します。消音した音は音量0で再生され続けている点に注意して下さい。
+グローバルミュートの値は独立して保持しており上書きされますが、各個別のインスタンスの mute プロパティは変更しません。
+各インスタンスの消音は、代わりにSoundInstance <a href="../classes/SoundInstance.html#method_setVolume" class="crosslink">setVolume</a> を使って下さい。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Boolean</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音を消音するか/消音解除するかを指定します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                    <p>消音が設定されたかどうかを返します。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_setVolume" class="method item">
+    <h3 class="name"><code>setVolume</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l888"><code>src&#x2F;soundjs&#x2F;Sound.js:888</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sound クラスのマスターボリュームを設定します。マスターボリュームは各チャンネルの音量に乗算されます。
+各チャンネルの音量を設定するには、代わりにSoundInstance <a href="../classes/SoundInstance.html#method_setVolume" class="crosslink">setVolume</a> を使って下さい。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>マスターボリュームの値です。指定可能な範囲は0～1の間です。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_stop" class="method item">
+    <h3 class="name"><code>stop</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l975"><code>src&#x2F;soundjs&#x2F;Sound.js:975</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>全ての音の再生を停止します（グローバルストップ）。再生を停止した音はポーズでは無く、リセットされます。
+停止した音を再生したい場合は、SoundInstance.playを呼び出して下さい。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_toString" class="method item inherited">
+    <h3 class="name"><code>toString</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#method_toString">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l191"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:191</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                    <p>インスタンスを表現する文字列です。</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property__listeners" class="property item protected inherited">
+    <h3 class="name"><code>_listeners</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/EventDispatcher.html#property__listeners">EventDispatcher</a>:
+            
+        
+        
+        <a href="../files/src_easeljs_events_EventDispatcher.js.html#l90"><code>src&#x2F;easeljs&#x2F;events&#x2F;EventDispatcher.js:90</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_activePlugin" class="property item">
+    <h3 class="name"><code>activePlugin</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l317"><code>src&#x2F;soundjs&#x2F;Sound.js:317</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>現在使用中のプラグインです。この値が null の場合、プラグインは初期化されていません。
+プラグインが指定されていない場合、Sound クラスは、デフォルトのプラグイン (<a href="../classes/WebAudioPlugin.html" class="crosslink">WebAudioPlugin</a>でダメなら
+<a href="../classes/HTMLAudioPlugin.html" class="crosslink">HTMLAudioPlugin</a>)を適用しようと試みます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_AUDIO_TIMEOUT" class="property item">
+    <h3 class="name"><code>AUDIO_TIMEOUT</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l165"><code>src&#x2F;soundjs&#x2F;Sound.js:165</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>タイムアウトを検出する時間をミリ秒で指定します（訳注; ソース内に TODO として&quot;実装されてない&quot; と記述されています）</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 8000</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_defaultInterruptBehavior" class="property item">
+    <h3 class="name"><code>defaultInterruptBehavior</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l295"><code>src&#x2F;soundjs&#x2F;Sound.js:295</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>すでに最大同時再生音数に達していた場合、同じ音源ファイルで現在再生中の音の中断について、デフォルトの挙動を定義します。
+現在のデフォルト値は、<code>Sound.INTERRUPT_NONE</code>ですが、この値を差し替えて、再生時の挙動を変更することができます。
+この値は、<a href="../classes/Sound.html#method_play" class="crosslink">play</a> メソッドが INTERRUPT値を指定せずに呼び出された場合のみ適用されます。
+(訳注;ソース内に「要検討」として「INTERRUPT_ANYの方が妥当ではないか？どちらが妥当かはゲーム開発におけるテストが必要」と書かれています)</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> none</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_defaultSoundInstance" class="property item protected">
+    <h3 class="name"><code>defaultSoundInstance</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l392"><code>src&#x2F;soundjs&#x2F;Sound.js:392</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>音の再生に失敗した場合、替わりに使用するオブジェクトです。これにより、開発者は音の再生が成功したかどうかを確認する事無く、
+連続して失敗したインスタンスのメソッドを呼び出すことができます。このインスタンスはメモリ使用量を抑えるため、
+一回だけ生成され共有されます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_DELIMITER" class="property item">
+    <h3 class="name"><code>DELIMITER</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l156"><code>src&#x2F;soundjs&#x2F;Sound.js:156</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>複数の音源のパス文字列を区切るための文字です</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> |</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_EXTENSION_MAP" class="property item">
+    <h3 class="name"><code>EXTENSION_MAP</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l273"><code>src&#x2F;soundjs&#x2F;Sound.js:273</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>「再生のために他の拡張子を使用する」拡張子のマップです（codexなど）。このプロパティで、サポートする拡張子の対応表を作れるため、
+プラグインはその拡張子をサポートしているかどうかを正確に判断する事ができます。このリストに追加することで、
+プラグインはその拡張しをサポートしているかをより正確に判断する事ができます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_FILE_PATTERN" class="property item private">
+    <h3 class="name"><code>FILE_PATTERN</code></h3>
+    <span class="type">RegExp</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l285"><code>src&#x2F;soundjs&#x2F;Sound.js:285</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ファイルのURIを解析するための正規表現です。この正規表現は、「単純なファイル名」から「query 付きフルドメインURL」まで対応しています。
+マッチング結果は protocol:$1、domain:$2、path:$3、file:$4、extension:$5、query string:$6 です。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_idHash" class="property item private">
+    <h3 class="name"><code>idHash</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l373"><code>src&#x2F;soundjs&#x2F;Sound.js:373</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>ID から音源を探し出すためのハッシュテーブルです。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_instances" class="property item private">
+    <h3 class="name"><code>instances</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l361"><code>src&#x2F;soundjs&#x2F;Sound.js:361</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>現在再生中の全インスタンスを含む配列です。このプロパティは<a href="../classes/Sound.html#method_stop" class="crosslink">stop</a>や<a href="../classes/Sound.html#method_setVolume" class="crosslink">setVolume</a>といった
+static API で、Sound クラスが全インスタンスの音量、消音、再生などをコントロールする際に用いられます。
+インスタンスが再生を終了すると、Sound/finishedPlaying メソッドでこの配列から削除されます。
+インスタンスをもう一度再生させると、<a href="../classes/Sound.html#method_beginPlaying" class="crosslink">beginPlaying</a> メソッドでこの配列に再び追加されます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_INTERRUPT_ANY" class="property item">
+    <h3 class="name"><code>INTERRUPT_ANY</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l174"><code>src&#x2F;soundjs&#x2F;Sound.js:174</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「すでに最大同時再生音数に達していた場合、同じ音源ファイルで再生中のどれかの音を中断する」INTERRUPT値(interrupt value)です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> any</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_INTERRUPT_EARLY" class="property item">
+    <h3 class="name"><code>INTERRUPT_EARLY</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l183"><code>src&#x2F;soundjs&#x2F;Sound.js:183</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「すでに最大同時再生音数に達していた場合、同じ音源ファイルで再生した時間が最短の音を中断する」INTERRUPT値(interrupt value)です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> early</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_INTERRUPT_LATE" class="property item">
+    <h3 class="name"><code>INTERRUPT_LATE</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l192"><code>src&#x2F;soundjs&#x2F;Sound.js:192</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「すでに最大同時再生音数に達していた場合、同じ音源ファイルで再生した時間が最長の音を中断する」INTERRUPT値(interrupt value)です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> late</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_INTERRUPT_NONE" class="property item">
+    <h3 class="name"><code>INTERRUPT_NONE</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l201"><code>src&#x2F;soundjs&#x2F;Sound.js:201</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「すでに最大同時再生音数に達していた場合でも、同じ音源ファイルで再生中の音は中断しない（訳注；新たな音は再生されず、失敗します）」INTERRUPT値(interrupt value)です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> none</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_lastID" class="property item private">
+    <h3 class="name"><code>lastID</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l308"><code>src&#x2F;soundjs&#x2F;Sound.js:308</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>各 SoundInstance に一意のIDを振るために内部で使用します。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_masterMute" class="property item private">
+    <h3 class="name"><code>masterMute</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l350"><code>src&#x2F;soundjs&#x2F;Sound.js:350</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>マスターミュートです。この値は全ての Sound インスタンスに適用されます。<a href="../classes/Sound.html#method_setMute" class="crosslink">setMute</a>を用いて設定し、<a href="../classes/Sound.html#method_getMute" class="crosslink">getMute</a>を用いてアクセスします。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_masterVolume" class="property item private">
+    <h3 class="name"><code>masterVolume</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l339"><code>src&#x2F;soundjs&#x2F;Sound.js:339</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>マスターボリュームです。<a href="../classes/Sound.html#method_getVolume" class="crosslink">getVolume</a> と <a href="../classes/Sound.html#method_setVolume" class="crosslink">setVolume</a> を用いて、
+全ての音の音量を変更します。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 1</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onLoadComplete" class="property item deprecated">
+    <h3 class="name"><code>onLoadComplete</code></h3>
+    <span class="type">Function</span>
+
+    
+        <span class="flag deprecated" title="&quot;loadComplete&quot; イベントの使用を推奨します。将来のバージョンで削除される可能性があります。">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l429"><code>src&#x2F;soundjs&#x2F;Sound.js:429</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: &quot;loadComplete&quot; イベントの使用を推奨します。将来のバージョンで削除される可能性があります。</p>
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>このコールバックは、内部でファイルの読み込みが完了した時に呼び出されます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_PLAY_FAILED" class="property item">
+    <h3 class="name"><code>PLAY_FAILED</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l247"><code>src&#x2F;soundjs&#x2F;Sound.js:247</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「再生に失敗した」の playState 値です。これは通常、「interrupt modeがINTERRUPT_NONEで再生チャンネルが足りなくなった」
+「再生が延滞している」「音源ファイルが見つからない」場合に設定されます。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> playFailed</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_PLAY_FINISHED" class="property item">
+    <h3 class="name"><code>PLAY_FINISHED</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l238"><code>src&#x2F;soundjs&#x2F;Sound.js:238</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「最後まで再生した」の playState 値です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> playFinished</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_PLAY_INITED" class="property item">
+    <h3 class="name"><code>PLAY_INITED</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l211"><code>src&#x2F;soundjs&#x2F;Sound.js:211</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「すでに初期化が完了した状態」の playState 値です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> playInited</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_PLAY_INTERRUPTED" class="property item">
+    <h3 class="name"><code>PLAY_INTERRUPTED</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l229"><code>src&#x2F;soundjs&#x2F;Sound.js:229</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「他のインスタンスで中断した」の playState 値です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> playInterrupted</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_PLAY_SUCCEEDED" class="property item">
+    <h3 class="name"><code>PLAY_SUCCEEDED</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l220"><code>src&#x2F;soundjs&#x2F;Sound.js:220</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>「再生または一時停止中」の playState 値です。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> playSucceeded</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_pluginsRegistered" class="property item private">
+    <h3 class="name"><code>pluginsRegistered</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l327"><code>src&#x2F;soundjs&#x2F;Sound.js:327</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>プラグインが登録されたかどうかを示します。false の場合、最初の play() 呼び出しで、デフォルトのプラグイン
+(<a href="../classes/WebAudioPlugin.html" class="crosslink">WebAudioPlugin</a>でダメなら<a href="../classes/HTMLAudioPlugin.html" class="crosslink">HTMLAudioPlugin</a>) がインスタンス化されます。
+プラグインはすでに登録されているが、適切ではない場合、音再生に失敗します。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_preloadHash" class="property item private">
+    <h3 class="name"><code>preloadHash</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l382"><code>src&#x2F;soundjs&#x2F;Sound.js:382</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>プラグインに渡す音源のソースから事前読み込み中の音源を探し出すためのハッシュテーブルです。
+ユーザーから渡されたソース、ID、データを含んでいます。複数のソース、ID、データを保持できます。</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_SUPPORTED_EXTENSIONS" class="property item">
+    <h3 class="name"><code>SUPPORTED_EXTENSIONS</code></h3>
+    <span class="type">ArrayString</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l257"><code>src&#x2F;soundjs&#x2F;Sound.js:257</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>デフォルトでSound クラスが再生<i>しようと試みる</i>拡張子リストです。
+プラグインはブラウザがこれらのタイプの再生に対応しているかチェックします。
+つまり、プラグインが初期化される前にこのリストを編集することで、サポートするメディアタイプを追加することができます。</p>
+<p>注意; 現在、このリストは <a href="../classes/FlashPlugin.html" class="crosslink">FlashPlugin</a> では動きません。</p>
+<p>より詳しい解説は <a href="http://en.wikipedia.org/wiki/Audio_file_format">http://en.wikipedia.org/wiki/Audio_file_format</a> にあります。
+すごく詳しいファイルフォーマットのリストはここにあります <a href="http://www.fileinfo.com/filetypes/audio">http://www.fileinfo.com/filetypes/audio</a> 。
+フォーマット拡張子の有用なリストはここにあります <a href="http://html5doctor.com/html5-audio-the-state-of-play/">http://html5doctor.com/html5-audio-the-state-of-play/</a> 。</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> [&quot;mp3&quot;, &quot;ogg&quot;, &quot;mpeg&quot;, &quot;wav&quot;, &quot;m4a&quot;, &quot;mp4&quot;, &quot;aiff&quot;, &quot;wma&quot;, &quot;mid&quot;]</p>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_loadComplete" class="events item">
+    <h3 class="name"><code>loadComplete</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_soundjs_Sound.js.html#l416"><code>src&#x2F;soundjs&#x2F;Sound.js:416</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 0.4.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>このイベントは、内部で読み込みが完了した時に発行されます。このイベントは、各 Sound の読み込みが完了する度に発行されるため、
+特定の音を操作したい場合は、ハンドラメソッド内で <code>event.src</code> を確認する必要があります。</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">target</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントを発行したオブジェクトです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>イベントタイプです。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">src</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音のソースです。デリミタで区切られたソースの場合、読み込みに成功したソースのみ、このイベントを返します。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[id]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>音が内部で登録された時に発行されるIDです。発行されていない場合、null になります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[data]</code>
+                        <span class="type">Number | Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>このアイテムに関連付けられた追加データです。追加データが無い場合、undefined になります。</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+            </div>
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

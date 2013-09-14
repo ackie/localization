@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/easeljs/display/Graphics.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AlphaMapFilter.html">AlphaMapFilter</a></li>
+            
+                <li><a href="../classes/AlphaMaskFilter.html">AlphaMaskFilter</a></li>
+            
+                <li><a href="../classes/Bitmap.html">Bitmap</a></li>
+            
+                <li><a href="../classes/BitmapAnimation.html">BitmapAnimation</a></li>
+            
+                <li><a href="../classes/BoxBlurFilter.html">BoxBlurFilter</a></li>
+            
+                <li><a href="../classes/ColorFilter.html">ColorFilter</a></li>
+            
+                <li><a href="../classes/ColorMatrix.html">ColorMatrix</a></li>
+            
+                <li><a href="../classes/ColorMatrixFilter.html">ColorMatrixFilter</a></li>
+            
+                <li><a href="../classes/Command.html">Command</a></li>
+            
+                <li><a href="../classes/Container.html">Container</a></li>
+            
+                <li><a href="../classes/DisplayObject.html">DisplayObject</a></li>
+            
+                <li><a href="../classes/DOMElement.html">DOMElement</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/Filter.html">Filter</a></li>
+            
+                <li><a href="../classes/Graphics.html">Graphics</a></li>
+            
+                <li><a href="../classes/Log.html">Log</a></li>
+            
+                <li><a href="../classes/Matrix2D.html">Matrix2D</a></li>
+            
+                <li><a href="../classes/MouseEvent.html">MouseEvent</a></li>
+            
+                <li><a href="../classes/MovieClip.html">MovieClip</a></li>
+            
+                <li><a href="../classes/MovieClipPlugin.html">MovieClipPlugin</a></li>
+            
+                <li><a href="../classes/Point.html">Point</a></li>
+            
+                <li><a href="../classes/Rectangle.html">Rectangle</a></li>
+            
+                <li><a href="../classes/Shadow.html">Shadow</a></li>
+            
+                <li><a href="../classes/Shape.html">Shape</a></li>
+            
+                <li><a href="../classes/SpriteSheet.html">SpriteSheet</a></li>
+            
+                <li><a href="../classes/SpriteSheetBuilder.html">SpriteSheetBuilder</a></li>
+            
+                <li><a href="../classes/SpriteSheetUtils.html">SpriteSheetUtils</a></li>
+            
+                <li><a href="../classes/Stage.html">Stage</a></li>
+            
+                <li><a href="../classes/Text.html">Text</a></li>
+            
+                <li><a href="../classes/Ticker.html">Ticker</a></li>
+            
+                <li><a href="../classes/Touch.html">Touch</a></li>
+            
+                <li><a href="../classes/UID.html">UID</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/EaselJS.html">EaselJS</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src/easeljs/display/Graphics.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+* Graphics
+* Visit http://createjs.com/ for documentation, updates and examples.
+*
+* Copyright (c) 2010 gskinner.com, inc.
+* 
+* Permission is hereby granted, free of charge, to any person
+* obtaining a copy of this software and associated documentation
+* files (the &quot;Software&quot;), to deal in the Software without
+* restriction, including without limitation the rights to use,
+* copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following
+* conditions:
+* 
+* The above copyright notice and this permission notice shall be
+* included in all copies or substantial portions of the Software.
+* 
+* THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+* OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+// 名前空間:
+this.createjs = this.createjs||{};
+
+(function() {
+
+/**
+* Graphicsクラスで使用される内部クラスです。Graphics内の命令リストを作成するために使用されます。
+* @class Command
+* @protected
+* @constructor
+**/
+function Command(f, params, path) {
+	this.f = f;
+	this.params = params;
+	this.path = path==null ? true : path;
+}
+
+/**
+* @method exec
+* @protected
+* @param {Object} scope
+**/
+Command.prototype.exec = function(scope) { this.f.apply(scope, this.params); }
+
+/**
+ * Graphicsクラスは、ベクター描画命令を生成して指定したコンテクストに描画するための、容易に使用できるAPIを提供します。
+ * 注意点として、Graphicsは{{#crossLink &quot;DisplayObject/draw&quot;}}{{/crossLink}}を直接呼び出すことにより、Easelフレームワークに依存せず使用することができますし、
+ * {{#crossLink &quot;Shape&quot;}}{{/crossLink}}オブジェクトを使用してEaselの表示オブジェクトのコンテクスト内でベクターグラフィックスを描画することも可能です。
+ *
+ * &lt;h4&gt;Example&lt;/h4&gt;
+ *      var g = new Graphics();
+ *	    g.setStrokeStyle(1);
+ *	    g.beginStroke(Graphics.getRGB(0,0,0));
+ *	    g.beginFill(Graphics.getRGB(255,0,0));
+ *	    g.drawCircle(0,0,3);
+ *
+ *	    var s = new Shape(g);
+ *	    	s.x = 100;
+ *	    	s.y = 100;
+ *
+ *	    stage.addChild(s);
+ *	    stage.update();
+ *
+ * 注意点として、Graphicsの全ての描画メソッドはGraphicsインスタンスを返すので、お互いに連鎖させることができます。
+ * 例えば下のコードは赤い線、青の塗りつぶしの矩形を描画する命令を生成した後、指定したcontext2Dに表示しています:
+ *
+ *      myGraphics.beginStroke(&quot;#F00&quot;).beginFill(&quot;#00F&quot;).drawRect(20, 20, 100, 50).draw(myContext2D);
+ *
+ * &lt;h4&gt;短縮版 API&lt;/h4&gt;
+ * Graphicsクラスはまた&quot;短縮版 API&quot;を含んでおり、これはGraphicsの全てのメソッドへのショートカットである1または2文字のメソッド群です。
+ * これらのメソッドはコンパクトな命令を作成するために重要で、Toolkit for CreateJSで可読性のあるコードを生成するために使用されます。
+ * 全ての短縮版メソッドはprotectedとして記述されているため、ドキュメント中ではprotectedについての説明を有効にすることで閲覧することができます。
+ *
+ * &lt;table&gt;
+ *     &lt;tr&gt;&lt;td&gt;&lt;b&gt;Tiny&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;メソッド&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;短縮版&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Method&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;mt&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/moveTo&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;lt&lt;/td&gt; &lt;td&gt;{{#crossLink &quot;Graphics/lineTo&quot;}}{{/crossLink}}&lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;at&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/arcTo&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;bt&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/bezierCurveTo&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;qt&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/quadraticCurveTo&quot;}}{{/crossLink}} (also curveTo)&lt;/td&gt;
+ *     &lt;td&gt;r&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/rect&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;cp&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/closePath&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;c&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/clear&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;f&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/beginFill&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;lf&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/beginLinearGradientFill&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;rf&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/beginRadialGradientFill&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;bf&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/beginBitmapFill&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;ef&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/endFill&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;ss&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/setStrokeStyle&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;s&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/beginStroke&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;ls&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/beginLinearGradientStroke&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;rs&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/beginRadialGradientStroke&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;bs&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/beginBitmapStroke&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;es&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/endStroke&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;dr&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/drawRect&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;rr&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/drawRoundRect&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;rc&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/drawRoundRectComplex&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;dc&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/drawCircle&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;de&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/drawEllipse&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ *     &lt;tr&gt;&lt;td&gt;dp&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/drawPolyStar&quot;}}{{/crossLink}} &lt;/td&gt;
+ *     &lt;td&gt;p&lt;/td&gt;&lt;td&gt;{{#crossLink &quot;Graphics/decodePath&quot;}}{{/crossLink}} &lt;/td&gt;&lt;/tr&gt;
+ * &lt;/table&gt;
+ *
+ * ここでは上記の実例として, 短縮版APIを代用しています。
+ *
+ *      myGraphics.s(&quot;#F00&quot;).f(&quot;#00F&quot;).r(20, 20, 100, 50).draw(myContext2D);
+ *
+ * @class Graphics
+ * @constructor
+ * @for Graphics
+ **/
+var Graphics = function() {
+	this.initialize();
+};
+var p = Graphics.prototype;
+
+// 静的パブリックメソッド:
+	
+	
+	/**
+	 * 指定されたRGBカラー数値に基づいて、&quot;rgba(255,255,255,1.0)&quot;形式、
+	 * または透明度がnullの場合は&quot;rgb(255,255,255)&quot;の形式で、CSSと互換性のある色の文字列を返します。例えば、
+	 *
+	 *      Graphics.getRGB(50, 100, 150, 0.5);
+	 *
+	 * は&quot;rgba(50,100,150,0.5)&quot;を返します。また、最初のパラメータとして単体の16進数カラー値、
+	 * 2番目のパラメータとして透明度(オプション)の受け渡しもサポートします。例えば、
+	 *
+	 *      Graphics.getRGB(0xFF00FF, 0.2);
+	 *
+	 * は&quot;rgba(255,0,255,0.2)&quot;を返します。
+	 * @method getRGB
+	 * @static
+	 * @param {Number} r 0から0xFF(255)の間の、色の赤成分。
+	 * @param {Number} g 0から0xFF(255)の間の、色の緑成分。
+	 * @param {Number} b 0から0xFF(255)の間の、色の青成分。
+	 * @param {Number} （オプション） 0が完全に透明から、1が完全に不透明の間の、色の透明度。
+	 * @return {String} 指定されたRGBカラー数値に基づいた、&quot;rgba(255,255,255,1.0)&quot;形式、
+	 * または透明度がnullの場合は&quot;rgb(255,255,255)&quot;の形式で、CSSと互換性のある色の文字列
+	 **/
+	Graphics.getRGB = function(r, g, b, alpha) {
+		if (r != null &amp;&amp; b == null) {
+			alpha = g;
+			b = r&amp;0xFF;
+			g = r&gt;&gt;8&amp;0xFF;
+			r = r&gt;&gt;16&amp;0xFF;
+		}
+		if (alpha == null) {
+			return &quot;rgb(&quot;+r+&quot;,&quot;+g+&quot;,&quot;+b+&quot;)&quot;;
+		} else {
+			return &quot;rgba(&quot;+r+&quot;,&quot;+g+&quot;,&quot;+b+&quot;,&quot;+alpha+&quot;)&quot;;
+		}
+	};
+	
+	/**
+	 * 指定されたHSLカラー数値に基づいて、&quot;hsla(360,100,100,1.0)&quot;形式、
+	 * または透明度がnullの場合は&quot;hsl(360,100,100)&quot;の形式で、CSSと互換性のある色の文字列を返します。
+	 * 例えば、以下の場合は&quot;hsl(150,100,70)&quot;を返します。
+	 *
+	 *      Graphics.getHSL(150, 100, 70);
+	 *
+	 * @method getHSL
+	 * @static
+	 * @param {Number} hue 0から360までの、色の色相。
+	 * @param {Number} saturation 0から100までの、色の彩度。
+	 * @param {Number} lightness 0から100までの、色の明度。
+	 * @param {Number} alpha (オプション) 0が完全に透明から、1が完全に不透明の間の、色の透明度。
+	 * @return {String} 指定されたHSLカラー数値に基づいた、&quot;hsla(360,100,100,1.0)&quot;形式、
+	 * または透明度がnullの場合は&quot;hsl(360,100,100)&quot;の形式で、CSSと互換性のある色の文字列。
+	 **/
+	Graphics.getHSL = function(hue, saturation, lightness, alpha) {
+		if (alpha == null) {
+			return &quot;hsl(&quot;+(hue%360)+&quot;,&quot;+saturation+&quot;%,&quot;+lightness+&quot;%)&quot;;
+		} else {
+			return &quot;hsla(&quot;+(hue%360)+&quot;,&quot;+saturation+&quot;%,&quot;+lightness+&quot;%,&quot;+alpha+&quot;)&quot;;
+		}
+	};
+	
+	/**
+	 * 値をBase64文字列に変換します。{{#crossLink &quot;Graphics/decodePath&quot;}}{{/crossLink}}で使用されます。
+	 * @property BASE_64
+	 * @static
+	 * @final
+	 * @type {Object}
+	 **/
+	Graphics.BASE_64 = {&quot;A&quot;:0,&quot;B&quot;:1,&quot;C&quot;:2,&quot;D&quot;:3,&quot;E&quot;:4,&quot;F&quot;:5,&quot;G&quot;:6,&quot;H&quot;:7,&quot;I&quot;:8,&quot;J&quot;:9,&quot;K&quot;:10,&quot;L&quot;:11,&quot;M&quot;:12,&quot;N&quot;:13,&quot;O&quot;:14,&quot;P&quot;:15,&quot;Q&quot;:16,&quot;R&quot;:17,&quot;S&quot;:18,&quot;T&quot;:19,&quot;U&quot;:20,&quot;V&quot;:21,&quot;W&quot;:22,&quot;X&quot;:23,&quot;Y&quot;:24,&quot;Z&quot;:25,&quot;a&quot;:26,&quot;b&quot;:27,&quot;c&quot;:28,&quot;d&quot;:29,&quot;e&quot;:30,&quot;f&quot;:31,&quot;g&quot;:32,&quot;h&quot;:33,&quot;i&quot;:34,&quot;j&quot;:35,&quot;k&quot;:36,&quot;l&quot;:37,&quot;m&quot;:38,&quot;n&quot;:39,&quot;o&quot;:40,&quot;p&quot;:41,&quot;q&quot;:42,&quot;r&quot;:43,&quot;s&quot;:44,&quot;t&quot;:45,&quot;u&quot;:46,&quot;v&quot;:47,&quot;w&quot;:48,&quot;x&quot;:49,&quot;y&quot;:50,&quot;z&quot;:51,&quot;0&quot;:52,&quot;1&quot;:53,&quot;2&quot;:54,&quot;3&quot;:55,&quot;4&quot;:56,&quot;5&quot;:57,&quot;6&quot;:58,&quot;7&quot;:59,&quot;8&quot;:60,&quot;9&quot;:61,&quot;+&quot;:62,&quot;/&quot;:63};
+		
+	
+	/**
+	 * {{#crossLink &quot;Graphics/setStrokeStyle&quot;}}{{/crossLink}}の線端パラメータを表す数値を、
+	 * 対応する文字列値に変換します。これは主に短縮版API用です。変換は以下のようになります:
+	 * 0 は &quot;なし&quot;, 1 は &quot;丸型&quot;, and 2 は &quot;角型&quot;。
+	 * 例は、線端を&quot;角型&quot;に設定する場合です：
+	 *
+	 *      myGraphics.ss(16, 2);
+	 *
+	 * @property STROKE_CAPS_MAP
+	 * @static
+	 * @final
+	 * @type {Array}
+	 **/
+	Graphics.STROKE_CAPS_MAP = [&quot;butt&quot;, &quot;round&quot;, &quot;square&quot;];
+	
+	/**
+	 * {{#crossLink &quot;Graphics/setStrokeStyle&quot;}}{{/crossLink}}の結合スタイル値を表す数値を、
+	 * 対応する文字列値に変換します。これは主に短縮版API用です。変換は以下のようになります:
+	 * 0 は &quot;マイター&quot;、1 は &quot;ラウンド&quot;、2 は &quot;ベベル&quot;。
+	 * 例は、結合スタイルを&quot;ベベル&quot;に設定する場合です：
+	 *      myGraphics.ss(16, 0, 2);
+	 *
+	 * @property STROKE_JOINTS_MAP
+	 * @static
+	 * @final
+	 * @type {Array}
+	 **/
+	Graphics.STROKE_JOINTS_MAP = [&quot;miter&quot;, &quot;round&quot;, &quot;bevel&quot;];
+	
+	/**
+	 * @property _ctx
+	 * @static
+	 * @protected
+	 * @type {CanvasRenderingContext2D}
+	 **/
+	Graphics._ctx = (createjs.createCanvas?createjs.createCanvas():document.createElement(&quot;canvas&quot;)).getContext(&quot;2d&quot;);
+	
+	/**
+	 * @property beginCmd
+	 * @static
+	 * @protected
+	 * @type {Command}
+	 **/
+	Graphics.beginCmd = new Command(Graphics._ctx.beginPath, [], false);
+	
+	/**
+	 * @property fillCmd
+	 * @static
+	 * @protected
+	 * @type {Command}
+	 **/
+	Graphics.fillCmd = new Command(Graphics._ctx.fill, [], false);
+	
+	/**
+	 * @property strokeCmd
+	 * @static
+	 * @protected
+	 * @type {Command}
+	 **/
+	Graphics.strokeCmd = new Command(Graphics._ctx.stroke, [], false);
+	
+// パブリックプロパティ
+
+// プライベートプロパティ
+	/**
+	 * @property _strokeInstructions
+	 * @protected
+	 * @type {Array}
+	 **/
+	p._strokeInstructions = null;
+
+	/**
+	 * @property _strokeStyleInstructions
+	 * @protected
+	 * @type {Array}
+	 **/
+	p._strokeStyleInstructions = null;
+	
+	/**
+	 * @property _ignoreScaleStroke
+	 * @protected
+	 * @type Boolean
+	 **/
+	p._ignoreScaleStroke = false;
+	
+	/**
+	 * @property _fillInstructions
+	 * @protected
+	 * @type {Array}
+	 **/
+	p._fillInstructions = null;
+	
+	/**
+	 * @property _instructions
+	 * @protected
+	 * @type {Array}
+	 **/
+	p._instructions = null;
+	
+	/**
+	 * @property _oldInstructions
+	 * @protected
+	 * @type {Array}
+	 **/
+	p._oldInstructions = null;
+	
+	/**
+	 * @property _activeInstructions
+	 * @protected
+	 * @type {Array}
+	 **/
+	p._activeInstructions = null;
+	
+	/**
+	 * @property _active
+	 * @protected
+	 * @type {Boolean}
+	 * @default false
+	 **/
+	p._active = false;
+	
+	/**
+	 * @property _dirty
+	 * @protected
+	 * @type {Boolean}
+	 * @default false
+	 **/
+	p._dirty = false;
+	
+	/** 
+	 * 初期化メソッド
+	 * @method initialize
+	 * @protected
+	 **/
+	p.initialize = function() {
+		this.clear();
+		this._ctx = Graphics._ctx;
+	};
+	
+	/**
+	 * Graphicsインスタンスが描画命令を持っていない場合、trueを返します。
+	 * @method isEmpty
+	 * @return {Boolean} Graphicsインスタンスが描画命令を持っていない場合、trueを返します。
+	 **/
+	p.isEmpty = function() {
+		return !(this._instructions.length || this._oldInstructions.length || this._activeInstructions.length);
+	};
+	
+	/**
+	 * 指定されたコンテキストに、それ自身の表示・非表示、透明度、影、変形は無視して、表示オブジェクトを描画します。
+	 * 描画が処理された場合trueを返します (機能をオーバーライドするのに有用)。
+	 *
+	 * 注意：このメソッドは主に内部的な用途のためのものですが、高度な利用方法にも有用かもしれません。
+	 * @method draw
+	 * @param {CanvasRenderingContext2D} ctx 描画する対象の、canvas2Dコンテクストオブジェクト。
+	 **/
+	p.draw = function(ctx) {
+		if (this._dirty) { this._updateInstructions(); }
+		var instr = this._instructions;
+		for (var i=0, l=instr.length; i&lt;l; i++) {
+			instr[i].exec(ctx);
+		}
+	};
+	
+	/**
+	 * Graphicsインスタンスに対して線の描画のみを行い、塗りやストロークを含む線以外の命令をスキップします。
+	 * 例えば、DisplayObject.clippingPathにおいて、クリッピングパスを描画するために使用されます。
+	 * @method drawAsPath
+	 * @param {CanvasRenderingContext2D} ctx 描画する対象の、canvas2Dコンテクストオブジェクト。
+	 **/
+	p.drawAsPath = function(ctx) {
+		if (this._dirty) { this._updateInstructions(); }
+		var instr, instrs = this._instructions;
+		for (var i=0, l=instrs.length; i&lt;l; i++) {
+			// the first command is always a beginPath command.
+			if ((instr = instrs[i]).path || i==0) { instr.exec(ctx); }
+		}
+	};
+	
+// context2D命令に直接対応するパブリックメソッド:
+	/**
+	 * 指定した座標に描画点を移動します。
+	 * @method moveTo
+	 * @param {Number} x 描画点の移動先のx座標。
+	 * @param {Number} y 描画点の移動先のy座標。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.moveTo = function(x, y) {
+		this._activeInstructions.push(new Command(this._ctx.moveTo, [x, y]));
+		return this;
+	};
+	
+	/**
+	 * 現在の描画位置から指定した座標に対して線を描画します。指定した座標は、新しい現在の描画位置になります。
+	 *
+	 * より詳しい情報は
+	 * &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#complex-shapes-(paths)&quot;&gt;
+	 * whatwg spec&lt;/a&gt;
+	 * を参照してください。
+	 * @method lineTo
+	 * @param {Number} x 線を描画する先となる描画点のx座標。
+	 * @param {Number} y 線を描画する先となる描画点のy座標。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.lineTo = function(x, y) {
+		this._dirty = this._active = true;
+		this._activeInstructions.push(new Command(this._ctx.lineTo, [x, y]));
+		return this;
+	};
+	
+	/**
+	 * 指定した制御点と半径で円弧を描画します。詳細な情報は、
+	 * &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-arcto&quot;&gt;
+	 * を参照してください。
+	 * whatwg spec&lt;/a&gt;.
+	 * @method arcTo
+	 * @param {Number} x1
+	 * @param {Number} y1
+	 * @param {Number} x2
+	 * @param {Number} y2
+	 * @param {Number} radius
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.arcTo = function(x1, y1, x2, y2, radius) {
+		this._dirty = this._active = true;
+		this._activeInstructions.push(new Command(this._ctx.arcTo, [x1, y1, x2, y2, radius]));
+		return this;
+	};
+	
+	/**
+	 * 半径、始点の角度、終点の角度、中心店の座標(x, y)から定義される円弧を描画します。
+	 * 以下の例では、半径20で中心点が(100, 100)の完全な円を描画します:
+	 *
+	 *      arc(100, 100, 20, 0, Math.PI*2);
+	 *
+	 * 詳細な情報は、
+	 * &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-arc&quot;&gt;whatwg spec&lt;/a&gt;.
+	 * を参照してください。
+	 * @method arc
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} radius
+	 * @param {Number} ラジアン単位による始点の角度。
+	 * @param {Number} ラジアン単位による終点の角度。
+	 * @param {Boolean} anticlockwise
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.arc = function(x, y, radius, startAngle, endAngle, anticlockwise) {
+		this._dirty = this._active = true;
+		if (anticlockwise == null) { anticlockwise = false; }
+		this._activeInstructions.push(new Command(this._ctx.arc, [x, y, radius, startAngle, endAngle, anticlockwise]));
+		return this;
+	};
+	
+	/**
+	 * 制御点(cpx, cpy)を使用して、現在の描画位置から二次曲線(x, y)を描画します。
+	 * 詳細な情報は、
+	 * &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-quadraticcurveto&quot;&gt;
+	 * whatwg spec&lt;/a&gt;
+	 * を参照してください。
+	 * @method quadraticCurveTo
+	 * @param {Number} cpx
+	 * @param {Number} cpy
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.quadraticCurveTo = function(cpx, cpy, x, y) {
+		this._dirty = this._active = true;
+		this._activeInstructions.push(new Command(this._ctx.quadraticCurveTo, [cpx, cpy, x, y]));
+		return this;
+	};
+	
+	/**
+	 * 制御点（cp1x、cp1y）と（cp2x、cp2y）を使用して、現在の描画位置から（x、y）にベジエ曲線を描画します。
+	 * 詳細な情報は、
+	 * &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-beziercurveto&quot;&gt;
+	 * whatwg spec&lt;/a&gt;
+	 * を参照してください。
+	 * @method bezierCurveTo
+	 * @param {Number} cp1x
+	 * @param {Number} cp1y
+	 * @param {Number} cp2x
+	 * @param {Number} cp2y
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.bezierCurveTo = function(cp1x, cp1y, cp2x, cp2y, x, y) {
+		this._dirty = this._active = true;
+		this._activeInstructions.push(new Command(this._ctx.bezierCurveTo, [cp1x, cp1y, cp2x, cp2y, x, y]));
+		return this;
+	};
+	
+	/**
+	 * 現在の塗りとストロークを使用して、指定された幅と高さで（x、y）の位置に四角形を描画します。
+	 * 詳細な情報は、
+	 * &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-rect&quot;&gt;
+	 * whatwg spec&lt;/a&gt;
+	 * を参照してください。
+	 * @method rect
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} w 四角形の幅
+	 * @param {Number} h 四角形の高さ
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.rect = function(x, y, w, h) {
+		this._dirty = this._active = true;
+		this._activeInstructions.push(new Command(this._ctx.rect, [x, y, w, h]));
+		return this;
+	};
+	
+	/**
+	 * 最後に設定された塗りまたはストロークを使用して、
+	 * 現在の描画ポイントから最初の描画ポイントに有効な線を引き、現在のパスを閉じます。
+	 * @method closePath
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.closePath = function() {
+		if (this._active) {
+			this._dirty = true;
+			this._activeInstructions.push(new Command(this._ctx.closePath, []));
+		}
+		return this;
+	};
+	
+	
+//  Flash graphics APIに大まかに対応するパブリックメソッド:
+	/**
+	 * すべての描画命令を消去して、Graphicsインスタンスを効果的にリセットします。
+	 * @method clear
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.clear = function() {
+		this._instructions = [];
+		this._oldInstructions = [];
+		this._activeInstructions = [];
+		this._strokeStyleInstructions = this._strokeInstructions = this._fillInstructions = null;
+		this._active = this._dirty = false;
+		return this;
+	};
+	
+	/**
+	 * 指定した色で塗りつぶしを開始します。このメソッドは現在のサブパスを終了します。
+	 * @method beginFill
+	 * @param {String} color CSS互換性のある色の値（例：&quot;red&quot;、 &quot;＃FF0000&quot;、または &quot;RGBA(255,0,0,0.5)&quot;）。
+	 * nullに設定すると、塗りなしになります。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.beginFill = function(color) {
+		if (this._active) { this._newPath(); }
+		this._fillInstructions = color ? [new Command(this._setProp, [&quot;fillStyle&quot;, color], false), Graphics.fillCmd] : null;
+		return this;
+	};
+	
+	/**
+	 * (x0, y0)から(x1, y1)の線で定義された、線形グラデーションの塗りを開始します。このメソッドは現在のサブパスを終了します。
+	 * 例えば次のコードでは、20pxから120ピクセルまでの範囲で黒から白へ、垂直方向のグラデーションを定義して、それを適用した四角形を描画します:
+	 *
+	 *      myGraphics.beginLinearGradientFill([&quot;#000&quot;,&quot;#FFF&quot;], [0, 1], 0, 20, 0, 120).drawRect(20, 20, 120, 120);
+	 *
+	 * @method beginLinearGradientFill
+	 * @param {Array} colors CSS互換性のあるカラー値の配列。例えば[&quot;#F00&quot;, &quot;#00F&quot;]は、赤から青へのグラデーション描画を定義します。
+	 * @param {Array} ratios 色に対応するグラデーションポイントの配列。例えば、[0.1, 0.9]は最初の色が10%、2番目の色が90%になるよう補完します。
+	 * @param {Number} x0 グラデーション方向と大きさを定義する線の、最初の点の位置。
+	 * @param {Number} y0 グラデーション方向と大きさを定義する線の、最初の点の位置。
+	 * @param {Number} x1 グラデーション方向と大きさを定義する線の、二番目の点の位置。
+	 * @param {Number} y1 グラデーション方向と大きさを定義する線の、二番目の点の位置。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.beginLinearGradientFill = function(colors, ratios, x0, y0, x1, y1) {
+		if (this._active) { this._newPath(); }
+		var o = this._ctx.createLinearGradient(x0, y0, x1, y1);
+		for (var i=0, l=colors.length; i&lt;l; i++) {
+			o.addColorStop(ratios[i], colors[i]);
+		}
+		this._fillInstructions = [new Command(this._setProp, [&quot;fillStyle&quot;, o], false), Graphics.fillCmd];
+		return this;
+	};
+	
+	/**
+	 * 放射状グラデーションの塗りを開始します。このメソッドは、現在のサブパスを終了します。
+	 * 例えば次のコードは、50の半径と、中心点が(100, 100)で赤から青への放射状グラデーションを定義し、それを適用した円を描画します:
+	 *
+	 *      myGraphics.beginRadialGradientFill([&quot;#F00&quot;,&quot;#00F&quot;], [0, 1], 100, 100, 0, 100, 100, 50).drawCircle(100, 100, 50);
+	 *
+	 * @method beginRadialGradientFill
+	 * @param {Array} colors CSS互換性のあるカラー値の配列。例えば[&quot;#F00&quot;, &quot;#00F&quot;]は、赤から青へのグラデーション描画を定義します。
+	 * @param {Array} ratios 色に対応するグラデーションポイントの配列。例えば、[0.1, 0.9]は最初の色が10%、2番目の色が90%になるよう補完します。
+	 * @param {Number} x0 グラデーションを定義する内側の円の中心点。
+	 * @param {Number} y0 グラデーションを定義する内側の円の中心点。
+	 * @param {Number} r0 グラデーションを定義する内側の円の半径。
+	 * @param {Number} x1 グラデーションを定義する外側の円の中心点。
+	 * @param {Number} y1 グラデーションを定義する外側の円の中心点。
+	 * @param {Number} r1 グラデーションを定義する外側の円の半径。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.beginRadialGradientFill = function(colors, ratios, x0, y0, r0, x1, y1, r1) {
+		if (this._active) { this._newPath(); }
+		var o = this._ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);
+		for (var i=0, l=colors.length; i&lt;l; i++) {
+			o.addColorStop(ratios[i], colors[i]);
+		}
+		this._fillInstructions = [new Command(this._setProp, [&quot;fillStyle&quot;, o], false), Graphics.fillCmd];
+		return this;
+	};
+	
+	/**
+　	 * 指定された画像を使用した、パターンの塗りつぶしを開始します。このメソッドは、現在のサブパスを終了します。
+	 * @method beginBitmapFill
+	 * @param {HTMLImageElement | HTMLCanvasElement | HTMLVideoElement} image パターンに使用する、Image、Canvas、またはVideoオブジェクト。
+	 * @param {String} repetition (オプション) 塗りつぶし領域内で、画像を繰り返すかどうかを示します。&quot;repeat&quot;、&quot;repeat-x&quot;、&quot;repeat-y&quot;、
+	 * または&quot;no-repeat&quot;のうち一つです。デフォルト値は&quot;repeat&quot;です。
+	 * @param {Matrix2D} matrix (オプション) ビットマップの塗りのための変換行列を指定します。この変換は、親の変換に対して相対的に適用されます。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.beginBitmapFill = function(image, repetition, matrix) {
+		if (this._active) { this._newPath(); }
+		repetition = repetition || &quot;&quot;;
+		var o = this._ctx.createPattern(image, repetition);
+		var cmd = new Command(this._setProp, [&quot;fillStyle&quot;, o], false);
+		var arr;
+		if (matrix) {
+			arr = [
+				cmd,
+				new Command(this._ctx.save, [], false),
+				new Command(this._ctx.transform, [matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty], false),
+				Graphics.fillCmd,
+				new Command(this._ctx.restore, [], false)
+			];
+		} else {
+			arr = [cmd, Graphics.fillCmd];
+		}
+		this._fillInstructions = arr;
+		return this;
+	};
+	
+	/**
+	 * 現在のサブパスを終了し、塗りなしで新規に開始します。機能的に&lt;code&gt;beginFill(null)&lt;/code&gt;と同じです。
+	 * @method endFill
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.endFill = function() {
+		return this.beginFill();
+	};
+	
+	/**
+	 * 現在のサブパスのストロークスタイルを設定します。すべての描画メソッドと同様に、このメソッドは連鎖することができるので、
+	 * 以下のように一行のコードでストロークスタイルと色を定義することができます。
+	 *
+	 *      myGraphics.setStrokeStyle(8,&quot;round&quot;).beginStroke(&quot;#F00&quot;);
+	 *
+	 * @method setStrokeStyle
+	 * @param {Number} thickness ストロークの幅
+	 * @param {String | Number} [caps=0] 線端の種類を示します。&quot;butt&quot;(なし)、&quot;round&quot;(丸型)、&quot;square&quot;(角型)のうち一つです。デフォルト値は&quot;butt&quot;です。
+	 * 短縮版APIでは0(なし)、1(丸型)、2(角型)の数値でも指定できます。
+	 * @param {String | Number} [joints=0] 2本の線が交差した場合に使用される、結合タイプを指定します。
+	 * &quot;bevel&quot;(ベベル)、&quot;round&quot;(ラウンド)、&quot;miter&quot;(マイター)のうち一つです。デフォルト値は&quot;マイター&quot;です。
+	 * 短縮版APIでは0(マイター)、1(ラウンド)、2(ベベル)の数値でも指定できます。
+	 * @param {Number} [miterLimit=10] 結合タイプが&quot;miter&quot;に設定されている場合、マイターのしきい値を指定して、
+	 * どの位置でマイターの結合部分がクリップされるかを制御することができます。
+	 * @param {Boolean} [ignoreScale=false] trueの場合、現在有効な変換に関係なく、指定した太さでストロークが描画されます。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.setStrokeStyle = function(thickness, caps, joints, miterLimit, ignoreScale) {
+		if (this._active) { this._newPath(); }
+		this._strokeStyleInstructions = [
+			new Command(this._setProp, [&quot;lineWidth&quot;, (thickness == null ? &quot;1&quot; : thickness)], false),
+			new Command(this._setProp, [&quot;lineCap&quot;, (caps == null ? &quot;butt&quot; : (isNaN(caps) ? caps : Graphics.STROKE_CAPS_MAP[caps]))], false),
+			new Command(this._setProp, [&quot;lineJoin&quot;, (joints == null ? &quot;miter&quot; : (isNaN(joints) ? joints : Graphics.STROKE_JOINTS_MAP[joints]))], false),
+			new Command(this._setProp, [&quot;miterLimit&quot;, (miterLimit == null ? &quot;10&quot; : miterLimit)], false)
+			];
+		this._ignoreScaleStroke = ignoreScale;
+		return this;
+	};
+	
+	/**
+	 * 指定した色でストロークを開始します。このメソッドは、現在のサブパスを終了します。
+	 * @method beginStroke
+	 * @param {String} color CSS互換性のある色の値（例：&quot;＃FF0000&quot;、&quot;red&quot;、 または &quot;RGBA(255,0,0,0.5)&quot;）。
+	 * nullに設定すると、ストロークなしになります。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.beginStroke = function(color) {
+		if (this._active) { this._newPath(); }
+		this._strokeInstructions = color ? [new Command(this._setProp, [&quot;strokeStyle&quot;, color], false)] : null;
+		return this;
+	};
+	
+	/**
+	 * (x0, y0)から(x1, y1)の線で定義された、線形グラデーションのストロークを開始します。このメソッドは現在のサブパスを終了します。
+	 * 例えば次のコードでは、20pxから120ピクセルまでの範囲で黒から白へ、垂直方向のグラデーションを定義して、それを適用した四角形を描画します:
+	 *
+	 *      myGraphics.setStrokeStyle(10).beginLinearGradientStroke([&quot;#000&quot;,&quot;#FFF&quot;], [0, 1], 0, 20, 0, 120).drawRect(20, 20, 120, 120);
+	 *
+	 * @method beginLinearGradientStroke
+	 * @param {Array} colors CSS互換性のあるカラー値の配列。例えば[&quot;#F00&quot;, &quot;#00F&quot;]は、赤から青へのグラデーション描画を定義します。
+	 * @param {Array} ratios 色に対応するグラデーションポイントの配列。例えば、[0.1, 0.9]は最初の色が10%、2番目の色が90%になるよう補完します。
+	 * @param {Number} x0 グラデーション方向と大きさを定義する線の、最初の点の位置。
+	 * @param {Number} y0 グラデーション方向と大きさを定義する線の、最初の点の位置。
+	 * @param {Number} x1 グラデーション方向と大きさを定義する線の、二番目の点の位置。
+	 * @param {Number} y1 グラデーション方向と大きさを定義する線の、二番目の点の位置。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.beginLinearGradientStroke = function(colors, ratios, x0, y0, x1, y1) {
+		if (this._active) { this._newPath(); }
+		var o = this._ctx.createLinearGradient(x0, y0, x1, y1);
+		for (var i=0, l=colors.length; i&lt;l; i++) {
+			o.addColorStop(ratios[i], colors[i]);
+		}
+		this._strokeInstructions = [new Command(this._setProp, [&quot;strokeStyle&quot;, o], false)];
+		return this;
+	};
+
+	
+	/**
+	 * 放射状グラデーションのストロークを開始します。このメソッドは、現在のサブパスを終了します。
+	 * 例えば次のコードは、50の半径と、中心点が(100, 100)で赤から青への放射状グラデーションを定義し、それを適用した円を描画します:
+	 *
+	 *      myGraphics.setStrokeStyle(10)
+	 *          .beginRadialGradientStroke([&quot;#F00&quot;,&quot;#00F&quot;], [0, 1], 100, 100, 0, 100, 100, 50)
+	 *          .drawRect(50, 90, 150, 110);
+	 *
+	 * @method beginRadialGradientStroke
+	 * @param {Array} colors CSS互換性のあるカラー値の配列。例えば[&quot;#F00&quot;, &quot;#00F&quot;]は、赤から青へのグラデーション描画を定義します。
+	 * @param {Array} ratios 色に対応するグラデーションポイントの配列。例えば、[0.1, 0.9]は最初の色が10%、2番目の色が90%になるよう補完します。
+	 * @param {Number} x0 グラデーションを定義する内側の円の中心点。
+	 * @param {Number} y0 グラデーションを定義する内側の円の中心点。
+	 * @param {Number} r0 グラデーションを定義する内側の円の半径。
+	 * @param {Number} x1 グラデーションを定義する外側の円の中心点。
+	 * @param {Number} y1 グラデーションを定義する外側の円の中心点。
+	 * @param {Number} r1 グラデーションを定義する外側の円の半径。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.beginRadialGradientStroke = function(colors, ratios, x0, y0, r0, x1, y1, r1) {
+		if (this._active) { this._newPath(); }
+		var o = this._ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);
+		for (var i=0, l=colors.length; i&lt;l; i++) {
+			o.addColorStop(ratios[i], colors[i]);
+		}
+		this._strokeInstructions = [new Command(this._setProp, [&quot;strokeStyle&quot;, o], false)];
+		return this;
+	};
+	
+	/**
+	 * 指定した画像を使用した、パターンのストロークを開始します。このメソッドは現在のサブパスを終了します。ビットマップの塗りと違い、現在のキャンバスAPIの制限のため、
+	 * ストロークはmatrixパラメータをサポートしていないことに注意してください。
+	 * @method beginBitmapStroke
+	 * @param {HTMLImageElement | HTMLCanvasElement | HTMLVideoElement} image パターンに使用する、Image、Canvas、またはVideoオブジェクト。
+	 * @param {String} [repetition=repeat] (オプション) 塗りつぶし領域内で、画像を繰り返すかどうかを示します。&quot;repeat&quot;、&quot;repeat-x&quot;、&quot;repeat-y&quot;、
+	 * または&quot;no-repeat&quot;のうち一つです。デフォルト値は&quot;repeat&quot;です。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.beginBitmapStroke = function(image, repetition) {
+		if (this._active) { this._newPath(); }
+		repetition = repetition || &quot;&quot;;
+		var o = this._ctx.createPattern(image, repetition);
+		this._strokeInstructions = [new Command(this._setProp, [&quot;strokeStyle&quot;, o], false)];
+		return this;
+	};
+
+	/**
+	 * 現在のサブパスを終了し、ストロークなしで新規に開始します。機能的に&lt;code&gt;beginStroke(null)&lt;/code&gt;と同じです。
+	 * @method endStroke
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.endStroke = function() {
+		this.beginStroke();
+		return this;
+	};
+	
+	/**
+	 * 慣れ親しんだActionScriptの&lt;code&gt;curveTo()&lt;/code&gt;メソッドに対応します。機能的には{{#crossLink &quot;Graphics/quadraticCurveTo&quot;}}{{/crossLink}}と同じです。
+	 * method.
+	 * @method curveTo
+	 * @type {Function}
+	 **/
+	p.curveTo = p.quadraticCurveTo;
+	
+	/**
+	 * 慣れ親しんだActionScriptの&lt;code&gt;drawRect()&lt;/code&gt;メソッドに対応します。機能的には{{#crossLink &quot;Graphics/rect&quot;}}{{/crossLink}}と同じです。
+	 * method.
+	 * @method drawRect
+	 * @type {Function}
+	 **/
+	p.drawRect = p.rect;
+	
+	/**
+	 * 全ての角を指定された半径で丸めた、角丸の四角形を描画します。
+	 * @method drawRoundRect
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} w
+	 * @param {Number} h
+	 * @param {Number} radius 角丸の半径。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.drawRoundRect = function(x, y, w, h, radius) {
+		this.drawRoundRectComplex(x, y, w, h, radius, radius, radius, radius);
+		return this;
+	};
+	
+	/**
+	 * それぞれの角を個別の半径で丸めた、角丸の四角形を描画します。角丸の半径は正負の値に対応します。
+	 * @method drawRoundRectComplex
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} w
+	 * @param {Number} h
+	 * @param {Number} radiusTL 左上の角丸の半径。
+	 * @param {Number} radiusTR 右上の角丸の半径。
+	 * @param {Number} radiusBR 右下の角丸の半径。
+	 * @param {Number} radiusBL 左下の角丸の半径。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.drawRoundRectComplex = function(x, y, w, h, radiusTL, radiusTR, radiusBR, radiusBL) {
+		var max = (w&lt;h?w:h)/2;
+		var mTL=0, mTR=0, mBR=0, mBL=0;
+		if (radiusTL &lt; 0) { radiusTL *= (mTL=-1); }
+		if (radiusTL &gt; max) { radiusTL = max; }
+		if (radiusTR &lt; 0) { radiusTR *= (mTR=-1); }
+		if (radiusTR &gt; max) { radiusTR = max; }
+		if (radiusBR &lt; 0) { radiusBR *= (mBR=-1); }
+		if (radiusBR &gt; max) { radiusBR = max; }
+		if (radiusBL &lt; 0) { radiusBL *= (mBL=-1); }
+		if (radiusBL &gt; max) { radiusBL = max; }
+		
+		this._dirty = this._active = true;
+		var arcTo=this._ctx.arcTo, lineTo=this._ctx.lineTo;
+		this._activeInstructions.push(
+			new Command(this._ctx.moveTo, [x+w-radiusTR, y]),
+			new Command(arcTo, [x+w+radiusTR*mTR, y-radiusTR*mTR, x+w, y+radiusTR, radiusTR]),
+			new Command(lineTo, [x+w, y+h-radiusBR]),
+			new Command(arcTo, [x+w+radiusBR*mBR, y+h+radiusBR*mBR, x+w-radiusBR, y+h, radiusBR]),
+			new Command(lineTo, [x+radiusBL, y+h]),
+			new Command(arcTo, [x-radiusBL*mBL, y+h+radiusBL*mBL, x, y+h-radiusBL, radiusBL]),
+			new Command(lineTo, [x, y+radiusTL]),
+			new Command(arcTo, [x-radiusTL*mTL, y-radiusTL*mTL, x+radiusTL, y, radiusTL]),
+			new Command(this._ctx.closePath)
+		);
+		return this;
+	};
+	
+	/**
+	 * 指定された半径と（x、y）により円を描画します。
+	 *
+	 *      var g = new Graphics();
+	 *	    g.setStrokeStyle(1);
+	 *	    g.beginStroke(Graphics.getRGB(0,0,0));
+	 *	    g.beginFill(Graphics.getRGB(255,0,0));
+	 *	    g.drawCircle(0,0,3);
+	 *
+	 *	    var s = new Shape(g);
+	 *		s.x = 100;
+	 *		s.y = 100;
+	 *
+	 *	    stage.addChild(s);
+	 *	    stage.update();
+	 *
+	 * @method drawCircle
+	 * @param {Number} x 円の中心点のx座標
+	 * @param {Number} y 円の中心点のy座標
+	 * @param {Number} 円の半径
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.drawCircle = function(x, y, radius) {
+		this.arc(x, y, radius, 0, Math.PI*2);
+		return this;
+	};
+	
+	/**
+	 * 指定された幅(w)と高さ(h)で楕円（オーバル）を描画します。
+	 * 幅と高さが異なる値にできることを除き、{{#crossLink &quot;Graphics/drawCircle&quot;}}{{/crossLink}}と同じです。
+	 * @method drawEllipse
+	 * @param {Number} x 楕円の中心点のx座標
+	 * @param {Number} y 楕円の中心点のy座標
+	 * @param {Number} w 楕円の幅（水平方向の直径）。水平方向の半径は、この数値の半分になります。
+	 * @param {Number} h 楕円の高さ（垂直方向の直径）。垂直方向の半径は、この数値の半分になります。
+	 * @return {Graphics} メソッドが呼び出されたGraphicsインスタンス（連鎖した呼び出しに有用）。
+	 **/
+	p.drawEllipse = function(x, y, w, h) {
+		this._dirty = this._active = true;
+		var k = 0.5522848;
+		var ox = (w / 2) * k;
+		var oy = (h / 2) * k;
+		var xe = x + w;
+		var ye = y + h;
+		var xm = x + w / 2;
+		var ym = y + h / 2;
+			
+		this._activeInstructions.push(
+			new Command(this._ctx.moveTo, [x, ym]),
+			new Command(this._ctx.bezierCurveTo, [x, ym-oy, xm-ox, y, xm, y]),
+			new Command(this._ctx.bezierCurveTo, [xm+ox, y, xe, ym-oy, xe, ym]),
+			new Command(this._ctx.bezierCurveTo, [xe, ym+oy, xm+ox, ye, xm, ye]),
+			new Command(this._ctx.bezierCurveTo, [xm-ox, ye, x, ym+oy, x, ym])
+		);
+		return this;
+	};
+	
+	/**
+	 * ポイントサイズが0より大きい場合は星型、またはポイントサイズが0である場合は指定した頂点数の正多角形を描画します。
+	 * 例えば、次のコードでは中心が100、100、半径が50の、慣れ親しんだ五芒星のシェイプを描画します：
+	 *      myGraphics.beginFill(&quot;#FF0&quot;).drawPolyStar(100, 100, 50, 5, 0.6, -90);
+	 *      // 注意: -90では最初の点が垂直になります
+	 *
+	 * @method drawPolyStar
+	 * @param {Number} シェイプの中心のx座標。
+	 * @param {Number} シェイプの中心のy座標。
+	 * @param {Number} radius シェイプの外半径。
+	 * @param {Number} sides 星、または多角形の側面にある点の数。
+	 * @param {Number} pointSize 星の各点の尖り具合（谷）の深さ。pointSizeが0の場合、正多角形が描画されます(谷がない), pointSizeが1の場合、無限に尖っていることになるため、なにも描画されません。
+	 * @param {Number} angle 最初の点/コーナーの角度。 例えば0の場合は、中央の右側にある最初の点が直接描画されます。
+	 * @return {Graphics} メソッドが呼び出されたGraphicインスタンス (連鎖した呼び出しに有用)。
+	 **/
+	p.drawPolyStar = function(x, y, radius, sides, pointSize, angle) {
+		this._dirty = this._active = true;
+		if (pointSize == null) { pointSize = 0; }
+		pointSize = 1-pointSize;
+		if (angle == null) { angle = 0; }
+		else { angle /= 180/Math.PI; }
+		var a = Math.PI/sides;
+		
+		this._activeInstructions.push(new Command(this._ctx.moveTo, [x+Math.cos(angle)*radius, y+Math.sin(angle)*radius]));
+		for (var i=0; i&lt;sides; i++) {
+			angle += a;
+			if (pointSize != 1) {
+				this._activeInstructions.push(new Command(this._ctx.lineTo, [x+Math.cos(angle)*radius*pointSize, y+Math.sin(angle)*radius*pointSize]));
+			}
+			angle += a;
+			this._activeInstructions.push(new Command(this._ctx.lineTo, [x+Math.cos(angle)*radius, y+Math.sin(angle)*radius]));
+		}
+		return this;
+	};
+	
+	/**
+	 * 圧縮されたエンコードパスの文字列を、連続した描画命令にデコードします。
+	 * このフォーマットは人間が読み取ることを意図しておらず、オーサリングツールで使用されます。
+	 * このフォーマットではbase64文字セットを使用しています。各文字は連続する描画命令を定義するための6ビット文字に変換されます。
+	 *
+	 * 各コマンドは、単一の&quot;ヘッダー&quot;文字と、それに続くxおよびy座標の値を交互に繋げた変数から構成された文字列に圧縮されます。
+	 * ヘッダービットは左から右へ読みます(ほとんどの場合は右端ビットまで):1～3ビットは、操作の種類を指定します。
+	 * (0-moveTo, 1-lineTo, 2-quadraticCurveTo, 3-bezierCurveTo, 4-closePath, 5-7 未使用)
+	 * ビット4は座標の値に12ビット（2文字）または18ビット(3文字)のどちらを使用するかを示します。5と6のビットは現在未使用です。
+	 *
+	 * ヘッダに続くのは、0（closePath）、2（moveTo, LINETO）、4（quadraticCurveTo）、または6（bezierCurveTo）のパラメータです。
+	 * これらのパラメータは、2または3文字によって表される（コマンド文字のビット4で示されます）、x/y座標を交互に並べたものです。
+	 * これらの文字は、1ビットの符号（1は負、0が正）と、それに続く11（2文字）または17（3文字）ビットの整数値から構成されています。
+	 * 全ての座標値は、1ピクセルの1/10の単位です。
+	 * 絶対値による移動操作の場合を除き、この値は、以前のxまたはy位置からの相対値です（適切なものが選択されます）。
+	 *
+	 * 例えば、&quot;A3cAAMAu4AAA&quot;の文字列は、-150,0から始まり150,0で終わる直線を表します。
+	 * &lt;br /&gt;A - bits 000000. 最初の3ビット(000)はmoveTo命令を示します。ビット4(0)はパラメータごとに2文字であることを示します。
+	 * &lt;br /&gt;3c - 110111011100. xの絶対値は-150.0pxです。最初のビットは負の値であることを示し、残りのビット列は1ピクセルの1/10の単位で1500であることを示します。
+	 * &lt;br /&gt;AA - 000000000000. yの絶対座標は0です。
+	 * &lt;br /&gt;I - 001100. 最初の3ビット(001)はlineTo命令を示します。ビット4(1)はパラメータごとに3文字であることを示します。
+	 * &lt;br /&gt;Au4 - 000000101110111000. xの相対値は300.0pxです。これは前のx座標である-150.0pxに加算され、絶対座標では+150.0pxになります。
+	 * &lt;br /&gt;AAA - 000000000000000000. yの相対値は0です。
+	 * 
+	 * @method decodePath
+	 * @param {String} str デコードするパス文字列。
+	 * @return {Graphics} メソッドが呼び出されたGraphicインスタンス (連鎖した呼び出しに有用)。
+	 **/
+	p.decodePath = function(str) {
+		var instructions = [this.moveTo, this.lineTo, this.quadraticCurveTo, this.bezierCurveTo, this.closePath];
+		var paramCount = [2, 2, 4, 6, 0];
+		var i=0, l=str.length;
+		var params = [];
+		var x=0, y=0;
+		var base64 = Graphics.BASE_64;
+		
+		while (i&lt;l) {
+			var c = str.charAt(i);
+			var n = base64[c];
+			var fi = n&gt;&gt;3; // 最上位ビット操作のため1-3コード
+			var f = instructions[fi];
+			// 有効な命令であること＆未使用ビットが空であることをチェックします:
+			if (!f || (n&amp;3)) { throw(&quot;bad path data (@&quot;+i+&quot;): &quot;+c); }
+			var pl = paramCount[fi];
+			if (!fi) { x=y=0; } // 位置をリセットする移動命令
+			params.length = 0;
+			i++;
+			var charCount = (n&gt;&gt;2&amp;1)+2;  // 4番目のヘッダービットは、この命令のサイズを示す数値
+			for (var p=0; p&lt;pl; p++) {
+				var num = base64[str.charAt(i)];
+				var sign = (num&gt;&gt;5) ? -1 : 1;
+				num = ((num&amp;31)&lt;&lt;6)|(base64[str.charAt(i+1)]);
+				if (charCount == 3) { num = (num&lt;&lt;6)|(base64[str.charAt(i+2)]); }
+				num = sign*num/10;
+				if (p%2) { x = (num += x); }
+				else { y = (num += y); }
+				params[p] = num;
+				i += charCount;
+			}
+			f.apply(this,params);
+		}
+		return this;
+	};
+	
+	/**
+	 * Graphicsインスタンスの複製を返します。
+	 * @method clone
+	 * @return {Graphics} 現在のGraphicsインスタンスの複製。
+	 **/
+	p.clone = function() {
+		var o = new Graphics();
+		o._instructions = this._instructions.slice();
+		o._activeInstructions = this._activeInstructions.slice();
+		o._oldInstructions = this._oldInstructions.slice();
+		if (this._fillInstructions) { o._fillInstructions = this._fillInstructions.slice(); }
+		if (this._strokeInstructions) { o._strokeInstructions = this._strokeInstructions.slice(); }
+		if (this._strokeStyleInstructions) { o._strokeStyleInstructions = this._strokeStyleInstructions.slice(); }
+		o._active = this._active;
+		o._dirty = this._dirty;
+		return o;
+	};
+		
+	/**
+	 * このオブジェクトの文字列表現を返します。
+	 * @method toString
+	 * @return {String} このインスタンスの文字列表現。
+	 **/
+	p.toString = function() {
+		return &quot;[Graphics]&quot;;
+	};
+	
+	
+// 短縮版API:
+	/** moveToへのショートカット。
+	 * @method mt
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.mt = p.moveTo;
+	
+	/** lineToへのショートカット。
+	 * @method lt
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.lt = p.lineTo;
+	
+	/** arcToへのショートカット。
+	 * @method at
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.at = p.arcTo;
+	
+	/** bezierCurveToへのショートカット。
+	 * @method bt
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.bt = p.bezierCurveTo;
+	
+	/** quadraticCurveTo / curveToへのショートカット。
+	 * @method qt
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.qt = p.quadraticCurveTo;
+	
+	/** arcへのショートカット。
+	 * @method a
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.a = p.arc;
+	
+	/** rectへのショートカット。
+	 * @method r
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.r = p.rect;
+	
+	/** closePathへのショートカット。
+	 * @method cp
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.cp = p.closePath;
+	
+	/** clearへのショートカット。
+	 * @method c
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.c = p.clear;
+	
+	/** beginFillへのショートカット。
+	 * @method f
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.f = p.beginFill;
+	
+	/** beginLinearGradientFillへのショートカット。
+	 * @method lf
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.lf = p.beginLinearGradientFill;
+	
+	/** beginRadialGradientFillへのショートカット。
+	 * @method rf
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.rf = p.beginRadialGradientFill;
+	
+	/** beginBitmapFillへのショートカット。
+	 * @method bf
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.bf = p.beginBitmapFill;
+	
+	/** endFillへのショートカット。
+	 * @method ef
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.ef = p.endFill;
+	
+	/** setStrokeStyleへのショートカット。
+	 * @method ss
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.ss = p.setStrokeStyle;
+	
+	/** beginStrokeへのショートカット。
+	 * @method s
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.s = p.beginStroke;
+	
+	/** beginLinearGradientStrokeへのショートカット。
+	 * @method ls
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.ls = p.beginLinearGradientStroke;
+	
+	/** beginRadialGradientStrokeへのショートカット。
+	 * @method rs
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.rs = p.beginRadialGradientStroke;
+	
+	/** beginBitmapStrokeへのショートカット。
+	 * @method bs
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.bs = p.beginBitmapStroke;
+	
+	/** endStrokeへのショートカット。
+	 * @method es
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.es = p.endStroke;
+	
+	/** drawRectへのショートカット。
+	 * @method dr
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.dr = p.drawRect;
+	
+	/** drawRoundRectへのショートカット。
+	 * @method rr
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.rr = p.drawRoundRect;
+	
+	/** drawRoundRectComplexへのショートカット。
+	 * @method rc
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.rc = p.drawRoundRectComplex;
+	
+	/** drawCircleへのショートカット。
+	 * @method dc
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.dc = p.drawCircle;
+	
+	/** drawEllipseへのショートカット。
+	 * @method de
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.de = p.drawEllipse;
+	
+	/** drawPolyStarへのショートカット。
+	 * @method dp
+	 * @protected
+	 * @type {Function}
+	 **/
+	p.dp = p.drawPolyStar;
+	
+	/** decodePathへのショートカット。
+	 * @method p
+	 * @protected
+	 * t@ype Function
+	 **/
+	p.p = p.decodePath;
+	
+	
+// プライベートメソッド:
+	/**
+	 * @method _updateInstructions
+	 * @protected
+	 **/
+	p._updateInstructions = function() {
+		this._instructions = this._oldInstructions.slice();
+		this._instructions.push(Graphics.beginCmd);
+		
+		this._instructions.push.apply(this._instructions, this._activeInstructions);
+		
+		if (this._fillInstructions) { this._instructions.push.apply(this._instructions, this._fillInstructions); }
+		if (this._strokeInstructions) {
+			if (this._strokeStyleInstructions) {
+				this._instructions.push.apply(this._instructions, this._strokeStyleInstructions);
+			}
+			this._instructions.push.apply(this._instructions, this._strokeInstructions);
+			if (this._ignoreScaleStroke) {
+				this._instructions.push(
+					new Command(this._ctx.save, [], false),
+					new Command(this._ctx.setTransform, [1,0,0,1,0,0], false),
+					Graphics.strokeCmd,
+					new Command(this._ctx.restore, [], false)
+				);
+			} else {
+				this._instructions.push(Graphics.strokeCmd);
+			}
+		}
+	};
+	
+	/**
+	 * @method _newPath
+	 * @protected
+	 **/
+	p._newPath = function() {
+		if (this._dirty) { this._updateInstructions(); }
+		this._oldInstructions = this._instructions;
+		this._activeInstructions = [];
+		this._active = this._dirty = false;
+	};
+	
+	// プロパティを設定するコマンドの作成に使用します:
+	/**
+	 * プロパティを設定するコマンドの作成に使用します
+	 * @method _setProp
+	 * @param {String} name
+	 * @param {String} value
+	 * @protected
+	 **/
+	p._setProp = function(name, value) {
+		this[name] = value;
+	};
+
+createjs.Graphics = Graphics;
+}());
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
